@@ -1,0 +1,118 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400&display=swap');
+
+.footerBackground{
+    background-image: url("../static/footer-background.jpg");
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: cover!important;
+    padding:100px 0;
+}
+
+.mainfooter{
+    display: flex;
+}
+.customContainer{
+    padding: 0 150px;
+}
+.mainfooter div{
+    flex: 1;
+}
+.mainfooter div p{
+    margin-right: 20px;
+    color: rgba(0, 0, 0, 0.61);
+    font-family: "Rubik";
+    font-size: 18px;
+}
+.mainfooter div h3 {
+    margin-right: 20px;
+    color: #3577F0;
+    font-family: "Rubik";
+    font-size: 20px;
+    font-weight: 700;
+    margin:0;
+}
+
+.mainfooter ul{
+    padding: 0;
+}
+
+.mainfooter ul li{
+    list-style: none;
+    line-height: 28px;
+    font-size: 18px;
+    font-family: "Rubik";
+
+}
+
+.mainfooter ul li a{
+    text-decoration: none;
+    color:rgba(0, 0, 0, 0.61);
+    font-weight: 400;
+}
+
+.footerbtn{
+    display: block;
+    padding: 10px 0px;
+    width:100%;
+    background-color: #3C1FF4;
+    margin-top: 5px;
+    border:0;
+    color:#fff;
+}
+.footerStyleInput{
+    width: 100%;
+    padding: 10px 0 10px 0px;
+    border:0;
+    font-family: "Rubik";
+    font-weight: 500;
+}
+.footerStyleInput:focus{
+    outline: 0px solid black;
+    outline-offset:3px;
+
+}
+.copyrightSection{
+    color:#413333;
+    font-size: 18px;
+    font-family: "Rubik";
+    padding-top: 50px;
+
+}
+
+@media(max-width:575px) {
+    .mainfooter{
+        flex-direction: column;
+    }
+
+}
+@media(min-width:576px) and (max-width:767px) {
+    .mainfooter{
+        flex-direction: column;
+    }
+}
+@media(min-width:768px) and (max-width:991px) {
+    .mainfooter{
+        flex-direction: column;
+    }
+}
+@media(min-width:992px) and (max-width:1199px) {
+    .footerLogo{
+        width:120px;
+        height:25px;
+    }
+    .mainfooter div h3 {
+        size: 17px;
+    }
+    .mainfooter ul li{
+        line-height: 28px;
+        font-size: 14px;
+    }
+    .mainfooter div p{
+        font-size: 14px;
+    }
+}
+@media(min-width:1200px) and (max-width:1400px) {}
+
+
+/* sizes="(max-width: 768px) 100vw,(max-width: 1200px) 50vw,33vw" */
