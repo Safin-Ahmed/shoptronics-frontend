@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import Logo from '../public/static/logo.png'
 import HomeStyled from '../public/Styles/home.module.css'
+import styled from 'styled-components'
+
 
 function Footer() {
   return (

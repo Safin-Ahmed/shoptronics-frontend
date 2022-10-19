@@ -4,9 +4,10 @@
 .footerBackground{
     background-image: url("../static/footer-background.jpg");
     background-repeat: no-repeat;
-    background-position: bottom;
-    background-size: cover!important;
-    padding:100px 0;
+    padding:100px 0 75px 0;
+    height: 100%;
+    background-size: cover !important;
+    background-position: bottom !important;
 }
 
 .mainfooter{
@@ -19,12 +20,14 @@
     flex: 1;
 }
 .mainfooter div p{
+    flex: 1.5;
     margin-right: 20px;
     color: rgba(0, 0, 0, 0.61);
     font-family: "Rubik";
     font-size: 18px;
 }
 .mainfooter div h3 {
+    flex: 1.5;
     margin-right: 20px;
     color: #3577F0;
     font-family: "Rubik";
@@ -51,6 +54,7 @@
     font-weight: 400;
 }
 
+
 .footerbtn{
     display: block;
     padding: 10px 0px;
@@ -59,6 +63,7 @@
     margin-top: 5px;
     border:0;
     color:#fff;
+
 }
 .footerStyleInput{
     width: 100%;
@@ -98,21 +103,22 @@
 }
 @media(min-width:992px) and (max-width:1199px) {
     .footerLogo{
-        width:120px;
-        height:25px;
+        max-width: 100px;
     }
     .mainfooter div h3 {
-        size: 17px;
+        font-size: 17px;
     }
     .mainfooter ul li{
         line-height: 28px;
         font-size: 14px;
     }
     .mainfooter div p{
-        font-size: 14px;
+        flex: 1.5;
+        margin-right: 20px;
+        color: rgba(0, 0, 0, 0.61);
+        font-family: "Rubik";
+        font-size: 18px;
     }
+
 }
 @media(min-width:1200px) and (max-width:1400px) {}
-
-
-/* sizes="(max-width: 768px) 100vw,(max-width: 1200px) 50vw,33vw" */
