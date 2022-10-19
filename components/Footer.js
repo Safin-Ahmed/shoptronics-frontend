@@ -10,7 +10,7 @@ function Footer() {
         <div className={HomeStyled.customContainer}>
             <div className={HomeStyled.mainfooter}>
                 <div className={HomeStyled.footerSection}>
-                    <Image src={Logo} alt="shoptronics logo" className={HomeStyled.footerLogo}></Image>
+                    <Image width={180} height={25}  src={Logo} alt="shoptronics-logo" className={HomeStyled.footerLogo}></Image>
                     <p>Elegant pink origami design three dimensional view and decoration co-exist. Great for adding a decorative touch to any room’s decor.</p>
                 </div>
                 <div>

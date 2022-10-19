@@ -13,19 +13,27 @@
 .mainfooter{
     display: flex;
 }
+
 .customContainer{
     padding: 0 150px;
 }
+.mainfooter div:first-child{
+    flex: 1.3;  
+}
 .mainfooter div{
-    flex: 1;
+    flex: 1;  
 }
 .mainfooter div p{
-    flex: 1.5;
+    flex: 1;
     margin-right: 20px;
     color: rgba(0, 0, 0, 0.61);
     font-family: "Rubik";
     font-size: 18px;
+    font-weight: 400;
+    margin-top: 12px;
+    line-height: 28px;
 }
+
 .mainfooter div h3 {
     flex: 1.5;
     margin-right: 20px;
@@ -38,11 +46,12 @@
 
 .mainfooter ul{
     padding: 0;
+    margin-top: 20px;
 }
 
 .mainfooter ul li{
     list-style: none;
-    line-height: 28px;
+    line-height: 30px;
     font-size: 18px;
     font-family: "Rubik";
 
@@ -54,15 +63,15 @@
     font-weight: 400;
 }
 
-
 .footerbtn{
     display: block;
     padding: 10px 0px;
     width:100%;
     background-color: #3C1FF4;
-    margin-top: 5px;
+    margin-top: 8px;
     border:0;
     color:#fff;
+    cursor: pointer;
 
 }
 .footerStyleInput{
@@ -71,6 +80,10 @@
     border:0;
     font-family: "Rubik";
     font-weight: 500;
+    border:1px solid #f1f1f1;
+    box-shadow: 1px 2px 3px #f1f1f1;
+    cursor: type;
+   
 }
 .footerStyleInput:focus{
     outline: 0px solid black;
@@ -82,7 +95,6 @@
     font-size: 18px;
     font-family: "Rubik";
     padding-top: 50px;
-
 }
 
 @media(max-width:575px) {
@@ -100,11 +112,12 @@
     .mainfooter{
         flex-direction: column;
     }
+    .mainfooter div{
+        flex: 0;  
+    }
 }
 @media(min-width:992px) and (max-width:1199px) {
-    .footerLogo{
-        max-width: 100px;
-    }
+   
     .mainfooter div h3 {
         font-size: 17px;
     }
@@ -118,6 +131,9 @@
         color: rgba(0, 0, 0, 0.61);
         font-family: "Rubik";
         font-size: 18px;
+    }
+    .footerSection{
+        height: 30px!important;
     }
 
 }
