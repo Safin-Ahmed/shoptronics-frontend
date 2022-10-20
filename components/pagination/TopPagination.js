@@ -12,10 +12,10 @@ const TopPagination = () => {
             <div className={styles.leftside}>1/4<Link href={'/shop'}>{">"}</Link></div>
             <div className={styles.rightside}>
                 <span>Short by: </span>
-                <select>
-                    <option>High to Low</option>
-                    <option>Low to High</option>
-                </select>
+             <select>
+                <option>High to Low</option>
+                <option>Low to High</option>
+             </select>
                 <span>View:</span>
                 <GridViewLine />
                 <GridListLine />

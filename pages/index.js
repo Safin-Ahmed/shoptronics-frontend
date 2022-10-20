@@ -5,8 +5,8 @@ import TrendingProductSection from "../components/Section/TrendingProductSection
 export default function Home() {
   return (
     <div>
-      <TrendingProductSection/>
-      <BestSellingSection/>
+      <TrendingProductSection />
+      <BestSellingSection />
     </div>
   );
 }

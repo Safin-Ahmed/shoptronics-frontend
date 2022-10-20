@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400&display=swap');
+
+
+/* top pagination start */
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    height: 42px;
+    line-height: 42px;
+    padding: 0 20px;
+    margin: 100px 0;
+    font-family: 'Rubik';
+    font-style: normal;
+    border-top: 0.5px solid #cccccc;
+    color: #000000;
+}
+
+.wrapper a {
+    text-decoration: none;
+    color: #000000;
+}
+
+.wrapper ul li {
+    float: left;
+    list-style: none;
+    text-align: center;
+}
+
+.wrapper ul li a {
+    display: block;
+    width: 35px;
+}
+.wrapper ul li:hover a {
+    background-color: #3C1FF4;
+    border-radius: 3px;
+    color: #fff;
+}
+
+.active a {
+    background-color: #3C1FF4;
+    border-radius: 3px;
+    color: #fff;
+}
