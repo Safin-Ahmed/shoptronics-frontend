@@ -1,0 +1,140 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400&display=swap');
+
+.footerBackground{
+    background-image: url("../static/footer-background.jpg");
+    background-repeat: no-repeat;
+    padding:100px 0 75px 0;
+    height: 100%;
+    background-size: cover !important;
+    background-position: bottom !important;
+}
+
+.mainfooter{
+    display: flex;
+}
+
+.customContainer{
+    padding: 0 150px;
+}
+.mainfooter div:first-child{
+    flex: 1.3;  
+}
+.mainfooter div{
+    flex: 1;  
+}
+.mainfooter div p{
+    flex: 1;
+    margin-right: 20px;
+    color: rgba(0, 0, 0, 0.61);
+    font-family: "Rubik";
+    font-size: 18px;
+    font-weight: 400;
+    margin-top: 12px;
+    line-height: 28px;
+}
+
+.mainfooter div h3 {
+    flex: 1.5;
+    margin-right: 20px;
+    color: #3577F0;
+    font-family: "Rubik";
+    font-size: 20px;
+    font-weight: 700;
+    margin:0;
+}
+
+.mainfooter ul{
+    padding: 0;
+    margin-top: 20px;
+}
+
+.mainfooter ul li{
+    list-style: none;
+    line-height: 30px;
+    font-size: 18px;
+    font-family: "Rubik";
+
+}
+
+.mainfooter ul li a{
+    text-decoration: none;
+    color:rgba(0, 0, 0, 0.61);
+    font-weight: 400;
+}
+
+.footerbtn{
+    display: block;
+    padding: 10px 0px;
+    width:100%;
+    background-color: #3C1FF4;
+    margin-top: 8px;
+    border:0;
+    color:#fff;
+    cursor: pointer;
+
+}
+.footerStyleInput{
+    width: 100%;
+    padding: 10px 0 10px 0px;
+    border:0;
+    font-family: "Rubik";
+    font-weight: 500;
+    border:1px solid #f1f1f1;
+    box-shadow: 1px 2px 3px #f1f1f1;
+    cursor: type;
+   
+}
+.footerStyleInput:focus{
+    outline: 0px solid black;
+    outline-offset:3px;
+
+}
+.copyrightSection{
+    color:#413333;
+    font-size: 18px;
+    font-family: "Rubik";
+    padding-top: 50px;
+}
+
+@media(max-width:575px) {
+    .mainfooter{
+        flex-direction: column;
+    }
+
+}
+@media(min-width:576px) and (max-width:767px) {
+    .mainfooter{
+        flex-direction: column;
+    }
+}
+@media(min-width:768px) and (max-width:991px) {
+    .mainfooter{
+        flex-direction: column;
+    }
+    .mainfooter div{
+        flex: 0;  
+    }
+}
+@media(min-width:992px) and (max-width:1199px) {
+   
+    .mainfooter div h3 {
+        font-size: 17px;
+    }
+    .mainfooter ul li{
+        line-height: 28px;
+        font-size: 14px;
+    }
+    .mainfooter div p{
+        flex: 1.5;
+        margin-right: 20px;
+        color: rgba(0, 0, 0, 0.61);
+        font-family: "Rubik";
+        font-size: 18px;
+    }
+    .footerSection{
+        height: 30px!important;
+    }
+
+}
+@media(min-width:1200px) and (max-width:1400px) {}
