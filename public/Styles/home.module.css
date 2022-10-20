@@ -1,5 +1,7 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400&display=swap');
+
+
+/* footer start */
 
 .footerBackground{
     background-image: url("../static/footer-background.jpg");
@@ -138,3 +140,138 @@
 
 }
 @media(min-width:1200px) and (max-width:1400px) {}
+
+/* footer End */
+
+
+/* Product start */
+
+.productCardHeader{
+    background-color: #F6F7FB;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+.bestSellingProduct{
+    display: flex;
+}
+.productCard{
+    margin:10px;
+    width: 100%;
+}
+
+.productCardFooterMoreInfo{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+.productCardFooter a{
+    color:rgba(24, 20, 20, 0.56);
+    font-size: 14px;
+    font-family: "Rubik";
+    font-weight: 400;
+    text-decoration: none;
+    margin:10px 0;
+    display: block;
+    cursor: pointer;
+}
+.productCardFooter h4{
+    margin: 0;
+    padding: 0;
+    color:rgba(24, 20, 20, 0.91);
+    font-size: 20px;
+    font-family: "Rubik";
+    font-weight: 500;
+    cursor: pointer;
+}
+.productPrice{
+    color:rgba(24, 20, 20, 0.86);
+    font-size: 15px;
+    font-family: "Rubik";
+    font-weight: 600;
+}
+.productPrice span{
+    text-decoration: line-through;
+    font-size: 15px;
+    font-family: "Rubik";
+    font-weight: 400;
+    margin-left: 10px;
+}
+.productRating span{
+    color: rgba(0, 0, 0, 0.71);
+    font-size: 12px;
+    font-family: "Rubik";
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+}
+
+
+@media(max-width:575px) {
+    .bestSellingProduct{
+        flex-direction: column;
+    }
+    .customContainer{
+        padding: 0 10px;
+    }
+}
+@media(min-width:576px) and (max-width:767px) {
+    .bestSellingProduct{
+        flex-direction: column;
+    }
+    .customContainer{
+        padding: 0 50px;
+    }
+}
+@media(min-width:768px) and (max-width:991px) {
+    .bestSellingProduct{
+        flex-direction: column;
+    }
+}
+ 
+@media(min-width:992px) and (max-width:1199px) {
+   
+}
+@media(min-width:1200px) and (max-width:1400px) {}
+
+/* Product End */
+
+
+
+/* best selling product Start */
+
+.SectionPadding{
+    margin:100px 0;
+}
+.HomeHeader{
+    margin-bottom: 40px;
+}
+.HomeHeader span{
+    margin: 0;
+    padding: 0;
+    color:#3C1FF4;
+    font-size: 16px;
+    font-family: "Rubik";
+}
+.HomeHeader h2{
+    margin: 0;
+    padding: 0;
+    color:rgba(0, 0, 0, 0.876);
+    font-size: 30px;
+    font-family: "Rubik";
+    margin-top:10px;
+    font-weight: 600;
+}
+.HomeHeader h2 span{
+    margin: 0;
+    padding: 0;
+    color:rgba(0, 0, 0, 0.876);
+    font-size: 30px;
+    font-family: "Rubik";
+    margin-top:10px;
+    font-weight: 500;
+}
+
+/* best selling product End */
+
+/* trending product Start */
