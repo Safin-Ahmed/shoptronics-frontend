@@ -1,5 +1,5 @@
 export const convertArrayToQueryParams = (arr) => {
-  return arr.toString();
+  return arr?.toString();
 };
 
 export const convertParamsToArray = (params) => {

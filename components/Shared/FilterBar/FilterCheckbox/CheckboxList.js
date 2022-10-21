@@ -15,7 +15,7 @@ export default function CheckboxList({ options, type }) {
           key={item}
           control={
             <Checkbox
-              checked={queries?.includes(formatString(item + ""))}
+              checked={queries?.includes(formatString(item + "")) || false}
               size="small"
               onChange={addQueryParams}
               value={item}

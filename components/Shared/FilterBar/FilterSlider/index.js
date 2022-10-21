@@ -3,9 +3,11 @@ import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import FilterHeading from "../../../UI/FilterHeading";
 import useFilterSlider from "../../../../hooks/useFilterSlider";
+import { useRouter } from "next/router";
 
 export default function FilterSlider() {
   const { value, handleChange } = useFilterSlider(0, 500);
+
   return (
     <Box sx={{ my: 4 }}>
       <FilterHeading title="Price" />

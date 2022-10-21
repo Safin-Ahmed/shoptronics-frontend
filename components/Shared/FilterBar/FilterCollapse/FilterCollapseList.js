@@ -4,14 +4,20 @@ import ListItemText from "@mui/material/ListItemText";
 import { Button, Typography } from "@mui/material";
 
 import useFilterCollapseList from "../../../../hooks/useFilterCollapseList";
+import { formatString } from "../../../../utils/string";
 
 export default function FilterCollapseList({
   options,
   searchTerm,
   setSearchTerm,
 }) {
-  const { finalOptionsList, handleViewAll, handleQuery } =
-    useFilterCollapseList(options, searchTerm, setSearchTerm);
+  const { finalOptionsList, handleViewAll, handleQuery, queries } =
+    useFilterCollapseList(
+      options,
+      searchTerm,
+      setSearchTerm,
+      "filter_category"
+    );
 
   return (
     <List sx={{ width: "95%", margin: "auto", bgcolor: "background.paper" }}>
@@ -60,6 +66,9 @@ export default function FilterCollapseList({
                 justifyContent: "flex-start",
                 fontSize: "14px",
                 fontFamily: "Rubik",
+                textDecoration: queries?.includes(formatString(value))
+                  ? "underline"
+                  : "",
                 "&:hover": { background: "none", textDecoration: "underline" },
               }}
             >{`${value}`}</Button>

@@ -12,7 +12,6 @@ const useRouterFilter = (type) => {
   const router = useRouter();
   const [queries, setQueries] = useState([]);
   const addQueryParams = (e) => {
-    console.log({ queries });
     isInitial = false;
     if (e.target.checked) {
       setQueries((prev) => {
@@ -38,7 +37,6 @@ const useRouterFilter = (type) => {
       ?.split("?")[1]
       ?.split("&")
       ?.filter((item) => item.includes(type));
-    console.log(filterTypeOption);
     const values = filterTypeOption?.[0]?.split("=")[1];
     const valuesArray = convertParamsToArray(values);
     setQueries(valuesArray);
@@ -50,7 +48,7 @@ const useRouterFilter = (type) => {
       return;
     }
 
-    if (queries.length === 0) {
+    if (queries?.length === 0) {
       const newRouter = { ...router.query };
       delete newRouter[type];
       router.push({
