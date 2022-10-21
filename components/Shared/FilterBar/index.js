@@ -1,8 +1,8 @@
 import { Box, Card, CardContent } from "@mui/material";
 import * as React from "react";
-import FilterHeading from "../../UI/FilterHeading";
 import FilterCategories from "./FilterCategories";
-import FilterCollapse from "./FilterCollapse";
+import FilterCheckboxes from "./FilterCheckboxes";
+import FilterSlider from "./FilterSlider";
 
 const bull = (
   <Box
@@ -26,6 +26,8 @@ export default function FilterBar() {
     >
       <CardContent>
         <FilterCategories />
+        <FilterSlider />
+        <FilterCheckboxes />
       </CardContent>
     </Card>
   );

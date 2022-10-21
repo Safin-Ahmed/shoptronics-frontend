@@ -1,11 +1,9 @@
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import CommentIcon from "@mui/icons-material/Comment";
-import IconButton from "@mui/material/IconButton";
 import { Button, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
-import useFilterCollapseList from "../../../hooks/useFilterCollapseList";
+
+import useFilterCollapseList from "../../../../hooks/useFilterCollapseList";
 
 export default function FilterCollapseList({
   options,
@@ -55,7 +53,7 @@ export default function FilterCollapseList({
           <ListItemText>
             <Button
               variant="text"
-              onClick={() => handleQuery(value)}
+              onClick={() => handleQuery({ param: "category", id: value })}
               sx={{
                 color: "rgba(0, 0, 0, 0.8)",
                 p: 0,

@@ -14,7 +14,7 @@ const useFilterCollapseList = (options, searchTerm, setSearchTerm) => {
   };
 
   const handleQuery = (params) => {
-    router.push(`/shop/${params}`);
+    router.push({ query: { [params.param]: params.id } });
   };
 
   const finalOptionsList = isViewAll ? optionsList : optionsList.slice(0, 4);

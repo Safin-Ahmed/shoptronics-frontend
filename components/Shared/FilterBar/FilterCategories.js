@@ -1,6 +1,6 @@
 import React from "react";
 import FilterHeading from "../../UI/FilterHeading";
-import FilterCollapse from "./FilterCollapse";
+import FilterCollapse from "./FilterCollapse/FilterCollapse";
 
 const FilterCategories = () => {
   return (
