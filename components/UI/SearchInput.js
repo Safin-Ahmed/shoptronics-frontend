@@ -10,7 +10,7 @@ import {
   InputLabel,
 } from "@mui/material";
 
-export default function SearchInput() {
+export default function SearchInput({ searchTerm, setSearchTerm }) {
   return (
     <Box
       sx={{
@@ -49,6 +49,8 @@ export default function SearchInput() {
           id="search"
           type="text"
           placeholder="Search"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
           endAdornment={
             <InputAdornment position="end">
               <IconButton>

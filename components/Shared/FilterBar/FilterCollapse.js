@@ -1,4 +1,3 @@
-import * as React from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -6,45 +5,44 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import SearchInput from "../../UI/SearchInput";
 import FilterCollapseList from "./FilterCollapseList";
+import { useState } from "react";
 
-export default function FilterCollapse() {
+export default function FilterCollapse({ title, options }) {
+  const [searchTerm, setSearchTerm] = useState("");
   return (
-    <div>
-      <Accordion sx={{ boxShadow: "none", marginBottom: "0px !important" }}>
-        <AccordionSummary
-          expandIcon={
-            <ExpandMoreIcon
-              sx={{
-                background: "rgba(244, 208, 190, 0.41);",
-                borderRadius: "50%",
-              }}
-            />
-          }
-          aria-controls="panel1a-content"
-          id="panel1a-header"
+    <Accordion sx={{ boxShadow: "none", marginBottom: "0px !important" }}>
+      <AccordionSummary
+        sx={{ p: 0 }}
+        expandIcon={
+          <ExpandMoreIcon
+            sx={{
+              background: "rgba(244, 208, 190, 0.41);",
+              borderRadius: "50%",
+            }}
+          />
+        }
+        aria-controls="panel1a-content"
+        id="panel1a-header"
+      >
+        <Typography
+          sx={{
+            color: "rgba(0, 0, 0, 0.62)",
+            fontSize: "16px",
+            fontFamily: "Rubik",
+            fontWeight: 500,
+          }}
         >
-          <Typography>Computer</Typography>
-        </AccordionSummary>
-        <AccordionDetails sx={{ mt: 0, pt: 0 }}>
-          <SearchInput />
-          <FilterCollapseList />
-        </AccordionDetails>
-      </Accordion>
-      <Accordion sx={{ boxShadow: "none" }}>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2a-content"
-          id="panel2a-header"
-        >
-          <Typography>Accordion 2</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-    </div>
+          {title}
+        </Typography>
+      </AccordionSummary>
+      <AccordionDetails sx={{ my: 0, py: 0, px: 0 }}>
+        <SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <FilterCollapseList
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          options={options}
+        />
+      </AccordionDetails>
+    </Accordion>
   );
 }

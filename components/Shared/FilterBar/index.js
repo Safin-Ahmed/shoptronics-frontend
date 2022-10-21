@@ -1,12 +1,7 @@
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Typography,
-} from "@mui/material";
+import { Box, Card, CardContent } from "@mui/material";
 import * as React from "react";
+import FilterHeading from "../../UI/FilterHeading";
+import FilterCategories from "./FilterCategories";
 import FilterCollapse from "./FilterCollapse";
 
 const bull = (
@@ -25,14 +20,13 @@ export default function FilterBar() {
         maxWidth: 375,
         boxShadow: "1px 3px 14px 1px rgba(0, 0, 0, 0.2)",
         borderRadius: "3px",
+        px: 1,
+        py: 2,
       }}
     >
       <CardContent>
-        <FilterCollapse />
+        <FilterCategories />
       </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
     </Card>
   );
 }
