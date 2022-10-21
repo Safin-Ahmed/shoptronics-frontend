@@ -1,3 +1,6 @@
 export const formatString = (str) => {
-  return str.replace(/\s+/g, "-").toLowerCase();
+  if (!str) return;
+  if (typeof str === "string") {
+    return str.replace(/\s+/g, "-").toLowerCase();
+  }
 };

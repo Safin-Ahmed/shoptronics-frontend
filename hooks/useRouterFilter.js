@@ -15,7 +15,12 @@ const useRouterFilter = (type) => {
     console.log({ queries });
     isInitial = false;
     if (e.target.checked) {
-      setQueries((prev) => [...prev, formatString(e.target.value)]);
+      setQueries((prev) => {
+        let newArr = prev
+          ? [...prev, formatString(e.target.value)]
+          : [formatString(e.target.value)];
+        return newArr;
+      });
     } else {
       const filteredItems = queries.filter(
         (item) => item !== formatString(e.target.value)
@@ -30,11 +35,11 @@ const useRouterFilter = (type) => {
   useEffect(() => {
     const fullURL = router.asPath;
     const filterTypeOption = fullURL
-      .split("?")[1]
-      .split("&")
-      .filter((item) => item.includes(type));
+      ?.split("?")[1]
+      ?.split("&")
+      ?.filter((item) => item.includes(type));
     console.log(filterTypeOption);
-    const values = filterTypeOption?.split("=")[1];
+    const values = filterTypeOption?.[0]?.split("=")[1];
     const valuesArray = convertParamsToArray(values);
     setQueries(valuesArray);
   }, []);
@@ -58,13 +63,14 @@ const useRouterFilter = (type) => {
     router.push({
       query: {
         ...router.query,
-        [type]: convertArrayToQueryParams(queries),
+        [type]: `${convertArrayToQueryParams(queries)}`,
       },
     });
   }, [queries]);
 
   return {
     addQueryParams,
+    queries,
   };
 };
 

@@ -3,5 +3,6 @@ export const convertArrayToQueryParams = (arr) => {
 };
 
 export const convertParamsToArray = (params) => {
-  return params.split();
+  console.log({ params: params?.replaceAll("%2C", ",").split(",") });
+  return params?.replaceAll("%2C", ",").split(",");
 };
