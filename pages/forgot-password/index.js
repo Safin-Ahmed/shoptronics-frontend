@@ -4,7 +4,7 @@ import React from "react";
 
 
 
-const Login = () => {
+const ForgotPassword = () => {
   return (
     <Box sx={{
       display: "flex",
@@ -25,7 +25,7 @@ const Login = () => {
           justifyContent: "center",
           mb: 2
         }}>
-          <Typography>Sign In</Typography>
+          <Typography>Forgot Password</Typography>
         </Box>
         <Divider sx={{ mb: 4 }} />
         <Box sx={{
@@ -40,44 +40,6 @@ const Login = () => {
             </FormControl>
           </FormGroup>
 
-          <FormGroup sx={{ my: 2 }}>
-            <InputLabel>Enter Password</InputLabel>
-            <FormControl sx={{ width: '100%' }}>
-              <OutlinedInput
-                type="password"
-              />
-            </FormControl>
-          </FormGroup>
-
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              my: 2,
-              alignItems: "center",
-              color: "##000000AD"
-            }}>
-            <FormGroup>
-              <FormGroup>
-                <FormControlLabel control={<Checkbox defaultChecked />} label="Remember Me" sx={{ color: "#000000AD" }} />
-              </FormGroup>
-            </FormGroup>
-
-            <Link
-              href="/forgot-password"
-            >
-              <a
-                style={{
-                  color: "#000",
-                  textDecoration: "none",
-                  color: "#000000AD",
-                  fontFamily: 'Rubik',
-                  fontStyle: "normal",
-                }}
-              >Forgotten Password?</a>
-            </Link>
-          </Box>
-
           <Button
             variant="contained"
             sx={{
@@ -85,7 +47,7 @@ const Login = () => {
               backgroundColor: "#3C1FF4",
               color: "#fff",
               py: 1.5
-            }}>Sign In</Button>
+            }}>Reset Password</Button>
 
           <Box
             sx={{
@@ -93,11 +55,11 @@ const Login = () => {
               justifyContent: "center",
               py: 2
             }}>
-            <Typography>Don't have an account?</Typography>
+            <Typography>Remember password?</Typography>
           </Box>
           <Box>
             <Link
-              href="/register"
+              href="/login"
             >
               <a
                 style={{
@@ -112,7 +74,7 @@ const Login = () => {
                   width: "100%",
                   display: "block"
                 }}
-              >Sign up</a>
+              >Sign In</a>
             </Link>
           </Box>
         </Box>
@@ -121,4 +83,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgotPassword;
