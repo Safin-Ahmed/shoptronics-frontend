@@ -31,7 +31,7 @@ function MyApp({ Component, pageProps }) {
             isShow={isShow}
           />
         </Layout>
-        {/* <Footer /> */}
+        <Footer />
       </CssBaseline>
     </>
   );
