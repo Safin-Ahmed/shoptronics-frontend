@@ -1,13 +1,13 @@
 import React from 'react'
 import Footer from './Footer'
-import Header from './Header'
+import Header from './header/index.jsx'
 
 function Layout({children}) {
   return (
     <>
-    <Header/>
+    {/* <Header/> */}
     {children}
-    <Footer/>
+    {/* <Footer/> */}
     </>
   )
 }

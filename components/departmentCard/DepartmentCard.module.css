@@ -1,0 +1,24 @@
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+.cardWrapper {
+  width: 30%;
+  text-align: center;
+  box-shadow: 0 0 0.5px 0.5px rgba(0, 0, 0, 0.17) ;
+  padding: 65px 15px;
+  margin-top: 30px;
+  background: #F6F7FB;
+  color: #181414e8;
+  cursor: pointer;
+}
+
+.cardWrapper:hover {
+    box-shadow: inset 0 0 0.5px 0.5px rgba(0, 0, 0, 0.9);
+}
+
+
+
