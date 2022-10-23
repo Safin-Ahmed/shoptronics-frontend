@@ -97,7 +97,9 @@ const CarouselBanner = () => {
               alt="img"
               className={classes.slideImg}
             />
-            <div className={classes.priceTag}>${banner.priceTag}</div>
+            <div className={classes.priceTag}>
+              <h1>${banner.priceTag}</h1>
+            </div>
           </div>
         </SwiperSlide>
       ))}
