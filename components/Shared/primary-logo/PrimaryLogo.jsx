@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box } from '@mui/system';
 import Image from 'next/image';
 import Logo from '../../../public/static/logo.png';
 
