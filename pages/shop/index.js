@@ -7,8 +7,8 @@ import ProductList from "../../components/product-list";
 import FilterBar from "../../components/Shared/FilterBar";
 import client from "../../lib/apolloClient";
 
-const Shop = ({ products }) => {
-  console.log({ products });
+const Shop = ({ products, pagination }) => {
+  console.log({ products, pagination });
   return (
     <div
       className="section-padding"
@@ -23,9 +23,9 @@ const Shop = ({ products }) => {
         <FilterBar />
       </div>
       <div style={{ width: "80%" }}>
-        <TopPagination />
+        <TopPagination pagination={pagination} />
         <ProductList products={products} cols={3} />
-        <BottomPagination />
+        <BottomPagination pagination={pagination} />
       </div>
     </div>
   );
@@ -38,11 +38,15 @@ export async function getServerSideProps(ctx) {
 
   const { data, errors, loading } = await getProductsByPageNumber(pageNumber);
 
-  const { data: products } = data;
+  const {
+    data: products,
+    meta: { pagination },
+  } = data;
 
   return {
     props: {
       products,
+      pagination,
     },
   };
 }

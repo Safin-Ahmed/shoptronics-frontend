@@ -1,49 +1,50 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400&display=swap");
 
 /* top pagination start */
 .wrapper {
-    display: flex;
-    justify-content: space-between;
-    height: 42px;
-    background: #FFFFFF;
-    box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.25);
-    border-radius: 3px;
-    line-height: 42px;
-    padding: 0 20px;
-    font-family: 'Rubik';
-    font-style: normal;
+  display: flex;
+  justify-content: space-between;
+  height: 42px;
+  background: #ffffff;
+  box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 3px;
+  line-height: 42px;
+  padding: 0 20px;
+  font-family: "Rubik";
+  font-style: normal;
 }
 
 .leftside {
-    color: #000000;
-    letter-spacing: 5px;
-    font-weight: 400;
+  color: #000000;
+  letter-spacing: 5px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
 }
 
 .leftside a {
-    text-decoration: none;
-    color: #000000;
+  text-decoration: none;
+  color: #000000;
 }
 
 .leftside a:hover {
-    color: #000000a6;
+  color: #000000a6;
 }
 
 .rightside {
-    display: flex;
-    justify-content: flex-end;
-    color: #000000;
-    flex-direction: row;
-    gap: 10px;
+  display: flex;
+  justify-content: flex-end;
+  color: #000000;
+  flex-direction: row;
+  gap: 10px;
 }
 
 .rightside select {
-    height: 25px;
-    margin-top: 10px;
-    border-color: #3e3c3c5d;
+  height: 25px;
+  margin-top: 10px;
+  border-color: #3e3c3c5d;
 }
 
-.rightside svg{
-    height: 40px;
+.rightside svg {
+  height: 40px;
 }
