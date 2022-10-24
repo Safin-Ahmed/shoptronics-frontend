@@ -1,6 +1,7 @@
-import Image from "next/image";
-import Logo from "../public/static/logo.png";
-import HomeStyled from "../public/Styles/home.module.css";
+import Image from 'next/image';
+import Logo from '../public/static/logo.png';
+import HomeStyled from '../public/Styles/home.module.css';
+import PrimaryLogo from './shared/primary-logo/PrimaryLogo';
 
 function Footer() {
   return (
@@ -8,13 +9,7 @@ function Footer() {
       <div className={HomeStyled.customContainer}>
         <div className={HomeStyled.mainfooter}>
           <div className={HomeStyled.footerSection}>
-            <Image
-              width={180}
-              height={25}
-              src={Logo}
-              alt="shoptronics-logo"
-              className={HomeStyled.footerLogo}
-            ></Image>
+            <PrimaryLogo width={180} height={30} alt="footer-logo" />
             <p>
               Elegant pink origami design three dimensional view and decoration
               co-exist. Great for adding a decorative touch to any room’s decor.
@@ -79,7 +74,8 @@ function Footer() {
         </div>
       </div>
     </footer>
-  );
+  );;
 }
 
 export default Footer;
+;

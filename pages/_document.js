@@ -1,16 +1,46 @@
-import Document, { Html,Head, Main, NextScript } from 'next/document'
+import Document, { Html, Head, Main, NextScript } from 'next/document';
 
-class Mydocument  extends Document{
-  render(){
-    return(
-      <Html lang='en'>
+class MyDocument extends Document {
+  render() {
+    return (
+      <Html lang="en">
         <Head>
-        <link href="../public/fonts/Rubik-Black.ttf" rel="preload" as="font" crossOrigin='anonymus'/>
-        <link href="../public/fonts/Rubik-Bold.ttf" rel="preload" as="font" crossOrigin='anonymus'/>
-        <link href="../public/fonts/Rubik-Light.ttf" rel="preload" as="font" crossOrigin='anonymus'/>
-        <link href="../public/fonts/Rubik-Medium.ttf" rel="preload" as="font" crossOrigin='anonymus'/>
-        <link href="../public/fonts/Rubik-Regular.ttf" rel="preload" as="font" crossOrigin='anonymus'/>
-        <link href="../public/fonts/Rubik-SemiBold.ttf" rel="preload" as="font" crossOrigin='anonymus'/>
+          <link
+            rel="preload"
+            href="../public/fonts/Rubik-Black.ttf"
+            as="font"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload "
+            href="../public/fonts/Rubik-Bold.ttf"
+            as="font"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload"
+            href="../public/fonts/Rubik-Light.ttf"
+            as="font"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload"
+            href="../public/fonts/Rubik-Medium.ttf"
+            as="font"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload"
+            href="../public/fonts/Rubik-Regular.ttf"
+            as="font"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload"
+            href="../public/fonts/Rubik-SemiBold.ttf"
+            as="font"
+            crossOrigin="anonymous"
+          />
         </Head>
         <body>
           <Main></Main>
@@ -21,4 +51,4 @@ class Mydocument  extends Document{
   }
 }
 
-export default Mydocument
+export default MyDocument;
