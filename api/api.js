@@ -47,3 +47,30 @@ export const getProductsByPageNumber = async (pageNumber, sort) => {
     loading,
   };
 };
+
+export const getAllCategories = async () => {
+  const { data, errors, loading } = await client.query({
+    query: gql`
+      query getCategories {
+        categories {
+          data {
+            id
+            attributes {
+              name
+              sub_categories {
+                data {
+                  id
+                  attributes {
+                    Name
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `,
+  });
+
+  return data.categories;
+};

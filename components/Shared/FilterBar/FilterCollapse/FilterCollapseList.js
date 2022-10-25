@@ -21,30 +21,32 @@ export default function FilterCollapseList({
 
   return (
     <List sx={{ width: "95%", margin: "auto", bgcolor: "background.paper" }}>
-      <ListItem
-        sx={{ py: 0, my: 0 }}
-        disableGutters
-        secondaryAction={
-          <Typography sx={{ fontSize: "14px", fontFamily: "Rubik" }}>
-            30
-          </Typography>
-        }
-      >
-        <ListItemText>
-          <Button
-            variant="text"
-            onClick={handleViewAll}
-            sx={{
-              color: "rgba(0, 0, 0, 0.8)",
-              p: 0,
-              justifyContent: "flex-start",
-              fontSize: "14px",
-              fontFamily: "Rubik",
-              "&:hover": { background: "none", textDecoration: "underline" },
-            }}
-          >{`View All`}</Button>
-        </ListItemText>
-      </ListItem>
+      {options.length > 4 && (
+        <ListItem
+          sx={{ py: 0, my: 0 }}
+          disableGutters
+          secondaryAction={
+            <Typography sx={{ fontSize: "14px", fontFamily: "Rubik" }}>
+              30
+            </Typography>
+          }
+        >
+          <ListItemText>
+            <Button
+              variant="text"
+              onClick={handleViewAll}
+              sx={{
+                color: "rgba(0, 0, 0, 0.8)",
+                p: 0,
+                justifyContent: "flex-start",
+                fontSize: "14px",
+                fontFamily: "Rubik",
+                "&:hover": { background: "none", textDecoration: "underline" },
+              }}
+            >{`View All`}</Button>
+          </ListItemText>
+        </ListItem>
+      )}
       {finalOptionsList.map((value) => (
         <ListItem
           sx={{ py: 0, my: 0 }}

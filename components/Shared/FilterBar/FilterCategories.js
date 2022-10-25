@@ -1,77 +1,36 @@
+import { useQuery } from "@apollo/client";
 import React from "react";
+import { categoryQuery } from "../../../lib/queries";
 import FilterHeading from "../../UI/FilterHeading";
 import FilterCollapse from "./FilterCollapse/FilterCollapse";
 
 const FilterCategories = () => {
+  const { data, loading, error } = useQuery(categoryQuery);
+  if (loading) {
+    return <h2>Loading...</h2>;
+  }
+
+  if (error) {
+    console.error(error);
+    return null;
+  }
+
+  console.log(data);
+
+  const categories = data.categories.data;
   return (
     <>
       <FilterHeading title={"Categories"} />
-      <FilterCollapse
-        title="Computer"
-        options={[
-          "Desktop",
-          "Laptop",
-          "Motherboard",
-          "Processor",
-          "Ram",
-          "Graphics Card",
-          "SSD",
-        ]}
-      />
-      <FilterCollapse
-        title="Mobile"
-        options={["Android", "Ios", "Ipad", "used"]}
-      />
-      <FilterCollapse
-        title="Headphone"
-        options={[
-          "Earpods",
-          "Airpods",
-          "Headset",
-          "Wired Headphones",
-          "Wireless Headphones",
-          "Neck Headphones",
-        ]}
-      />
-
-      <FilterCollapse
-        title="Speaker"
-        options={[
-          "Desktop",
-          "Laptop",
-          "Motherboard",
-          "Processor",
-          "Ram",
-          "Graphics Card",
-          "SSD",
-        ]}
-      />
-
-      <FilterCollapse
-        title="Mouse"
-        options={[
-          "Desktop",
-          "Laptop",
-          "Motherboard",
-          "Processor",
-          "Ram",
-          "Graphics Card",
-          "SSD",
-        ]}
-      />
-
-      <FilterCollapse
-        title="Keyboard"
-        options={[
-          "Desktop",
-          "Laptop",
-          "Motherboard",
-          "Processor",
-          "Ram",
-          "Graphics Card",
-          "SSD",
-        ]}
-      />
+      {categories.map((item) => {
+        const {
+          id,
+          attributes: { name, sub_categories },
+        } = item;
+        const options = sub_categories.data.reduce((acc, cur) => {
+          return (acc = [...acc, cur.attributes.Name]);
+        }, []);
+        return <FilterCollapse key={item.id} title={name} options={options} />;
+      })}
     </>
   );
 };
