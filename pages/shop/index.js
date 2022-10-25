@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import React from "react";
+import React, { useState } from "react";
 import { getProductsByPageNumber } from "../../api/api";
 import BottomPagination from "../../components/pagination/BottomPagination";
 import TopPagination from "../../components/pagination/TopPagination";
@@ -8,7 +8,11 @@ import FilterBar from "../../components/Shared/FilterBar";
 import client from "../../lib/apolloClient";
 
 const Shop = ({ products, pagination }) => {
-  console.log({ products, pagination });
+  const [view, setView] = useState("grid");
+
+  const viewHandler = (style) => {
+    setView(style);
+  };
   return (
     <div
       className="section-padding"
@@ -23,8 +27,8 @@ const Shop = ({ products, pagination }) => {
         <FilterBar />
       </div>
       <div style={{ width: "80%" }}>
-        <TopPagination pagination={pagination} />
-        <ProductList products={products} cols={3} />
+        <TopPagination viewHandler={viewHandler} pagination={pagination} />
+        <ProductList view={view} products={products} cols={3} />
         <BottomPagination pagination={pagination} />
       </div>
     </div>

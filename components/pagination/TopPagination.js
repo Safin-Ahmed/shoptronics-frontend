@@ -1,16 +1,17 @@
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import { Button } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import usePagination from "../../hooks/usePagination";
 import useSorting from "../../hooks/useSorting";
 import GridListLine from "../../public/icons/GridListLine";
 import GridViewLine from "../../public/icons/GridViewLine";
 import styles from "../../public/Styles/topPagination.module.css";
 
-const TopPagination = ({ pagination }) => {
+const TopPagination = ({ pagination, viewHandler }) => {
   const { page, pageCount } = pagination;
   const { getNextPage, getPrevPage } = usePagination({ page, pageCount });
   const { addSort, state } = useSorting();
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.leftside}>
@@ -57,10 +58,10 @@ const TopPagination = ({ pagination }) => {
           <option value={"title:desc"}>DESC</option>
         </select>
         <span>View:</span>
-        <a style={{ cursor: "pointer" }}>
+        <a onClick={() => viewHandler("grid")} style={{ cursor: "pointer" }}>
           <GridViewLine />
         </a>
-        <a style={{ cursor: "pointer" }}>
+        <a onClick={() => viewHandler("list")} style={{ cursor: "pointer" }}>
           <GridListLine />
         </a>
       </div>
