@@ -2,6 +2,7 @@ import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import React from "react";
 import usePagination from "../../hooks/usePagination";
+import useSorting from "../../hooks/useSorting";
 import GridListLine from "../../public/icons/GridListLine";
 import GridViewLine from "../../public/icons/GridViewLine";
 import styles from "../../public/Styles/topPagination.module.css";
@@ -9,6 +10,7 @@ import styles from "../../public/Styles/topPagination.module.css";
 const TopPagination = ({ pagination }) => {
   const { page, pageCount } = pagination;
   const { getNextPage, getPrevPage } = usePagination({ page, pageCount });
+  const { addSort, state } = useSorting();
   return (
     <div className={styles.wrapper}>
       <div className={styles.leftside}>
@@ -47,15 +49,20 @@ const TopPagination = ({ pagination }) => {
       </div>
       <div className={styles.rightside}>
         <span>Sort by: </span>
-        <select>
-          <option>High to Low</option>
-          <option>Low to High</option>
-          <option>ASC</option>
-          <option>DESC</option>
+        <select onChange={addSort} value={state.value}>
+          <option value={"default"}>Default</option>
+          <option value={"price:asc"}>Low to High</option>
+          <option value={"price:desc"}>High to Low</option>
+          <option value={"title:asc"}>ASC</option>
+          <option value={"title:desc"}>DESC</option>
         </select>
         <span>View:</span>
-        <GridViewLine />
-        <GridListLine />
+        <a style={{ cursor: "pointer" }}>
+          <GridViewLine />
+        </a>
+        <a style={{ cursor: "pointer" }}>
+          <GridListLine />
+        </a>
       </div>
     </div>
   );

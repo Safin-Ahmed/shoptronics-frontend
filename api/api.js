@@ -1,11 +1,15 @@
 import { gql } from "@apollo/client";
 import client from "../lib/apolloClient";
 
-export const getProductsByPageNumber = async (pageNumber) => {
+export const getProductsByPageNumber = async (pageNumber, sort) => {
+  console.log({ sort });
   const { data, errors, loading } = await client.query({
     query: gql`
-      query getProducts($pageNumber: Int!) {
-        products(pagination: { page: $pageNumber, pageSize: 9 }) {
+      query getProducts($pageNumber: Int!, $sortOption: [String]) {
+        products(
+          pagination: { page: $pageNumber, pageSize: 9 }
+          sort: $sortOption
+        ) {
           data {
             id
             attributes {
@@ -34,7 +38,7 @@ export const getProductsByPageNumber = async (pageNumber) => {
         }
       }
     `,
-    variables: { pageNumber },
+    variables: { pageNumber, sortOption: sort },
   });
 
   return {

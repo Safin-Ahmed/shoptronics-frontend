@@ -35,8 +35,9 @@ export default Shop;
 export async function getServerSideProps(ctx) {
   const { params, query } = ctx;
   const pageNumber = +query.page || 1;
+  const sort = query.sort ?? null;
 
-  const { data, errors, loading } = await getProductsByPageNumber(pageNumber);
+  const { data } = await getProductsByPageNumber(pageNumber, sort);
 
   const {
     data: products,
