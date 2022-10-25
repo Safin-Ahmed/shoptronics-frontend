@@ -1,11 +1,11 @@
 .DepartmentSection {
-    width: 60%;
-    height: 90vh;
-    background: #FFF;
-    position: absolute;
-    top: 18%;
-    left: 10%;
-    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease-out;
-    overflow-y: scroll;
+  width: 60%;
+  height: 90vh;
+  background: #fff;
+  position: absolute;
+  top: 18%;
+  left: 10%;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-out;
+  overflow-y: scroll;
 }

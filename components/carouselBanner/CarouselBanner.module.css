@@ -1,0 +1,152 @@
+.mySwiper {
+  width: 100%;
+  height: 550px;
+}
+
+.swiperSlider {
+  background: #f9f3f0;
+  
+}
+
+.bgImg {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: url('/public/static/shape-1-1.png') center -80%,
+    url('/public/static/shape-1-2.png') 90% 94%;
+  background-repeat: no-repeat;
+}
+
+.slideImg {
+  text-align: center;
+  object-fit: fill;
+}
+
+.priceTag {
+  width:150px;
+  height: 15px;
+  border-radius: 50%;
+  background: #3c1ff4;
+}
+
+.content h4 {
+  font-size: 22px;
+  color: #3c1ff4;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.content h1 {
+  line-height: 1.2;
+  font-size: 42px;
+  letter-spacing: 2px;
+  margin: 10px 0 15px 0;
+}
+
+.content span {
+  display: block;
+}
+
+.content button {
+  padding: 15px 36px;
+  border: none;
+  font-size: 24px;
+  background: #ffff;
+  color: #000000c2;
+  box-shadow: 2px 7px 9px rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+}
+
+.btnSection {
+  display: flex;
+  align-items: center;
+}
+
+.ratingSection {
+  margin-left: 20px;
+  text-align: center;
+}
+
+.ratingSection p {
+  margin: 5px 0;
+}
+
+/* .swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet,
+.swiper-pagination-horizontal.swiper-pagination-bullets
+  .swiper-pagination-bullet {
+  
+}
+
+.swiper-horizontal {
+
+  width: 50px!important;
+}
+
+.swiper-pagination-clickable {
+} */
+
+
+
+@media (max-width: 1290px) {
+  .content {
+    padding: 0 30px;
+    width: 40%;
+  }
+
+  .content h1 {
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 1075px) {
+  .content {
+    padding: 0 30px;
+    width: 40%;
+  }
+
+  .content h1 {
+    font-size: 25px;
+  }
+
+  .content button {
+    font-size: 16px;
+    /* padding: 12px 20px; */
+    width: 100px;
+  }
+}
+
+@media (max-width: 899px) {
+  .content h4 {
+    font-size: 20px;
+  }
+
+  .content h1 {
+    font-size: 24px;
+  }
+
+  .content button {
+    font-size: 16px;
+    padding: 12px 20px;
+    width: 100px;
+    display: block;
+  }
+}
+
+@media (max-width: 490px) {
+  .content {
+    padding: 0 20px;
+  }
+
+  .content h4 {
+    font-size: 14px;
+  }
+
+  .content button {
+    width: 500px;
+  }
+}

@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import InputBase from '@mui/material/InputBase';
 import { alpha, styled } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
-import styles from './InputField.module.css';
+import classes from './SearchBar.module.css';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -40,14 +40,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const InputField = () => {
+const SearchBar = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Box>
         <Toolbar>
           <Box sx={{ display: 'flex', flexGrow: 1, px: 10 }}>
             <Search sx={{ flexGrow: 1, border: 1 }}>
-              <div className={styles.SearchIconWrapper}>
+              <div className={classes.SearchIconWrapper}>
                 <SearchIcon />
               </div>
               <StyledInputBase
@@ -74,4 +74,4 @@ const InputField = () => {
     </Box>
   );
 };
-export default InputField;
+export default SearchBar;
