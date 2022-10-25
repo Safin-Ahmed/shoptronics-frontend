@@ -1,9 +1,11 @@
-import { CssBaseline } from '@mui/material';
-import { useEffect, useState } from 'react';
-import DepartmentSection from '../components/departmentSection/DepartmentSection';
-import Footer from '../components/Footer';
-import Header from '../components/header';
-import Layout from '../components/Layout';
+import { ApolloProvider } from "@apollo/client";
+import { CssBaseline } from "@mui/material";
+import { useState } from "react";
+import DepartmentSection from "../components/departmentSection/DepartmentSection";
+import Footer from "../components/Footer";
+import Header from "../components/header";
+import Layout from "../components/Layout";
+import client from "../lib/apolloClient";
 
 function MyApp({ Component, pageProps }) {
   const [isShow, setIsShown] = useState(false);
@@ -14,15 +16,15 @@ function MyApp({ Component, pageProps }) {
 
  
   return (
-    <>
+    <ApolloProvider client={client}>
       <CssBaseline>
         <Header
           isShow={isShow}
           handleMouseEnter={handleMouseEnter}
           handleMouseLeave={handleMouseLeave}
         />
-        <Layout style={{ position: 'relative', zIndex: '1' }}>
-          <Component {...pageProps} title={'title'} />
+        <Layout style={{ position: "relative", zIndex: "1" }}>
+          <Component {...pageProps} title={"title"} />
           <DepartmentSection
             mouseEnter={handleMouseEnter}
             mouseLeave={handleMouseLeave}
@@ -31,7 +33,7 @@ function MyApp({ Component, pageProps }) {
         </Layout>
         <Footer />
       </CssBaseline>
-    </>
+    </ApolloProvider>
   );
 }
 

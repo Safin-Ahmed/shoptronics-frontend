@@ -1,275 +1,270 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400&display=swap");
 
 /* footer start */
 
-.footerBackground{
-    background-image: url("../static/footer-background.jpg");
-    background-repeat: no-repeat;
-    padding:100px 0 75px 0;
-    height: 100%;
-    background-size: cover !important;
-    background-position: bottom !important;
+.footerBackground {
+  background-image: url("../static/footer-background.jpg");
+  background-repeat: no-repeat;
+  padding: 100px 0 75px 0;
+  height: 100%;
+  background-size: cover !important;
+  background-position: bottom !important;
 }
 
-.mainfooter{
-    display: flex;
+.mainfooter {
+  display: flex;
 }
 
-.customContainer{
-    padding: 0 150px;
+.customContainer {
+  padding: 0 150px;
 }
-.mainfooter div:first-child{
-    flex: 1.3;  
+.mainfooter div:first-child {
+  flex: 1.3;
 }
-.mainfooter div{
-    flex: 1;  
+.mainfooter div {
+  flex: 1;
 }
-.mainfooter div p{
-    flex: 1;
+.mainfooter div p {
+  flex: 1;
+  margin-right: 20px;
+  color: rgba(0, 0, 0, 0.61);
+  font-family: "Rubik";
+  font-size: 18px;
+  font-weight: 400;
+  margin-top: 12px;
+  line-height: 28px;
+}
+
+.mainfooter div h3 {
+  flex: 1.5;
+  margin-right: 20px;
+  color: #3577f0;
+  font-family: "Rubik";
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.mainfooter ul {
+  padding: 0;
+  margin-top: 20px;
+}
+
+.mainfooter ul li {
+  list-style: none;
+  line-height: 30px;
+  font-size: 18px;
+  font-family: "Rubik";
+}
+
+.mainfooter ul li a {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.61);
+  font-weight: 400;
+}
+
+.footerbtn {
+  display: block;
+  padding: 10px 0px;
+  width: 100%;
+  background-color: #3c1ff4;
+  margin-top: 8px;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+}
+.footerStyleInput {
+  width: 100%;
+  padding: 10px 0 10px 0px;
+  border: 0;
+  font-family: "Rubik";
+  font-weight: 500;
+  border: 1px solid #f1f1f1;
+  box-shadow: 1px 2px 3px #f1f1f1;
+  cursor: type;
+}
+.footerStyleInput:focus {
+  outline: 0px solid black;
+  outline-offset: 3px;
+}
+.copyrightSection {
+  color: #413333;
+  font-size: 18px;
+  font-family: "Rubik";
+  padding-top: 50px;
+}
+
+@media (max-width: 575px) {
+  .mainfooter {
+    flex-direction: column;
+  }
+}
+@media (min-width: 576px) and (max-width: 767px) {
+  .mainfooter {
+    flex-direction: column;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .mainfooter {
+    flex-direction: column;
+  }
+  .mainfooter div {
+    flex: 0;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .mainfooter div h3 {
+    font-size: 17px;
+  }
+  .mainfooter ul li {
+    line-height: 28px;
+    font-size: 14px;
+  }
+  .mainfooter div p {
+    flex: 1.5;
     margin-right: 20px;
     color: rgba(0, 0, 0, 0.61);
     font-family: "Rubik";
     font-size: 18px;
-    font-weight: 400;
-    margin-top: 12px;
-    line-height: 28px;
+  }
+  .footerSection {
+    height: 30px !important;
+  }
 }
-
-.mainfooter div h3 {
-    flex: 1.5;
-    margin-right: 20px;
-    color: #3577F0;
-    font-family: "Rubik";
-    font-size: 20px;
-    font-weight: 700;
-    margin:0;
+@media (min-width: 1200px) and (max-width: 1400px) {
 }
-
-.mainfooter ul{
-    padding: 0;
-    margin-top: 20px;
-}
-
-.mainfooter ul li{
-    list-style: none;
-    line-height: 30px;
-    font-size: 18px;
-    font-family: "Rubik";
-
-}
-
-.mainfooter ul li a{
-    text-decoration: none;
-    color:rgba(0, 0, 0, 0.61);
-    font-weight: 400;
-}
-
-.footerbtn{
-    display: block;
-    padding: 10px 0px;
-    width:100%;
-    background-color: #3C1FF4;
-    margin-top: 8px;
-    border:0;
-    color:#fff;
-    cursor: pointer;
-
-}
-.footerStyleInput{
-    width: 100%;
-    padding: 10px 0 10px 0px;
-    border:0;
-    font-family: "Rubik";
-    font-weight: 500;
-    border:1px solid #f1f1f1;
-    box-shadow: 1px 2px 3px #f1f1f1;
-    cursor: type;
-   
-}
-.footerStyleInput:focus{
-    outline: 0px solid black;
-    outline-offset:3px;
-
-}
-.copyrightSection{
-    color:#413333;
-    font-size: 18px;
-    font-family: "Rubik";
-    padding-top: 50px;
-}
-
-@media(max-width:575px) {
-    .mainfooter{
-        flex-direction: column;
-    }
-
-}
-@media(min-width:576px) and (max-width:767px) {
-    .mainfooter{
-        flex-direction: column;
-    }
-}
-@media(min-width:768px) and (max-width:991px) {
-    .mainfooter{
-        flex-direction: column;
-    }
-    .mainfooter div{
-        flex: 0;  
-    }
-}
-@media(min-width:992px) and (max-width:1199px) {
-   
-    .mainfooter div h3 {
-        font-size: 17px;
-    }
-    .mainfooter ul li{
-        line-height: 28px;
-        font-size: 14px;
-    }
-    .mainfooter div p{
-        flex: 1.5;
-        margin-right: 20px;
-        color: rgba(0, 0, 0, 0.61);
-        font-family: "Rubik";
-        font-size: 18px;
-    }
-    .footerSection{
-        height: 30px!important;
-    }
-
-}
-@media(min-width:1200px) and (max-width:1400px) {}
 
 /* footer End */
 
-
 /* Product start */
 
-.productCardHeader{
-    background-color: #F6F7FB;
-    padding: 20px;
-    text-align: center;
-    cursor: pointer;
+.productCardHeader {
+  background-color: #f6f7fb;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
 }
-.bestSellingProduct{
-    display: flex;
+.bestSellingProduct {
+  display: flex;
 }
-.productCard{
-    margin:10px;
-    width: 100%;
-}
-
-.productCardFooterMoreInfo{
-    display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
-}
-.productCardFooter a{
-    color:rgba(24, 20, 20, 0.56);
-    font-size: 14px;
-    font-family: "Rubik";
-    font-weight: 400;
-    text-decoration: none;
-    margin:10px 0;
-    display: block;
-    cursor: pointer;
-}
-.productCardFooter h4{
-    margin: 0;
-    padding: 0;
-    color:rgba(24, 20, 20, 0.91);
-    font-size: 20px;
-    font-family: "Rubik";
-    font-weight: 500;
-    cursor: pointer;
-}
-.productPrice{
-    color:rgba(24, 20, 20, 0.86);
-    font-size: 15px;
-    font-family: "Rubik";
-    font-weight: 600;
-}
-.productPrice span{
-    text-decoration: line-through;
-    font-size: 15px;
-    font-family: "Rubik";
-    font-weight: 400;
-    margin-left: 10px;
-}
-.productRating span{
-    color: rgba(0, 0, 0, 0.71);
-    font-size: 12px;
-    font-family: "Rubik";
-    font-weight: 400;
-    margin: 0;
-    padding: 0;
+.productCard {
+  margin: 10px;
+  width: 100%;
 }
 
+.productCardFooter {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
 
-@media(max-width:575px) {
-    .bestSellingProduct{
-        flex-direction: column;
-    }
-    .customContainer{
-        padding: 0 10px;
-    }
+.productCardFooterMoreInfo {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 }
-@media(min-width:576px) and (max-width:767px) {
-    .bestSellingProduct{
-        flex-direction: column;
-    }
-    .customContainer{
-        padding: 0 50px;
-    }
+.productCardFooter a {
+  color: rgba(24, 20, 20, 0.56);
+  font-size: 14px;
+  font-family: "Rubik";
+  font-weight: 400;
+  text-decoration: none;
+  margin: 10px 0;
+  margin-bottom: 0;
+  display: block;
+  cursor: pointer;
 }
-@media(min-width:768px) and (max-width:991px) {
-    .bestSellingProduct{
-        flex-direction: column;
-    }
+.productCardFooter h4 {
+  margin: 0;
+  padding: 0;
+  color: rgba(24, 20, 20, 0.91);
+  font-size: 20px;
+  font-family: "Rubik";
+  font-weight: 500;
+  cursor: pointer;
 }
- 
-@media(min-width:992px) and (max-width:1199px) {
-   
+.productPrice {
+  color: rgba(24, 20, 20, 0.86);
+  font-size: 15px;
+  font-family: "Rubik";
+  font-weight: 600;
 }
-@media(min-width:1200px) and (max-width:1400px) {}
+.productPrice span {
+  text-decoration: line-through;
+  font-size: 15px;
+  font-family: "Rubik";
+  font-weight: 400;
+  margin-left: 10px;
+}
+.productRating span {
+  color: rgba(0, 0, 0, 0.71);
+  font-size: 12px;
+  font-family: "Rubik";
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 575px) {
+  .bestSellingProduct {
+    flex-direction: column;
+  }
+  .customContainer {
+    padding: 0 10px;
+  }
+}
+@media (min-width: 576px) and (max-width: 767px) {
+  .bestSellingProduct {
+    flex-direction: column;
+  }
+  .customContainer {
+    padding: 0 50px;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .bestSellingProduct {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+}
+@media (min-width: 1200px) and (max-width: 1400px) {
+}
 
 /* Product End */
 
-
-
 /* best selling product Start */
 
-.SectionPadding{
-    margin:100px 0;
+.SectionPadding {
+  margin: 100px 0;
 }
-.HomeHeader{
-    margin-bottom: 40px;
+.HomeHeader {
+  margin-bottom: 40px;
 }
-.HomeHeader span{
-    margin: 0;
-    padding: 0;
-    color:#3C1FF4;
-    font-size: 16px;
-    font-family: "Rubik";
+.HomeHeader span {
+  margin: 0;
+  padding: 0;
+  color: #3c1ff4;
+  font-size: 16px;
+  font-family: "Rubik";
 }
-.HomeHeader h2{
-    margin: 0;
-    padding: 0;
-    color:rgba(0, 0, 0, 0.876);
-    font-size: 30px;
-    font-family: "Rubik";
-    margin-top:10px;
-    font-weight: 600;
+.HomeHeader h2 {
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.876);
+  font-size: 30px;
+  font-family: "Rubik";
+  margin-top: 10px;
+  font-weight: 600;
 }
-.HomeHeader h2 span{
-    margin: 0;
-    padding: 0;
-    color:rgba(0, 0, 0, 0.876);
-    font-size: 30px;
-    font-family: "Rubik";
-    margin-top:10px;
-    font-weight: 500;
+.HomeHeader h2 span {
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.876);
+  font-size: 30px;
+  font-family: "Rubik";
+  margin-top: 10px;
+  font-weight: 500;
 }
 
 /* best selling product End */
