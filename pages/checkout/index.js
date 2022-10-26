@@ -80,7 +80,6 @@ const Checkout = () => {
                   </div>
                   <ul>
                     <li><span>Subtotal (2 items)</span> <span>$698</span></li>
-                    {/* <li><span>Shipping Fee</span> <span>$20</span></li> */}
                   </ul>
                 </div>
                 <div>
@@ -98,9 +97,7 @@ const Checkout = () => {
                     </RadioGroup>
                   </FormControl>
                   </div>
-                  <ul>
-                      <li><span>Total</span> <span>$698</span></li>
-                  </ul>
+                  
                 </div>
                 
 
