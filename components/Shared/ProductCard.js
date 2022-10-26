@@ -6,14 +6,14 @@ import ratingHalf from "../../public/static/rating-half.png";
 import { Button, Rating } from "@mui/material";
 
 function ProductCard({ product }) {
-  const {
-    id,
-    attributes: { title, description, price, discountPrice, imgUrl },
-  } = product;
+  // const {
+  //   id,
+  //   attributes: { title, description, price, discountPrice, imgUrl },
+  // } = product;
 
-  const categories = product.attributes.categories.data;
+  const categories = product?.attributes.categories.data;
 
-  const categoryNames = categories.map((item, i) => {
+  const categoryNames = categories?.map((item, i) => {
     if (i === categories.length - 1) {
       return `${item.attributes.name}`;
     } else {
@@ -27,16 +27,16 @@ function ProductCard({ product }) {
           width={350}
           height={350}
           objectFit="contain"
-          src={imgUrl}
+          // src={imgUrl}
           alt="head-phone"
         />
       </div>
       <div className={HomeStyled.productCardFooter}>
         <a href="#">{categoryNames}</a>
-        <h4>{title}</h4>
+        {/* <h4>{title}</h4> */}
         <div className={HomeStyled.productCardFooterMoreInfo}>
           <div className={HomeStyled.productPrice}>
-            ${price} {discountPrice && <span>${discountPrice}</span>}
+            {/* ${price} {discountPrice && <span>${discountPrice}</span>} */}
           </div>
           <div>
             <Rating value={4} readOnly />
