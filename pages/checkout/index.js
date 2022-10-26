@@ -36,7 +36,7 @@ const Checkout = () => {
    ]
   return (
     <div>
-      <BreadcrumbsCom sx={{zIndex:"-9"}} breadcrumbs= "Cart" />
+      <BreadcrumbsCom sx={{zIndex:"-9"}} breadcrumbs= {"Checkout"} />
       <Box>
         <Container>
         <Grid container columnGap={1} sx={{justifyContent:"space-around",marginBottom:"50px" }}>
