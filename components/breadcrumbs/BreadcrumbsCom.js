@@ -13,7 +13,7 @@ function BreadcrumbsCom({breadcrumbs}) {
     console.info('You clicked a breadcrumb.');
   }
   return (
-    <Box sx={{backgroundColor:"#3C1FF4", padding:"20px 0 60px 0", color:"#fff"}}>
+    <Box sx={{backgroundColor:"#3C1FF4", padding:"60px 0 70px 0", color:"#fff"}}>
         <Container>
         <div role="presentation" onClick={handleClick}>
             <Breadcrumbs aria-label="breadcrumb">
