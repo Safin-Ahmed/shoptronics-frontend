@@ -1,9 +1,10 @@
-import React from 'react';
-import HomeStyled from '../../public/Styles/home.module.css';
-import HomeHeader from '../Shared/HomeHeader';
-import ProductCard from '../Shared/ProductCard';
+import React from "react";
+import HomeStyled from "../../public/Styles/home.module.css";
+import ProductList from "../product-list";
+import HomeHeader from "../Shared/HomeHeader";
+import ProductCard from "../Shared/ProductCard";
 
-function TrendingProductSection() {
+function TrendingProductSection({ products }) {
   return (
     <div className={HomeStyled.SectionPadding}>
       <div className={HomeStyled.customContainer}>
@@ -11,10 +12,7 @@ function TrendingProductSection() {
       </div>
       <div className={HomeStyled.customContainer}>
         <div className={HomeStyled.bestSellingProduct}>
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          <ProductList products={products} cols={3} />
         </div>
       </div>
     </div>
