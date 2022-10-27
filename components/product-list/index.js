@@ -32,7 +32,7 @@ const ProductList = ({ products, cols, view }) => {
               key={index}
               style={{ marginTop: "2rem", width: "50%", margin: "auto" }}
             >
-              <ProductCard product={product} />
+              <ProductCard product={product} view="list" />
             </div>
           ))}
         </Stack>

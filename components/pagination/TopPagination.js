@@ -6,6 +6,7 @@ import useSorting from "../../hooks/useSorting";
 import GridListLine from "../../public/icons/GridListLine";
 import GridViewLine from "../../public/icons/GridViewLine";
 import styles from "../../public/Styles/topPagination.module.css";
+import SelectInput from "../UI/SelectInput";
 
 const TopPagination = ({ pagination, viewHandler }) => {
   const { page, pageCount } = pagination;
@@ -49,14 +50,42 @@ const TopPagination = ({ pagination, viewHandler }) => {
         )}
       </div>
       <div className={styles.rightside}>
-        <span>Sort by: </span>
-        <select onChange={addSort} value={state.value}>
+        <div style={{ marginRight: "15px" }}>
+          <SelectInput
+            label={"Sort by: "}
+            options={[
+              {
+                label: "Default",
+                value: "default",
+              },
+              {
+                label: "Price Low To High",
+                value: "price:asc",
+              },
+              {
+                label: "Price High To Low",
+                value: "price:desc",
+              },
+              {
+                label: "ASC",
+                value: "title:asc",
+              },
+              {
+                label: "DESC",
+                value: "title:desc",
+              },
+            ]}
+            handleChange={addSort}
+            stateValue={state.value}
+          />
+        </div>
+        {/* <select onChange={addSort} value={state.value}>
           <option value={"default"}>Default</option>
           <option value={"price:asc"}>Low to High</option>
           <option value={"price:desc"}>High to Low</option>
           <option value={"title:asc"}>ASC</option>
           <option value={"title:desc"}>DESC</option>
-        </select>
+        </select> */}
         <span>View:</span>
         <a onClick={() => viewHandler("grid")} style={{ cursor: "pointer" }}>
           <GridViewLine />
