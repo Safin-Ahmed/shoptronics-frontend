@@ -1,16 +1,71 @@
 import Image from "next/image";
 import HomeStyled from "../../public/Styles/home.module.css";
 import { Button, Rating } from "@mui/material";
+import { calculateAverageRating } from "../../utils/rating";
 
 function ProductCard({ product, view }) {
+  /* 
+
+  {
+          "id": "117",
+          "attributes": {
+            "title": "Licensed Cotton Sausages",
+            "reviews": {
+              "data": [
+                {
+                  "id": "59",
+                  "attributes": {
+                    "rating": 5
+                  }
+                },
+                {
+                  "id": "88",
+                  "attributes": {
+                    "rating": 4
+                  }
+                },
+                {
+                  "id": "93",
+                  "attributes": {
+                    "rating": 3
+                  }
+                }
+              ]
+            },
+            "price": 430,
+            "discountPrice": null
+          }
+        },
+  
+  
+  */
+
   const {
     id,
-    attributes: { title, description, price, discountPrice, imgUrl },
-  } = product;
+    attributes: {
+      title,
+      price,
+      discountPrice,
+      imgUrl,
+      reviews: { data: reviewsArray },
+    },
+  } = product ?? {
+    id: 1,
+    attributes: {
+      title: "Test",
+      description: "Test product",
+      price: 500,
+      discountPrice: null,
+      imgUrl: "",
+      reviews: {
+        data: [],
+      },
+    },
+  };
 
-  const categories = product.attributes.categories.data;
-
-  const categoryNames = categories.map((item, i) => {
+  const categories = product?.attributes?.categories?.data;
+  const rating = calculateAverageRating(reviewsArray);
+  const categoryNames = categories?.map((item, i) => {
     if (i === categories.length - 1) {
       return `${item.attributes.name}`;
     } else {
@@ -30,8 +85,8 @@ function ProductCard({ product, view }) {
           width={350}
           height={350}
           objectFit="contain"
-          src={imgUrl}
-          alt="head-phone"
+          src={imgUrl || productImage}
+          alt={title}
         />
       </div>
       <div className={HomeStyled.productCardFooter}>

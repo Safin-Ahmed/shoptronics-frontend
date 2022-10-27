@@ -11,13 +11,11 @@ import "../public/Styles/global.css";
 function MyApp({ Component, pageProps }) {
   const [isShow, setIsShown] = useState(false);
 
-  const handleMouseEnter = () => {
-    setIsShown(true);
-  };
+  const handleMouseEnter = () => setIsShown(true);
 
-  const handleMouseLeave = () => {
-    setIsShown(false);
-  };
+  const handleMouseLeave = () => setIsShown(false);
+
+ 
   return (
     <ApolloProvider client={client}>
       <CssBaseline>
