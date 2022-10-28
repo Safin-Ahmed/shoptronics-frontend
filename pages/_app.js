@@ -1,11 +1,15 @@
 import { ApolloProvider } from "@apollo/client";
 import { CssBaseline } from "@mui/material";
+import { StoreProvider } from "easy-peasy";
 import { useState } from "react";
 import DepartmentSection from "../components/departmentSection/DepartmentSection";
+import ErrorMessage from "../components/error/ErrorMessage";
 import Footer from "../components/Footer";
 import Header from "../components/header";
 import Layout from "../components/Layout";
 import client from "../lib/apolloClient";
+import store from '../store'
+
 
 function MyApp({ Component, pageProps }) {
   const [isShow, setIsShown] = useState(false);
@@ -18,24 +22,27 @@ function MyApp({ Component, pageProps }) {
     setIsShown(false);
   };
   return (
-    <ApolloProvider client={client}>
-      <CssBaseline>
-        <Header
-          isShow={isShow}
-          handleMouseEnter={handleMouseEnter}
-          handleMouseLeave={handleMouseLeave}
-        />
-        <Layout style={{ position: "relative", zIndex: "1" }}>
-          <Component {...pageProps} title={"title"} />
-          <DepartmentSection
-            mouseEnter={handleMouseEnter}
-            mouseLeave={handleMouseLeave}
+    <StoreProvider store={store}>
+      <ApolloProvider client={client}>
+        <CssBaseline>
+          <ErrorMessage />
+          <Header
             isShow={isShow}
+            handleMouseEnter={handleMouseEnter}
+            handleMouseLeave={handleMouseLeave}
           />
-        </Layout>
-        <Footer />
-      </CssBaseline>
-    </ApolloProvider>
+          <Layout style={{ position: "relative", zIndex: "1" }}>
+            <Component {...pageProps} title={"title"} />
+            <DepartmentSection
+              mouseEnter={handleMouseEnter}
+              mouseLeave={handleMouseLeave}
+              isShow={isShow}
+            />
+          </Layout>
+          <Footer />
+        </CssBaseline>
+      </ApolloProvider>
+    </StoreProvider>
   );
 }
 

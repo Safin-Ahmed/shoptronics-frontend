@@ -1,10 +1,83 @@
-import { Box, Card, FormControlLabel, Divider, FormControl, FormGroup, InputLabel, OutlinedInput, Typography, Checkbox, Button } from "@mui/material";
+import { Box, Card, FormControlLabel, Divider, FormControl, FormGroup, InputLabel, OutlinedInput, Typography, Checkbox, Button, CircularProgress, FormLabel } from "@mui/material";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useMutation } from "@apollo/client";
+import { LOGIN_MUTATION } from "../../graphQL/Mutations";
+import { useStoreActions } from "easy-peasy";
+
+
+
+
 
 
 
 const Login = () => {
+  const [values, setValues] = useState({
+    email: "",
+    password: "",
+    error: ""
+  })
+
+  const setError = useStoreActions(actions => actions.error.setError);
+
+
+  const [login, { data, loading, error, reset }] = useMutation(LOGIN_MUTATION);
+
+
+
+  const handleChange = e => setValues({
+    ...values,
+    [e.target.name]: e.target.value
+  })
+
+  const loginHandler = (e) => {
+    e.preventDefault();
+
+    const { email, password } = values;
+    console.log('values', values)
+
+
+    if (!email || !password) {
+      setValues({
+        email,
+        password,
+        error: !email ? 'Email field is required!' : 'Password field is required'
+      })
+      return;
+    }
+
+    setValues({
+      ...values,
+      error: ""
+    })
+
+    login({
+      variables: {
+        email,
+        password
+      }
+    });
+  }
+
+
+  console.log('loading', loading);
+  console.log('data', data?.login?.jwt);
+
+
+  useEffect(() => {
+    if (error) {
+      setError({ message: JSON.stringify(error), type: 'error' })
+    }
+  }, [error])
+
+
+
+  const facebookLoginHandler = () => {
+    // console.log('click to login')
+  }
+
+
+
   return (
     <Box sx={{
       display: "flex",
@@ -31,67 +104,106 @@ const Login = () => {
         <Box sx={{
           px: 5,
         }}>
-          <FormGroup sx={{ my: 2 }}>
-            <InputLabel>Enter Email</InputLabel>
-            <FormControl sx={{ width: '100%' }}>
-              <OutlinedInput
-                type="text"
-              />
-            </FormControl>
-          </FormGroup>
-
-          <FormGroup sx={{ my: 2 }}>
-            <InputLabel>Enter Password</InputLabel>
-            <FormControl sx={{ width: '100%' }}>
-              <OutlinedInput
-                type="password"
-              />
-            </FormControl>
-          </FormGroup>
-
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              my: 2,
-              alignItems: "center",
-              color: "##000000AD"
-            }}>
-            <FormGroup>
-              <FormGroup>
-                <FormControlLabel control={<Checkbox defaultChecked />} label="Remember Me" sx={{ color: "#000000AD" }} />
-              </FormGroup>
+          {values.error && <FormLabel sx={{ color: "red" }}>{values.error}</FormLabel>}
+          {data?.login?.jwt && <FormLabel color="success">Login Successful</FormLabel>}
+          <form onSubmit={loginHandler}>
+            <FormGroup sx={{ my: 2 }}>
+              <InputLabel>Enter Email</InputLabel>
+              <FormControl sx={{ width: '100%' }}>
+                <OutlinedInput
+                  type="text"
+                  name="email"
+                  value={values.email}
+                  onChange={handleChange}
+                />
+              </FormControl>
             </FormGroup>
 
-            <Link
-              href="/forgot-password"
-            >
-              <a
-                style={{
-                  color: "#000",
-                  textDecoration: "none",
-                  color: "#000000AD",
-                  fontFamily: 'Rubik',
-                  fontStyle: "normal",
-                }}
-              >Forgotten Password?</a>
-            </Link>
-          </Box>
+            <FormGroup sx={{ my: 2 }}>
+              <InputLabel>Enter Password</InputLabel>
+              <FormControl sx={{ width: '100%' }}>
+                <OutlinedInput
+                  type="password"
+                  name="password"
+                  value={values.password}
+                  onChange={handleChange}
+                />
+              </FormControl>
+            </FormGroup>
+
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                my: 2,
+                alignItems: "center",
+                color: "##000000AD"
+              }}>
+              <FormGroup>
+                <FormGroup>
+                  <FormControlLabel control={<Checkbox defaultChecked />} label="Remember Me" sx={{ color: "#000000AD" }} />
+                </FormGroup>
+              </FormGroup>
+
+              <Link
+                href="/forgot-password"
+              >
+                <a
+                  style={{
+                    color: "#000",
+                    textDecoration: "none",
+                    color: "#000000AD",
+                    fontFamily: 'Rubik',
+                    fontStyle: "normal",
+                  }}
+                >Forgotten Password?</a>
+              </Link>
+            </Box>
+
+            <Button
+              type="submit"
+              variant="contained"
+              sx={{
+                width: "100%",
+                backgroundColor: "#3C1FF4",
+                color: "#fff",
+                py: 1.5
+              }}>
+              {loading ? <CircularProgress color="info" size={25} /> : 'Sign In'}
+            </Button>
+          </form>
 
           <Button
+            // onClick={(e) => {
+            //   e.preventDefault();
+            //   signIn();
+            // }}
             variant="contained"
             sx={{
               width: "100%",
-              backgroundColor: "#3C1FF4",
+              backgroundColor: "#c64030",
               color: "#fff",
-              py: 1.5
-            }}>Sign In</Button>
+              py: 1.5,
+              mt: 3
+            }}>Login with Google</Button>
+
+          <Button
+            onClick={facebookLoginHandler}
+            variant="contained"
+            sx={{
+              width: "100%",
+              backgroundColor: "#4267B2",
+              color: "#fff",
+              py: 1.5,
+              mt: 3
+            }}>Login with Facebook</Button>
 
           <Box
             sx={{
               display: "flex",
               justifyContent: "center",
-              py: 2
+              pb: 2,
+              mt: 3
             }}>
             <Typography>Don't have an account?</Typography>
           </Box>
@@ -116,9 +228,19 @@ const Login = () => {
             </Link>
           </Box>
         </Box>
-      </Card>
-    </Box>
+      </Card >
+    </Box >
   );
 };
+
+
+// export const getServerSideProps = async ({ req }) => {
+//   const session = await getSession({ req });
+//   return {
+//     props: {
+//       session,
+//     },
+//   };
+// };
 
 export default Login;

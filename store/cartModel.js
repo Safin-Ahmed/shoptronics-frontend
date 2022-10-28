@@ -1,4 +1,6 @@
-import { action } from "easy-peasy";
+import { action, persist } from "easy-peasy";
+
+
 const cartModel = persist(
   {
     cart: [],
