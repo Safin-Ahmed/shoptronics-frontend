@@ -16,6 +16,14 @@ export const getProductsByPageNumber = async (pageNumber, sort) => {
               title
               description
               price
+              reviews {
+                data {
+                  id
+                  attributes {
+                    rating
+                  }
+                }
+              }
               discountPrice
               imgUrl
               categories {
