@@ -1,9 +1,9 @@
 .DepartmentSection {
   width: 60%;
   height: 90vh;
-  background: #fff;
+  background: #FDFDFD;
   position: absolute;
-  top: 18%;
+  top: 15%;
   left: 10%;
   box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease-out;

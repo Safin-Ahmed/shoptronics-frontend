@@ -14,7 +14,7 @@ const ProductList = ({ products, cols }) => {
   return (
     <>
       <Grid container spacing={2}>
-        {products.map((product, index) => (
+        {products?.map((product, index) => (
           <Grid key={index} item xs={12} md={12 / cols}>
             <div style={styles.cardItem}>
               <ProductCard product={product} />
