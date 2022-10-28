@@ -22,6 +22,7 @@ export default function FilterBar() {
         borderRadius: "3px",
         px: 1,
         py: 2,
+        marginTop: "-47%",
       }}
     >
       <CardContent>

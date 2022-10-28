@@ -20,7 +20,11 @@ const Shop = ({ products, pagination }) => {
 
       <div
         className="section-padding"
-        style={{ display: "flex", padding: "2rem 2rem" }}
+        style={{
+          display: "flex",
+          padding: "2rem 2rem",
+          justifyContent: "space-between",
+        }}
       >
         <div
           style={{
@@ -30,7 +34,7 @@ const Shop = ({ products, pagination }) => {
         >
           <FilterBar />
         </div>
-        <div style={{ width: "80%" }}>
+        <div style={{ width: "78%" }}>
           <TopPagination viewHandler={viewHandler} pagination={pagination} />
           <ProductList view={view} products={products} cols={3} />
           <BottomPagination pagination={pagination} />

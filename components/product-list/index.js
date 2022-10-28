@@ -1,5 +1,6 @@
 import { Grid, Stack } from "@mui/material";
-import React from "react";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
 import ProductCard from "../Shared/ProductCard";
 
 const styles = {
@@ -16,7 +17,7 @@ const ProductList = ({ products, cols, view = "grid" }) => {
       {view === "grid" && (
         <Grid container spacing={2}>
           {products.map((product, index) => (
-            <Grid key={index} item xs={12} md={12 / cols}>
+            <Grid key={product.id} item xs={12} md={12 / cols}>
               <div style={styles.cardItem}>
                 <ProductCard product={product} view="grid" />
               </div>

@@ -14,6 +14,7 @@ export const getProductsByPageNumber = async (pageNumber, sort) => {
             id
             attributes {
               title
+              slug
               description
               price
               reviews {
@@ -68,6 +69,7 @@ export const getTrendingProducts = async () => {
             id
             attributes {
               title
+              slug
               imgUrl
               categories {
                 data {

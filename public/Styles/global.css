@@ -4,3 +4,7 @@
 .MuiAccordionSummary-content.Mui-expanded {
   margin: 0;
 }
+a {
+  text-decoration: none;
+  color: rgba(24, 20, 20, 0.56);
+}
