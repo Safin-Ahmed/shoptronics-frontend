@@ -54,7 +54,7 @@ export const getTrendingProducts = async () => {
       query getTrendingProducts {
         products(
           filters: { isTrending: { eq: true } }
-          pagination: { limit: 5 }
+          pagination: { limit: 4 }
         ) {
           data {
             id

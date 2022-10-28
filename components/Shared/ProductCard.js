@@ -4,6 +4,7 @@ import { Button, Rating } from "@mui/material";
 import { calculateAverageRating } from "../../utils/rating";
 
 function ProductCard({ product, view }) {
+  console.log(product);
   /* 
 
   {
@@ -42,14 +43,8 @@ function ProductCard({ product, view }) {
 
   const {
     id,
-    attributes: {
-      title,
-      price,
-      discountPrice,
-      imgUrl,
-      reviews: { data: reviewsArray },
-    },
-  } = product ?? {
+    attributes: { title, price, discountPrice, imgUrl, reviews },
+  } = product || {
     id: 1,
     attributes: {
       title: "Test",
@@ -64,7 +59,7 @@ function ProductCard({ product, view }) {
   };
 
   const categories = product?.attributes?.categories?.data;
-  const rating = calculateAverageRating(reviewsArray);
+  const rating = calculateAverageRating(reviews?.data);
   const categoryNames = categories?.map((item, i) => {
     if (i === categories.length - 1) {
       return `${item.attributes.name}`;
@@ -85,7 +80,7 @@ function ProductCard({ product, view }) {
           width={350}
           height={350}
           objectFit="contain"
-          src={imgUrl || productImage}
+          src={imgUrl || ""}
           alt={title}
         />
       </div>
@@ -94,7 +89,7 @@ function ProductCard({ product, view }) {
         <h4 style={{ fontSize: view === "list" ? "30px" : "" }}>{title}</h4>
         {view === "list" && (
           <div>
-            <Rating value={4} readOnly />
+            <Rating value={rating} readOnly />
           </div>
         )}
         <div
@@ -114,7 +109,7 @@ function ProductCard({ product, view }) {
           </div>
           {view !== "list" && (
             <div>
-              <Rating value={4} readOnly />
+              <Rating value={rating} readOnly />
             </div>
           )}
 

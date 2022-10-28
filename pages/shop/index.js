@@ -1,6 +1,7 @@
 import { gql } from "@apollo/client";
 import React, { useState } from "react";
 import { getProductsByPageNumber } from "../../api/api";
+import BreadcrumbsCom from "../../components/breadcrumbs/BreadcrumbsCom";
 import BottomPagination from "../../components/pagination/BottomPagination";
 import TopPagination from "../../components/pagination/TopPagination";
 import ProductList from "../../components/product-list";
@@ -14,24 +15,28 @@ const Shop = ({ products, pagination }) => {
     setView(style);
   };
   return (
-    <div
-      className="section-padding"
-      style={{ display: "flex", padding: "2rem 2rem" }}
-    >
+    <>
+      <BreadcrumbsCom breadcrumbs="shop" />
+
       <div
-        style={{
-          width: "20%",
-          height: "100%",
-        }}
+        className="section-padding"
+        style={{ display: "flex", padding: "2rem 2rem" }}
       >
-        <FilterBar />
+        <div
+          style={{
+            width: "20%",
+            height: "100%",
+          }}
+        >
+          <FilterBar />
+        </div>
+        <div style={{ width: "80%" }}>
+          <TopPagination viewHandler={viewHandler} pagination={pagination} />
+          <ProductList view={view} products={products} cols={3} />
+          <BottomPagination pagination={pagination} />
+        </div>
       </div>
-      <div style={{ width: "80%" }}>
-        <TopPagination viewHandler={viewHandler} pagination={pagination} />
-        <ProductList view={view} products={products} cols={3} />
-        <BottomPagination pagination={pagination} />
-      </div>
-    </div>
+    </>
   );
 };
 

@@ -12,7 +12,7 @@ function TrendingProductSection({ products }) {
       </div>
       <div className={HomeStyled.customContainer}>
         <div className={HomeStyled.bestSellingProduct}>
-          <ProductList products={products} cols={3} />
+          <ProductList products={products} cols={4} />
         </div>
       </div>
     </div>

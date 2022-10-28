@@ -10,7 +10,7 @@ const styles = {
   },
 };
 
-const ProductList = ({ products, cols, view }) => {
+const ProductList = ({ products, cols, view = "grid" }) => {
   return (
     <>
       {view === "grid" && (
@@ -18,7 +18,7 @@ const ProductList = ({ products, cols, view }) => {
           {products.map((product, index) => (
             <Grid key={index} item xs={12} md={12 / cols}>
               <div style={styles.cardItem}>
-                <ProductCard product={product} />
+                <ProductCard product={product} view="grid" />
               </div>
             </Grid>
           ))}
@@ -29,7 +29,7 @@ const ProductList = ({ products, cols, view }) => {
         <Stack spacing={2}>
           {products.map((product, index) => (
             <div
-              key={index}
+              key={product.id}
               style={{ marginTop: "2rem", width: "50%", margin: "auto" }}
             >
               <ProductCard product={product} view="list" />
