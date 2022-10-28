@@ -1,11 +1,12 @@
-import FormatAlignLeftIcon from '@mui/icons-material/FormatAlignLeft';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { Box } from '@mui/material';
-import styles from './BottomNavbar.module.css';
+import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { Box } from "@mui/material";
+import Link from "next/link";
+import styles from "./BottomNavbar.module.css";
 
 const BottomNavbar = ({ handleMouseEnter, handleMouseLeave, isShow }) => {
   return (
-    <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+    <Box sx={{ display: { xs: "none", md: "block" } }}>
       <Box className={styles.bottomNavbar}>
         <div
           onMouseEnter={handleMouseEnter}
@@ -16,26 +17,26 @@ const BottomNavbar = ({ handleMouseEnter, handleMouseLeave, isShow }) => {
           Departments
           <KeyboardArrowDownIcon
             className={styles.arrowIcon}
-            style={{ transform: isShow ? 'rotate(-180deg)' : 'rotate(0deg)' }}
+            style={{ transform: isShow ? "rotate(-180deg)" : "rotate(0deg)" }}
           />
         </div>
         <div className={styles.line}></div>
         <nav className={styles.nav}>
           <ul className={styles.ul}>
             <li className={styles.li}>
-              <a href="">Home</a>
+              <Link href="/">Home</Link>
             </li>
             <li className={styles.li}>
-              <a href="">Shop</a>
+              <Link href="/shop">Shop</Link>
             </li>
             <li className={styles.li}>
-              <a href="">About</a>
+              <Link href={"/about"}>About</Link>
             </li>
             <li className={styles.li}>
-              <a href="">Contact</a>
+              <Link href={"/contact"}>Contact</Link>
             </li>
             <li className={styles.li}>
-              <a href="">Account</a>
+              <Link href={"/account"}>Account</Link>
             </li>
           </ul>
         </nav>

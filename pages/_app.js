@@ -6,6 +6,7 @@ import Footer from "../components/Footer";
 import Header from "../components/header";
 import Layout from "../components/Layout";
 import client from "../lib/apolloClient";
+import "../public/Styles/global.css";
 
 function MyApp({ Component, pageProps }) {
   const [isShow, setIsShown] = useState(false);

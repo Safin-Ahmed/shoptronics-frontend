@@ -1,11 +1,15 @@
 import { gql } from "@apollo/client";
 import client from "../lib/apolloClient";
 
-export const getProductsByPageNumber = async (pageNumber) => {
+export const getProductsByPageNumber = async (pageNumber, sort) => {
+  console.log({ sort });
   const { data, errors, loading } = await client.query({
     query: gql`
-      query getProducts($pageNumber: Int!) {
-        products(pagination: { page: $pageNumber, pageSize: 9 }) {
+      query getProducts($pageNumber: Int!, $sortOption: [String]) {
+        products(
+          pagination: { page: $pageNumber, pageSize: 9 }
+          sort: $sortOption
+        ) {
           data {
             id
             attributes {
@@ -34,7 +38,7 @@ export const getProductsByPageNumber = async (pageNumber) => {
         }
       }
     `,
-    variables: { pageNumber },
+    variables: { pageNumber, sortOption: sort },
   });
 
   return {
@@ -50,7 +54,7 @@ export const getTrendingProducts = async () => {
       query getTrendingProducts {
         products(
           filters: { isTrending: { eq: true } }
-          pagination: { limit: 5 }
+          pagination: { limit: 4 }
         ) {
           data {
             id
@@ -85,4 +89,31 @@ export const getTrendingProducts = async () => {
   return {
     data: data.products,
   };
+};
+
+export const getAllCategories = async () => {
+  const { data, errors, loading } = await client.query({
+    query: gql`
+      query getCategories {
+        categories {
+          data {
+            id
+            attributes {
+              name
+              sub_categories {
+                data {
+                  id
+                  attributes {
+                    Name
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `,
+  });
+
+  return data.categories;
 };

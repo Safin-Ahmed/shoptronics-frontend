@@ -1,12 +1,10 @@
 import Image from "next/image";
 import HomeStyled from "../../public/Styles/home.module.css";
-import productImage from "../../public/static/product.png";
-import rating from "../../public/static/rating-full.png";
-import ratingHalf from "../../public/static/rating-half.png";
 import { Button, Rating } from "@mui/material";
 import { calculateAverageRating } from "../../utils/rating";
 
-function ProductCard({ product }) {
+function ProductCard({ product, view }) {
+  console.log(product);
   /* 
 
   {
@@ -45,14 +43,8 @@ function ProductCard({ product }) {
 
   const {
     id,
-    attributes: {
-      title,
-      price,
-      discountPrice,
-      imgUrl,
-      reviews: { data: reviewsArray },
-    },
-  } = product ?? {
+    attributes: { title, price, discountPrice, imgUrl, reviews },
+  } = product || {
     id: 1,
     attributes: {
       title: "Test",
@@ -67,7 +59,7 @@ function ProductCard({ product }) {
   };
 
   const categories = product?.attributes?.categories?.data;
-  const rating = calculateAverageRating(reviewsArray);
+  const rating = calculateAverageRating(reviews?.data);
   const categoryNames = categories?.map((item, i) => {
     if (i === categories.length - 1) {
       return `${item.attributes.name}`;
@@ -76,37 +68,75 @@ function ProductCard({ product }) {
     }
   });
   return (
-    <div className={HomeStyled.productCard}>
+    <div
+      style={{
+        display: view === "list" ? "flex" : "",
+        alignItems: view === "list" ? "center" : "",
+      }}
+      className={HomeStyled.productCard}
+    >
       <div className={HomeStyled.productCardHeader}>
         <Image
           width={350}
           height={350}
           objectFit="contain"
-          src={imgUrl || productImage}
+          src={imgUrl || ""}
           alt={title}
         />
       </div>
       <div className={HomeStyled.productCardFooter}>
         <a href="#">{categoryNames}</a>
-        <h4>{title || "Monir Bhai"}</h4>
-        <div className={HomeStyled.productCardFooterMoreInfo}>
-          <div className={HomeStyled.productPrice}>
-            ${price || 100} {discountPrice && <span>${discountPrice}</span>}
-          </div>
+        <h4 style={{ fontSize: view === "list" ? "30px" : "" }}>{title}</h4>
+        {view === "list" && (
           <div>
             <Rating value={rating} readOnly />
           </div>
+        )}
+        <div
+          style={{ flexDirection: view === "list" ? "column" : "row" }}
+          className={HomeStyled.productCardFooterMoreInfo}
+        >
+          <div
+            style={{ fontSize: view === "list" ? "20px" : "" }}
+            className={HomeStyled.productPrice}
+          >
+            ${price}{" "}
+            {discountPrice && (
+              <span style={{ fontSize: view === "list" ? "18px" : "" }}>
+                ${discountPrice}
+              </span>
+            )}
+          </div>
+          {view !== "list" && (
+            <div>
+              <Rating value={rating} readOnly />
+            </div>
+          )}
+
+          {view === "list" && (
+            <div className={HomeStyled.add_to_cart_btn}>
+              <Button
+                sx={{ background: "#3C1FF4 !important", mt: 3 }}
+                fullWidth
+                variant="contained"
+              >
+                Add to cart
+              </Button>
+            </div>
+          )}
         </div>
       </div>
-      <div className={HomeStyled.add_to_cart_btn}>
-        <Button
-          sx={{ background: "#3C1FF4 !important", mt: 3 }}
-          fullWidth
-          variant="contained"
-        >
-          Add to cart
-        </Button>
-      </div>
+      {view !== "list" && (
+        <div className={HomeStyled.add_to_cart_btn}>
+          <Button
+            sx={{ background: "#3C1FF4 !important", mt: 3 }}
+            fullWidth
+            variant="contained"
+          >
+            Add to cart
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
