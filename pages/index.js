@@ -1,5 +1,6 @@
 import { getTrendingProducts } from "../api/api";
 import CarouselBanner from "../components/carouselBanner/carouselBanner";
+import PartnerBrand from "../components/partnerSection/PartnerBrand";
 import PromotionalBanner from "../components/promotionalBanner/PromotionalBanner";
 import BestSellingSection from "../components/Section/BestSellingSection";
 import TrendingProductSection from "../components/Section/TrendingProductSection";
@@ -11,7 +12,7 @@ export default function Home({ trendingProducts }) {
       <TrendingProductSection products={trendingProducts} />
       <PromotionalBanner />
       <BestSellingSection />
-      <BrandSection/>
+      <PartnerBrand/>
     </div>
   );
 }
