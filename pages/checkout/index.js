@@ -193,6 +193,7 @@ const Checkout = () => {
                 <div>
                   <Typography variant="h3">Shipping</Typography>
                   <div className={Classes.checkoutRightinfo}>
+
                     <FormControl>
                       <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"
@@ -223,6 +224,7 @@ const Checkout = () => {
                 <div>
                   <Typography variant="h3">Payment</Typography>
                   <div className={Classes.checkoutRightinfo}>
+
                     <FormControl>
                       <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"
