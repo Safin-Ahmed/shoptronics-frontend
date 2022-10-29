@@ -1,4 +1,4 @@
-import { action } from "easy-peasy";
+import { action, persist } from "easy-peasy";
 const cartModel = persist(
   {
     cart: [],
@@ -16,17 +16,21 @@ const cartModel = persist(
       }
     }),
     addItem: action((state, payload) => {
-      const product = state.cart.find((item) => item.id === payload.id);
+      const product = state.cart.find(
+        (item) =>
+          (item.id === payload.id && item.variantId === payload.variantId) ||
+          (item.id === payload.id && item.variantId === null)
+      );
 
       if (product) {
         product.quantity++;
       } else {
         state.cart.push({
           id: payload.id,
-          variantId: payload.variantId ? payload.variantId : null,
+          variantId: payload.variantId || null,
           price: payload.price,
-          discountPrice: payload.discountPrice,
-          quantity: payload.quantity,
+          discountPrice: payload.discountPrice || null,
+          quantity: payload.quantity || 1,
         });
       }
     }),
@@ -41,7 +45,7 @@ const cartModel = persist(
       }
     }),
   },
-  { localStorage: true }
+  { storage: "localStorage" }
 );
 
 export default cartModel;

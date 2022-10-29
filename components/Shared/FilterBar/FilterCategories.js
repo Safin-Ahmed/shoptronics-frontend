@@ -15,8 +15,6 @@ const FilterCategories = () => {
     return null;
   }
 
-  console.log(data);
-
   const categories = data.categories.data;
   return (
     <>

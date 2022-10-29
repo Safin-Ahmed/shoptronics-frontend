@@ -3,7 +3,6 @@ import React from "react";
 
 const FilterPage = () => {
   const router = useRouter();
-  console.log(router);
   return (
     <div>
       <h1>This is Filter Page</h1>
