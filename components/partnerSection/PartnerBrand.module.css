@@ -1,0 +1,26 @@
+.mySwiper {
+    width: 100%;
+    height: 10%;
+    text-align: center;
+    border: 1px solid #b8b8b8;
+  }
+  
+  .swiperSlider {
+    /* background: #f9f3f0; */
+    border: 1px solid #b8b8b8;
+    border-top: none;
+    border-bottom: none;
+    border-left: none;
+    /* border-right: none; */
+    background-position: center;
+    background-size: cover;
+    padding: 10px 0px;
+  }
+  
+  .swiperSlider .img {
+    display: block;
+    width: 100%;
+    height: 100px;
+    object-fit: contain;
+  }
+  

@@ -8,24 +8,22 @@ import Footer from "../components/Footer";
 import Header from "../components/header";
 import Layout from "../components/Layout";
 import client from "../lib/apolloClient";
-import store from '../store'
-
+import "../public/Styles/global.css";
+import { StoreProvider } from "easy-peasy";
+import store from "../store";
 
 function MyApp({ Component, pageProps }) {
   const [isShow, setIsShown] = useState(false);
 
-  const handleMouseEnter = () => {
-    setIsShown(true);
-  };
+  const handleMouseEnter = () => setIsShown(true);
 
-  const handleMouseLeave = () => {
-    setIsShown(false);
-  };
+  const handleMouseLeave = () => setIsShown(false);
+
   return (
-    <StoreProvider store={store}>
-      <ApolloProvider client={client}>
+    <ApolloProvider client={client}>
+      <StoreProvider store={store}>
+        <ErrorMessage />
         <CssBaseline>
-          <ErrorMessage />
           <Header
             isShow={isShow}
             handleMouseEnter={handleMouseEnter}
@@ -41,8 +39,8 @@ function MyApp({ Component, pageProps }) {
           </Layout>
           <Footer />
         </CssBaseline>
-      </ApolloProvider>
-    </StoreProvider>
+      </StoreProvider>
+    </ApolloProvider>
   );
 }
 

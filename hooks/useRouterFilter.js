@@ -24,7 +24,6 @@ const useRouterFilter = (type) => {
       const filteredItems = queries.filter(
         (item) => item !== formatString(e.target.value)
       );
-      console.log({ filteredItems });
       setQueries([...filteredItems]);
     }
   };

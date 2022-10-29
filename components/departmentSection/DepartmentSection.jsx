@@ -12,7 +12,7 @@ const DepartmentSection = ({ mouseEnter, mouseLeave, isShow }) => {
       style={{
         transform: isShow ? 'translateY(0)' : 'translateY(100px)',
         opacity: isShow ? '1' : '0',
-        zIndex: isShow ? '600' : '-1'
+        zIndex: isShow ? '600' : '-1',
       }}
     >
       <DepartmentCard />
