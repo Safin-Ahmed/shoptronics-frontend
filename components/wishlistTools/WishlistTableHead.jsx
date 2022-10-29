@@ -62,6 +62,7 @@ const WishlistTableHead = (props) => {
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
+            sx={{ fontWeight: 'bold', fontSize: '15px' }}
             key={headCell.id}
             align={headCell.numeric ? 'right' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'normal'}
@@ -84,7 +85,7 @@ const WishlistTableHead = (props) => {
       </TableRow>
     </TableHead>
   );
-}
+};
 
 WishlistTableHead.propTypes = {
   numSelected: PropTypes.number.isRequired,

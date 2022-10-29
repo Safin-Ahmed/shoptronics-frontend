@@ -1,4 +1,4 @@
-import { Alert, Button } from '@mui/material';
+import { Alert, Button, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import Paper from '@mui/material/Paper';
@@ -138,6 +138,12 @@ const Wishlist = () => {
 
   return (
     <Box sx={{ width: '90%', m: 'auto', my: '50px' }}>
+      <Typography
+        variant="h4"
+        sx={{ textAlign: 'center', mb: '50px', textDecoration: 'underline' }}
+      >
+        Wishlist
+      </Typography>
       {rows.length > 0 ? (
         <Paper sx={{ width: '100%', mb: 2 }}>
           <TableToolbar
@@ -226,7 +232,16 @@ const Wishlist = () => {
           />
         </Paper>
       ) : (
-        <Alert severity="warning">Your Wishlist in Empty</Alert>
+        <Box  sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
+          <Image
+            src="/../public/static/icons8-empty-box-80.png "
+            alt="logo"
+            width="80"
+            height="80"
+           
+          />
+          <Alert severity="warning">Your Wishlist in Empty</Alert>
+        </Box>
       )}
     </Box>
   );
