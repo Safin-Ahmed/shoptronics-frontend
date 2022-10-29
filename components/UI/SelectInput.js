@@ -1,7 +1,13 @@
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import React from "react";
 
-const SelectInput = ({ label, options, handleChange, stateValue }) => {
+const SelectInput = ({
+  options,
+  handleChange,
+  stateValue,
+  name = "",
+  onClick,
+}) => {
   return (
     <FormControl fullWidth>
       <Select
@@ -10,10 +16,12 @@ const SelectInput = ({ label, options, handleChange, stateValue }) => {
         value={stateValue}
         onChange={handleChange}
         size="small"
+        name={name}
+        onClick={onClick || null}
       >
-        {options.map((item, i) => (
+        {options?.map((item, i) => (
           <MenuItem key={i} value={item.value}>
-            {item.label}
+            {item.label || item.value}
           </MenuItem>
         ))}
       </Select>

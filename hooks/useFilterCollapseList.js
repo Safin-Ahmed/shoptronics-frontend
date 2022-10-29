@@ -38,7 +38,6 @@ const useFilterCollapseList = (options, searchTerm, setSearchTerm, type) => {
       ?.split("?")[1]
       ?.split("&")
       ?.filter((item) => item.includes(type));
-    console.log(filterTypeOption);
     const values = filterTypeOption?.[0]?.split("=")[1];
     const valuesArray = convertParamsToArray(values);
     setQueries(valuesArray);

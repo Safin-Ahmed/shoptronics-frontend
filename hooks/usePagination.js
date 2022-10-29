@@ -2,10 +2,6 @@ import { useRouter } from "next/router";
 
 const usePagination = ({ page, pageCount }) => {
   const router = useRouter();
-  console.log({
-    page,
-    pageCount,
-  });
   const getNextPage = () => {
     router.push({
       query: { ...router.query, page: page < pageCount ? page + 1 : page },
