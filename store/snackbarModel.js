@@ -1,16 +1,16 @@
-import { persist, action } from "easy-peasy";
+import {  action } from "easy-peasy";
 
 
-const errorModel = {
+const snackbarModel = {
     message: null,
     type: null,
-    setError: action((state, payload) => {
+    setMessage: action((state, payload) => {
         state.message = payload.message
         state.type = payload.type
     }),
-    clearError: action((state, payload) => {
+    clearMessage: action((state) => {
         state.message = null
         state.type = null
     }),
 };
-export default errorModel;
+export default snackbarModel;

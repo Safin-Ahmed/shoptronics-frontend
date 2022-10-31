@@ -1,10 +1,16 @@
-import { Box, Card, Divider, FormControl, FormGroup, InputLabel, OutlinedInput, Typography, Button } from "@mui/material";
+import { Box, Card, Divider, FormControl, FormGroup, InputLabel, OutlinedInput, Typography, Button, CircularProgress } from "@mui/material";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { isObjEmpty } from "../../utils/objectUtil";
+import { REGISTER_MUTATION } from "../../graphQL/Mutations";
+import { useMutation } from "@apollo/client";
+import alertMessage from "../../utils/alertMessage";
+import { setStorage } from "../../utils/storage";
+import { useStoreActions } from "easy-peasy";
+import { useRouter } from "next/router";
 
 
 
@@ -12,16 +18,29 @@ import { isObjEmpty } from "../../utils/objectUtil";
 const validationSchema = Yup.object().shape({
   username: Yup.string()
     .required('Username is required')
-    .min(6, 'Username must be at least 6 characters')
+    .min(4, 'Username must be at least 4 characters')
     .max(20, 'Username must not exceed 20 characters'),
   email: Yup.string()
     .required('Email is required')
     .email('Email is invalid'),
+  password: Yup.string()
+    .required('Password is required')
+    .min(6, 'Password must be at least 6 characters')
+    .max(40, 'Password must not exceed 40 characters'),
+  confirmPassword: Yup.string()
+    .required('Confirm Password is required')
+    .oneOf([Yup.ref('password'), null], 'Confirm Password does not match'),
 });
 
 
 
 const Register = () => {
+  const [registration, { data, loading }] = useMutation(REGISTER_MUTATION);
+
+
+  const authAction = useStoreActions(actions => actions.auth)
+  const router = useRouter();
+
 
   const {
     handleSubmit,
@@ -32,11 +51,40 @@ const Register = () => {
   });
 
 
-  const onSubmit = (data) => {
+  const onSubmit = async (formData) => {
     if (!isObjEmpty(errors)) return null;
 
-    console.log('data', data);
+    const { email, username, password } = formData;
+
+    try {
+      await registration({
+        variables: {
+          email,
+          username,
+          password
+        }
+      })
+    } catch (error) {
+      console.log('error', error);
+      alertMessage('Email or Username are already taken', 'error');
+    }
   };
+
+
+  useEffect(() => {
+    if (data) {
+
+      const authInfo = {
+        user: data.register.user,
+        token: data.register.jwt
+      }
+      setStorage('authInfo', authInfo);
+      authAction.setLogin(authInfo)
+      alertMessage('Registration Successful!', 'success');
+      router.push('/')
+    }
+  }, [data])
+
 
 
   return (
@@ -62,9 +110,7 @@ const Register = () => {
           <Typography>Sign Up</Typography>
         </Box>
         <Divider sx={{ mb: 4 }} />
-        <Box sx={{
-          px: 5,
-        }}>
+        <Box sx={{ px: 5 }}>
           <FormGroup sx={{ my: 2 }}>
             <InputLabel>Username</InputLabel>
             <FormControl sx={{ width: '100%' }}>
@@ -95,14 +141,37 @@ const Register = () => {
             </Typography>
           </FormGroup>
 
-          {/* <FormGroup sx={{ my: 2 }}>
+
+          <FormGroup sx={{ my: 2 }}>
             <InputLabel>Enter Password</InputLabel>
             <FormControl sx={{ width: '100%' }}>
               <OutlinedInput
                 type="password"
+                name="password"
+                required
+                {...register('password')}
               />
             </FormControl>
-          </FormGroup> */}
+            <Typography variant="inherit" color="red">
+              {errors.password?.message}
+            </Typography>
+          </FormGroup>
+
+
+          <FormGroup sx={{ my: 2 }}>
+            <InputLabel>Confirm Password</InputLabel>
+            <FormControl sx={{ width: '100%' }}>
+              <OutlinedInput
+                type="password"
+                name="confirmPassword"
+                required
+                {...register('confirmPassword')}
+              />
+            </FormControl>
+            <Typography variant="inherit" color="red">
+              {errors.confirmPassword?.message}
+            </Typography>
+          </FormGroup>
 
 
           <Button
@@ -114,7 +183,9 @@ const Register = () => {
               backgroundColor: "#3C1FF4",
               color: "#fff",
               py: 1.5
-            }}>Sign Up</Button>
+            }}>
+            {loading ? <CircularProgress color="info" size={25} /> : 'Sign Up'}
+          </Button>
 
           <Box
             sx={{

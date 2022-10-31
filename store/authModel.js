@@ -1,16 +1,21 @@
 import { persist, action } from "easy-peasy";
+
+
+
 const authModel = persist({
   isAuthenticated: false,
-  authUser: {},
-  login: action((state, payload) => {
+  token: null,
+  user: {},
+  setLogin: action((state, payload) => {
     state.isAuthenticated = true;
-    state.authUser = payload;
+    state.token = payload.token;
+    state.user = payload.user;
   }),
   logout: action((state) => {
     state.isAuthenticated = false;
-    state.authUser = {};
+    state.token = null;
+    state.user = {};
   }),
-  register: action((state, payload) => { }),
 });
 
 export default authModel;

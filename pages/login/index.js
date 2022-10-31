@@ -1,80 +1,81 @@
-import { Box, Card, FormControlLabel, Divider, FormControl, FormGroup, InputLabel, OutlinedInput, Typography, Checkbox, Button, CircularProgress, FormLabel } from "@mui/material";
+import { Box, Card, Divider, FormControl, FormGroup, InputLabel, OutlinedInput, Typography, Button, CircularProgress, FormControlLabel, Checkbox } from "@mui/material";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
+import { isObjEmpty } from "../../utils/objectUtil";
+import { LOGIN_MUTATION, REGISTER_MUTATION } from "../../graphQL/Mutations";
 import { useMutation } from "@apollo/client";
-import { LOGIN_MUTATION } from "../../graphQL/Mutations";
+import alertMessage from "../../utils/alertMessage";
+import { setStorage } from "../../utils/storage";
 import { useStoreActions } from "easy-peasy";
+import { useRouter } from "next/router";
 
 
 
 
+const validationSchema = Yup.object().shape({
+  email: Yup.string()
+    .required('Email is required')
+    .email('Email is invalid'),
+  password: Yup.string()
+    .required('Password is required')
+    .min(6, 'Password must be at least 6 characters')
+    .max(40, 'Password must not exceed 40 characters'),
+});
 
 
 
-const Login = () => {
-  const [values, setValues] = useState({
-    email: "",
-    password: "",
-    error: ""
-  })
-
-  const setError = useStoreActions(actions => actions.error.setError);
+const LoginPage = () => {
+  const [registration, { data, loading }] = useMutation(LOGIN_MUTATION);
 
 
-  const [login, { data, loading, error, reset }] = useMutation(LOGIN_MUTATION);
+  const authAction = useStoreActions(actions => actions.auth)
+  const router = useRouter();
 
 
-
-  const handleChange = e => setValues({
-    ...values,
-    [e.target.name]: e.target.value
-  })
-
-  const loginHandler = (e) => {
-    e.preventDefault();
-
-    const { email, password } = values;
-    console.log('values', values)
+  const {
+    handleSubmit,
+    register,
+    formState: { errors }
+  } = useForm({
+    resolver: yupResolver(validationSchema)
+  });
 
 
-    if (!email || !password) {
-      setValues({
-        email,
-        password,
-        error: !email ? 'Email field is required!' : 'Password field is required'
+  const onSubmit = async (formData) => {
+    if (!isObjEmpty(errors)) return null;
+
+    const { email, password } = formData;
+
+    try {
+      await registration({
+        variables: {
+          email,
+          password
+        }
       })
-      return;
+    } catch (error) {
+      console.log('error', error);
+      alertMessage('Invalid Credentials!', 'error');
     }
-
-    setValues({
-      ...values,
-      error: ""
-    })
-
-    login({
-      variables: {
-        email,
-        password
-      }
-    });
-  }
-
-
-  console.log('loading', loading);
-  console.log('data', data?.login?.jwt);
+  };
 
 
   useEffect(() => {
-    if (error) {
-      setError({ message: JSON.stringify(error), type: 'error' })
+    if (data) {
+      const authInfo = {
+        user: data.login.user,
+        token: data.login.jwt
+      }
+      setStorage('authInfo', authInfo);
+      authAction.setLogin(authInfo)
+      alertMessage('Login Successful!', 'success');
+      router.push('/')
     }
-  }, [error])
+  }, [data])
 
-
-
-  const facebookLoginHandler = () => {
-    // console.log('click to login')
-  }
 
 
 
@@ -101,83 +102,86 @@ const Login = () => {
           <Typography>Sign In</Typography>
         </Box>
         <Divider sx={{ mb: 4 }} />
-        <Box sx={{
-          px: 5,
-        }}>
-          {values.error && <FormLabel sx={{ color: "red" }}>{values.error}</FormLabel>}
-          {data?.login?.jwt && <FormLabel color="success">Login Successful</FormLabel>}
-          <form onSubmit={loginHandler}>
-            <FormGroup sx={{ my: 2 }}>
-              <InputLabel>Enter Email</InputLabel>
-              <FormControl sx={{ width: '100%' }}>
-                <OutlinedInput
-                  type="text"
-                  name="email"
-                  value={values.email}
-                  onChange={handleChange}
-                />
-              </FormControl>
-            </FormGroup>
+        <Box sx={{ px: 5 }}>
 
-            <FormGroup sx={{ my: 2 }}>
-              <InputLabel>Enter Password</InputLabel>
-              <FormControl sx={{ width: '100%' }}>
-                <OutlinedInput
-                  type="password"
-                  name="password"
-                  value={values.password}
-                  onChange={handleChange}
-                />
-              </FormControl>
-            </FormGroup>
 
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                my: 2,
-                alignItems: "center",
-                color: "##000000AD"
-              }}>
+          <FormGroup sx={{ my: 2 }}>
+            <InputLabel>Enter Email</InputLabel>
+            <FormControl sx={{ width: '100%' }}>
+              <OutlinedInput
+                type="email"
+                name="email"
+                required
+                {...register('email')}
+              />
+            </FormControl>
+            <Typography variant="inherit" color="red">
+              {errors.email?.message}
+            </Typography>
+          </FormGroup>
+
+
+          <FormGroup sx={{ my: 2 }}>
+            <InputLabel>Enter Password</InputLabel>
+            <FormControl sx={{ width: '100%' }}>
+              <OutlinedInput
+                type="password"
+                name="password"
+                required
+                {...register('password')}
+              />
+            </FormControl>
+            <Typography variant="inherit" color="red">
+              {errors.password?.message}
+            </Typography>
+          </FormGroup>
+
+
+
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              my: 2,
+              alignItems: "center",
+              color: "##000000AD"
+            }}>
+            <FormGroup>
               <FormGroup>
-                <FormGroup>
-                  <FormControlLabel control={<Checkbox defaultChecked />} label="Remember Me" sx={{ color: "#000000AD" }} />
-                </FormGroup>
+                <FormControlLabel control={<Checkbox defaultChecked />} label="Remember Me" sx={{ color: "#000000AD" }} />
               </FormGroup>
+            </FormGroup>
 
-              <Link
-                href="/forgot-password"
-              >
-                <a
-                  style={{
-                    color: "#000",
-                    textDecoration: "none",
-                    color: "#000000AD",
-                    fontFamily: 'Rubik',
-                    fontStyle: "normal",
-                  }}
-                >Forgotten Password?</a>
-              </Link>
-            </Box>
-
-            <Button
-              type="submit"
-              variant="contained"
-              sx={{
-                width: "100%",
-                backgroundColor: "#3C1FF4",
-                color: "#fff",
-                py: 1.5
-              }}>
-              {loading ? <CircularProgress color="info" size={25} /> : 'Sign In'}
-            </Button>
-          </form>
+            <Link
+              href="/forgot-password"
+            >
+              <a
+                style={{
+                  color: "#000",
+                  textDecoration: "none",
+                  color: "#000000AD",
+                  fontFamily: 'Rubik',
+                  fontStyle: "normal",
+                }}
+              >Forgotten Password?</a>
+            </Link>
+          </Box>
 
           <Button
-            // onClick={(e) => {
-            //   e.preventDefault();
-            //   signIn();
-            // }}
+          onClick={handleSubmit(onSubmit)}
+            type="submit"
+            variant="contained"
+            sx={{
+              width: "100%",
+              backgroundColor: "#3C1FF4",
+              color: "#fff",
+              py: 1.5
+            }}>
+            {loading ? <CircularProgress color="info" size={25} /> : 'Sign In'}
+          </Button>
+
+
+          <Button
             variant="contained"
             sx={{
               width: "100%",
@@ -188,7 +192,6 @@ const Login = () => {
             }}>Login with Google</Button>
 
           <Button
-            onClick={facebookLoginHandler}
             variant="contained"
             sx={{
               width: "100%",
@@ -228,19 +231,9 @@ const Login = () => {
             </Link>
           </Box>
         </Box>
-      </Card >
-    </Box >
+      </Card>
+    </Box>
   );
 };
 
-
-// export const getServerSideProps = async ({ req }) => {
-//   const session = await getSession({ req });
-//   return {
-//     props: {
-//       session,
-//     },
-//   };
-// };
-
-export default Login;
+export default LoginPage;
