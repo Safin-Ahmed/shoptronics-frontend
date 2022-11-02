@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import useSelect from "../../hooks/useSelect";
 
 const VariantSelect = ({ options, setChosenAttributes, name }) => {
-  console.log(`Options for ${name} in Variant Select`, { options });
   const { state, handleChange, handleClick } = useSelect(options?.[0]?.value);
   useEffect(() => {
     setChosenAttributes((prev) => ({

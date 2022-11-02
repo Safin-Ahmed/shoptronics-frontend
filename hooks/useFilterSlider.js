@@ -1,17 +1,21 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-const useFilterSlider = (min, max) => {
-  const [value, setValue] = useState([min, max]);
+const useFilterSlider = (sliderValue) => {
+  const [value, setValue] = useState([...sliderValue]);
   const router = useRouter();
   const handleChange = (e, newValue) => {
     setValue(newValue);
-    router.push({
-      query: {
-        ...router.query,
-        filter_price: newValue.toString().replaceAll(",", "-"),
+    router.push(
+      {
+        query: {
+          ...router.query,
+          filter_price: newValue.toString().replaceAll(",", "-"),
+        },
       },
-    });
+      undefined,
+      { shallow: false }
+    );
   };
 
   useEffect(() => {
@@ -24,7 +28,7 @@ const useFilterSlider = (min, max) => {
     const values = options?.[1]?.split("-");
 
     if (values?.length > 0) {
-      setValue(values);
+      setValue(values.map((item) => +item));
     }
   }, []);
 

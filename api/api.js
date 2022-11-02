@@ -1,52 +1,29 @@
 import { gql } from "@apollo/client";
 import client from "../lib/apolloClient";
 
-export const getProductsByPageNumber = async (pageNumber, sort) => {
+export const getProductsByPageNumber = async (
+  pageNumber,
+  sort,
+  gqlQuery,
+  queryObject
+) => {
+  console.log(queryObject);
   const { data, errors, loading } = await client.query({
     query: gql`
-      query getProducts($pageNumber: Int!, $sortOption: [String]) {
-        products(
-          pagination: { page: $pageNumber, pageSize: 9 }
-          sort: $sortOption
-        ) {
-          data {
-            id
-            attributes {
-              title
-              slug
-              description
-              price
-              reviews {
-                data {
-                  id
-                  attributes {
-                    rating
-                  }
-                }
-              }
-              discountPrice
-              imgUrl
-              categories {
-                data {
-                  id
-                  attributes {
-                    name
-                  }
-                }
-              }
-            }
-          }
-          meta {
-            pagination {
-              page
-              pageSize
-              pageCount
-            }
-          }
-        }
-      }
+      ${gqlQuery}
     `,
-    variables: { pageNumber, sortOption: sort },
+    variables: {
+      pageNumber,
+      sortOption: sort,
+      startPrice: !isNaN(queryObject.startPrice) ? queryObject.startPrice : 0,
+      endPrice: !isNaN(queryObject.endPrice) ? queryObject.endPrice : 1000,
+      subCategories: queryObject.subCategories,
+      stockStatus: queryObject.stock,
+      brands: queryObject.brands,
+      attribute:
+        queryObject.attributes.length > 0 ? queryObject.attributes : undefined,
+      rating: queryObject.rating,
+    },
   });
 
   return {

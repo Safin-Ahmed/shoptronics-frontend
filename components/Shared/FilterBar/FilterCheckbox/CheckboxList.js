@@ -10,7 +10,7 @@ export default function CheckboxList({ options, type }) {
   const { addQueryParams, queries } = useRouterFilter(type);
   return (
     <FormGroup>
-      {options.map((item) => (
+      {options?.map((item) => (
         <FormControlLabel
           key={item}
           control={

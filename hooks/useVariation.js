@@ -31,6 +31,8 @@ const useVariation = (id, name) => {
   useEffect(() => {
     if (!variantAttributesLoading && !variantOptionsLoading) {
       setIsLoading(false);
+    } else {
+      setIsLoading(true);
     }
   }, [variantAttributesLoading, variantOptionsLoading]);
 
@@ -76,6 +78,13 @@ const useVariation = (id, name) => {
     acc[key] = option?.value;
     return acc;
   }, {});
+
+  console.log({
+    attributesList,
+    optionsList,
+    variantAttributes,
+    variantOptions,
+  });
 
   return {
     attributesList,
