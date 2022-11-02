@@ -1,6 +1,9 @@
+import { useLazyQuery } from "@apollo/client";
 import { Grid, Stack } from "@mui/material";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { convertParamsToArray } from "../../utils/queryParams";
 import ProductCard from "../Shared/ProductCard";
 
 const styles = {

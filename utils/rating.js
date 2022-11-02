@@ -3,5 +3,5 @@ export const calculateAverageRating = (reviews) => {
     return (acc += cur.attributes.rating);
   }, 0);
 
-  return totalRating / reviews?.length;
+  return Math.floor(totalRating / reviews?.length);
 };
