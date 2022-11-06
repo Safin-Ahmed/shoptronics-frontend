@@ -1,17 +1,18 @@
 import Image from "next/image";
 import HomeStyled from "../../public/Styles/home.module.css";
-import { Button, Rating, Typography, Box } from "@mui/material";
+import { Button, Rating, Typography, Box, Chip } from "@mui/material";
 import { calculateAverageRating } from "../../utils/rating";
 import Link from "next/link";
 import useVariation from "../../hooks/useVariation";
 import VariantSelect from "../UI/variantSelect";
 import { useStoreActions } from "easy-peasy";
 import CircularProgress from "@mui/material/CircularProgress";
+import { generateCategoryNames } from "../../utils/string";
 
 function ProductCard({ product, view }) {
   const {
     id,
-    attributes: { title, price, discountPrice, imgUrl, reviews },
+    attributes: { title, price, discountPrice, imgUrl, reviews, stockStatus },
   } = product || {
     id: "test",
     attributes: {
@@ -26,14 +27,11 @@ function ProductCard({ product, view }) {
   };
 
   const categories = product?.attributes?.categories?.data;
+  const subCategories = product?.attributes?.sub_categories?.data;
   const rating = calculateAverageRating(reviews?.data);
-  const categoryNames = categories?.map((item, i) => {
-    if (i === categories.length - 1) {
-      return `${item.attributes.name}`;
-    } else {
-      return `${item.attributes.name}, `;
-    }
-  });
+  const subCategoryNames = generateCategoryNames(subCategories);
+  const categoryNames = generateCategoryNames(categories);
+  const stock = stockStatus === "in_stock" ? "In Stock" : "Out of Stock";
 
   const {
     variantSelectOptions,
@@ -42,13 +40,11 @@ function ProductCard({ product, view }) {
     getVariants,
     variantData,
     isLoading,
-  } = useVariation(id, title);
+  } = useVariation(+id, title);
 
   const addItem = useStoreActions((action) => action.cart.addItem);
 
-  console.log(`variant selection options for product ${id}`, {
-    variantSelectOptions,
-  });
+  console.log({ variantSelectOptions, variantData });
 
   const handleAddToCart = async (e) => {
     e.preventDefault();
@@ -73,19 +69,19 @@ function ProductCard({ product, view }) {
     addItem(payload);
   };
 
-  if (isLoading) {
-    return (
-      <div
-        style={{
-          display: view === "list" ? "flex" : "",
-          alignItems: view === "list" ? "center" : "",
-          textAlign: "center",
-        }}
-      >
-        <CircularProgress />;
-      </div>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <div
+  //       style={{
+  //         display: view === "list" ? "flex" : "",
+  //         alignItems: view === "list" ? "center" : "",
+  //         textAlign: "center",
+  //       }}
+  //     >
+  //       <CircularProgress />;
+  //     </div>
+  //   );
+  // }
 
   return (
     <>
@@ -113,15 +109,28 @@ function ProductCard({ product, view }) {
               onClick={(e) => e.preventDefault()}
               className={HomeStyled.productCardFooter}
             >
-              <Typography variant="subTitle1">{categoryNames}</Typography>
+              <Chip
+                label={stock}
+                size="small"
+                color={stock.includes("Out") ? "error" : "success"}
+                variant="outlined"
+                sx={{ mt: 1, maxWidth: "fit-content", mb: 1 }}
+              />
+
+              <Typography variant="subTitle1">
+                {categoryNames} | {subCategoryNames}
+              </Typography>
+              <Typography variant="subTitle1"></Typography>
               <h4 style={{ fontSize: view === "list" ? "30px" : "" }}>
                 {title}
               </h4>
+
               {view === "list" && (
                 <div>
                   <Rating value={rating} readOnly />
                 </div>
               )}
+
               <div
                 style={{
                   flexDirection: view === "list" ? "column" : "row",
@@ -148,6 +157,7 @@ function ProductCard({ product, view }) {
                   }}
                 >
                   {variantSelectOptions?.length > 0 &&
+                    !isLoading &&
                     variantSelectOptions?.map((item, i) => {
                       return (
                         <VariantSelect

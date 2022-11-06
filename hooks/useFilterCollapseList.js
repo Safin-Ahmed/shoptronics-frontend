@@ -22,14 +22,23 @@ const useFilterCollapseList = (options, searchTerm, setSearchTerm, type) => {
   };
 
   const handleQuery = (params) => {
+    const newQueryParam = formatString(params.id);
     isInitial = false;
-    setQueries((prev) => {
-      let newArr = prev
-        ? [...prev, formatString(params.id)]
-        : [formatString(params.id)];
+    let newArr = [];
+    const prevQueries = router.query[type]
+      ? convertParamsToArray(router.query[type])
+      : null;
+    if (prevQueries) {
+      if (prevQueries.includes(newQueryParam)) {
+        newArr = prevQueries.filter((item) => item !== newQueryParam);
+      } else {
+        newArr = [...prevQueries, newQueryParam];
+      }
+    } else {
+      newArr = [newQueryParam];
+    }
 
-      return newArr;
-    });
+    return setQueries(newArr);
   };
 
   useEffect(() => {
@@ -47,9 +56,28 @@ const useFilterCollapseList = (options, searchTerm, setSearchTerm, type) => {
     if (isInitial) {
       return;
     }
-    router.push({
-      query: { ...router.query, [type]: convertArrayToQueryParams(queries) },
-    });
+
+    console.log({ router: router.query, queries });
+    if (queries.length < 1) {
+      const newRouter = { ...router.query };
+      delete newRouter[type];
+      router.push(
+        {
+          query: newRouter,
+        },
+        undefined,
+        { shallow: false }
+      );
+
+      return;
+    }
+    router.push(
+      {
+        query: { ...router.query, [type]: convertArrayToQueryParams(queries) },
+      },
+      undefined,
+      { shallow: false }
+    );
   }, [queries]);
 
   const finalOptionsList = isViewAll ? optionsList : optionsList.slice(0, 4);

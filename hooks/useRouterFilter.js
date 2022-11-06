@@ -50,19 +50,27 @@ const useRouterFilter = (type) => {
     if (queries?.length === 0) {
       const newRouter = { ...router.query };
       delete newRouter[type];
-      router.push({
-        query: newRouter,
-      });
+      router.push(
+        {
+          query: newRouter,
+        },
+        undefined,
+        { shallow: false }
+      );
 
       return;
     }
 
-    router.push({
-      query: {
-        ...router.query,
-        [type]: `${convertArrayToQueryParams(queries)}`,
+    router.push(
+      {
+        query: {
+          ...router.query,
+          [type]: `${convertArrayToQueryParams(queries)}`,
+        },
       },
-    });
+      undefined,
+      { shallow: false }
+    );
   }, [queries]);
 
   return {
