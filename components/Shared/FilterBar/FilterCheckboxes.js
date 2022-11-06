@@ -43,7 +43,7 @@ const FilterCheckboxes = () => {
         type="filter_brand"
       />
 
-      {attributes.map((item) => (
+      {attributes?.map((item) => (
         <FilterCheckbox
           key={`${item.name} - ${item.id}`}
           title={item.name}

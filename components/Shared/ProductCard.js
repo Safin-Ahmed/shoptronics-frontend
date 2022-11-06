@@ -142,10 +142,10 @@ function ProductCard({ product, view }) {
                   style={{ fontSize: view === "list" ? "20px" : "" }}
                   className={HomeStyled.productPrice}
                 >
-                  ${price}{" "}
+                  ${discountPrice ? discountPrice : price}{" "}
                   {discountPrice && (
                     <span style={{ fontSize: view === "list" ? "18px" : "" }}>
-                      ${discountPrice}
+                      ${price}
                     </span>
                   )}
                 </div>

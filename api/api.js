@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 import client from "../lib/apolloClient";
+import { getProductBySlugQuery } from "../lib/queries";
 
 export const getProductsByPageNumber = async (
   pageNumber,
@@ -102,4 +103,19 @@ export const getAllCategories = async () => {
   });
 
   return data.categories;
+};
+
+export const getProductBySlug = async (slug) => {
+  const { data } = await client.query({
+    query: gql`
+      ${getProductBySlugQuery}
+    `,
+    variables: {
+      slug,
+    },
+  });
+
+  console.log({ data });
+
+  return data.productBySlug.data;
 };
