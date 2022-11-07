@@ -1,6 +1,9 @@
 import { gql } from "@apollo/client";
 import client from "../lib/apolloClient";
-import { getProductBySlugQuery } from "../lib/queries";
+import {
+  getBestSellingProductsQuery,
+  getProductBySlugQuery,
+} from "../lib/queries";
 
 export const getProductsByPageNumber = async (
   pageNumber,
@@ -24,6 +27,7 @@ export const getProductsByPageNumber = async (
       attribute:
         queryObject.attributes.length > 0 ? queryObject.attributes : undefined,
       rating: queryObject.rating,
+      searchTerm: queryObject.searchTerm,
     },
   });
 
@@ -70,6 +74,18 @@ export const getTrendingProducts = async () => {
           }
         }
       }
+    `,
+  });
+
+  return {
+    data: data.products,
+  };
+};
+
+export const getBestSellingProducts = async () => {
+  const { data } = await client.query({
+    query: gql`
+      ${getBestSellingProductsQuery}
     `,
   });
 

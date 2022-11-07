@@ -1,16 +1,12 @@
-import { gql, useLazyQuery } from "@apollo/client";
-import { getFormLabelUtilityClasses } from "@mui/material";
+import { Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { useEffect } from "react";
 import { getProductsByPageNumber } from "../../api/api";
 import BreadcrumbsCom from "../../components/breadcrumbs/BreadcrumbsCom";
 import BottomPagination from "../../components/pagination/BottomPagination";
 import TopPagination from "../../components/pagination/TopPagination";
 import ProductList from "../../components/product-list";
 import FilterBar from "../../components/Shared/FilterBar";
-import { useShop } from "../../hooks/useShop";
-import client from "../../lib/apolloClient";
 import {
   generateGetProductsQuery,
   getProductsByCategories,
@@ -19,6 +15,8 @@ import { convertParamsToArray } from "../../utils/queryParams";
 
 const Shop = ({ products, pagination }) => {
   const [view, setView] = useState("grid");
+  const router = useRouter();
+  const searchTerm = router.query.search;
 
   const viewHandler = (style) => {
     setView(style);
@@ -44,6 +42,13 @@ const Shop = ({ products, pagination }) => {
           <FilterBar />
         </div>
         <div style={{ width: "78%" }}>
+          {searchTerm && (
+            <div style={{ marginBottom: "2rem" }}>
+              <Typography variant="h5">
+                Showing Search Results for : {searchTerm}
+              </Typography>
+            </div>
+          )}
           <TopPagination viewHandler={viewHandler} pagination={pagination} />
           <ProductList view={view} products={products} cols={3} />
           <BottomPagination pagination={pagination} />
@@ -65,6 +70,8 @@ export async function getServerSideProps(ctx) {
   const rating = convertParamsToArray(query["filter_rating"])?.map(
     (item) => +item
   );
+  const searchTerm = query["search"];
+  console.log({ searchTerm });
   const attributes = Object.keys(query)
     .filter((item) => item.includes("attribute"))
     .map((item) => query[item]);
@@ -78,6 +85,7 @@ export async function getServerSideProps(ctx) {
     brands: filter_brands,
     attributes,
     rating,
+    searchTerm,
   };
 
   const { data } = await getProductsByPageNumber(

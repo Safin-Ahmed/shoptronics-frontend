@@ -12,7 +12,15 @@ import { generateCategoryNames } from "../../utils/string";
 function ProductCard({ product, view }) {
   const {
     id,
-    attributes: { title, price, discountPrice, imgUrl, reviews, stockStatus },
+    attributes: {
+      title,
+      price,
+      discountPrice,
+      imgUrl,
+      reviews,
+      stockStatus,
+      averageRating,
+    },
   } = product || {
     id: "test",
     attributes: {
@@ -28,7 +36,6 @@ function ProductCard({ product, view }) {
 
   const categories = product?.attributes?.categories?.data;
   const subCategories = product?.attributes?.sub_categories?.data;
-  const rating = calculateAverageRating(reviews?.data);
   const subCategoryNames = generateCategoryNames(subCategories);
   const categoryNames = generateCategoryNames(categories);
   const stock = stockStatus === "in_stock" ? "In Stock" : "Out of Stock";
@@ -43,8 +50,6 @@ function ProductCard({ product, view }) {
   } = useVariation(+id, title);
 
   const addItem = useStoreActions((action) => action.cart.addItem);
-
-  console.log({ variantSelectOptions, variantData });
 
   const handleAddToCart = async (e) => {
     e.preventDefault();
@@ -127,7 +132,7 @@ function ProductCard({ product, view }) {
 
               {view === "list" && (
                 <div>
-                  <Rating value={rating} readOnly />
+                  <Rating value={averageRating} readOnly />
                 </div>
               )}
 
@@ -171,7 +176,7 @@ function ProductCard({ product, view }) {
                 </div>
                 {view !== "list" && (
                   <div>
-                    <Rating value={rating} readOnly />
+                    <Rating value={averageRating} readOnly />
                   </div>
                 )}
 

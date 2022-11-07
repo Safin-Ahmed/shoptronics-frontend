@@ -19,7 +19,7 @@ const ProductList = ({ products, cols, view = "grid" }) => {
     <>
       {view === "grid" && (
         <Grid container spacing={2}>
-          {products.map((product, index) => (
+          {products?.map((product, index) => (
             <Grid key={product.id} item xs={12} md={12 / cols}>
               <div style={styles.cardItem}>
                 <ProductCard product={product} view="grid" />
@@ -31,7 +31,7 @@ const ProductList = ({ products, cols, view = "grid" }) => {
 
       {view === "list" && (
         <Stack spacing={2}>
-          {products.map((product, index) => (
+          {products?.map((product, index) => (
             <div
               key={product.id}
               style={{ marginTop: "2rem", width: "50%", margin: "auto" }}

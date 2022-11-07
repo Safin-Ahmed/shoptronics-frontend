@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Chip,
   Container,
   Grid,
   IconButton,
@@ -14,23 +15,17 @@ import Rating from "@mui/material/Rating";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import SingleProduct from "../../components/SingleProduct";
-import productImage1 from "../../public/static/productg1.jpg";
-import productImage2 from "../../public/static/productg2.jpg";
-import productImage3 from "../../public/static/productg3.jpg";
-import productImage4 from "../../public/static/productg4.jpg";
-import ControlPointIcon from "@mui/icons-material/ControlPoint";
-import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 import Image from "next/image";
 import HomeHeader from "../../components/Shared/HomeHeader";
 import ProductCard from "../../components/Shared/ProductCard";
 import { getProductBySlug } from "../../api/api";
 import { useEffect } from "react";
-import { ArrowDownward, ArrowUpward } from "@mui/icons-material";
 import { GridArrowDownwardIcon, GridArrowUpwardIcon } from "@mui/x-data-grid";
+import { Add, Remove } from "@mui/icons-material";
+import useVariation from "../../hooks/useVariation";
+import ProductList from "../../components/product-list";
+import { useStoreActions } from "easy-peasy";
 
 const Product = ({ product }) => {
   console.log({ product });
@@ -54,28 +49,25 @@ const Product = ({ product }) => {
   const [productGallery, setProductGallery] = useState([]);
   const [allProductImages, setAllProductImages] = useState([]);
   const [counter, setCounter] = useState(1);
-
-  const ProductInfo = [
-    {
-      productTitle: "GIGABYTE H110 Processor I5 6th GEN RAM ",
-      productPrice: "$14.00",
-      productDiscountPrice: "$23.00",
-      // productImage : Product,
-      productId: "Shoptronics",
-      productDesc:
-        "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or",
-      productBrand: "HP",
-      productQuickOverview: [
-        "RAM - 16GB",
-        "Processor Type - Apple M1 Chip",
-        "Graphics Memory - Shared",
-        "Display Size (Inch) - 13.3",
-      ],
-    },
-  ];
+  const {
+    variantSelectOptions,
+    chosenAttributes,
+    setChosenAttributes,
+    variantData,
+  } = useVariation(id, title);
+  console.log({ variantSelectOptions });
+  console.log({ chosenAttributes });
+  console.log({ variantData });
 
   const changeTheImage = (item) => {
     return setMainImage(item);
+  };
+
+  const handleVariantClick = (payload) => {
+    setChosenAttributes((prev) => ({
+      ...prev,
+      [payload.name]: payload.value,
+    }));
   };
 
   const navigateProductGallery = (action) => {
@@ -136,17 +128,65 @@ const Product = ({ product }) => {
     );
   }, []);
 
+  useEffect(() => {
+    if (!variantData) {
+      return;
+    }
+    setMainImage(variantData?.variations.data[0].attributes.imgUrl);
+  }, [variantData]);
+
+  const addItem = useStoreActions((action) => action.cart.addItem);
+  const notify = useStoreActions((action) => action.snackbar.setMessage);
+
+  const handleAddToCart = async () => {
+    let payload = {};
+    if (variantSelectOptions?.length > 0) {
+      if (
+        !chosenAttributes ||
+        Object.keys(chosenAttributes).length < variantSelectOptions.length
+      ) {
+        notify({
+          message: "You need to choose the required variants",
+          type: "error",
+        });
+        return;
+      }
+      payload = {
+        id: +id,
+        variantId: +variantData?.variations?.data[0]?.id,
+        price: +variantData?.variations?.data[0]?.attributes?.price,
+        discountPrice:
+          +variantData?.variations?.data[0]?.attributes?.discountPrice,
+        quantity: counter,
+      };
+    } else {
+      payload = {
+        id: +id,
+        variantId: null,
+        price,
+        discountPrice,
+        quantity: counter,
+      };
+    }
+
+    addItem(payload);
+    notify({
+      message: "Product Added To Cart",
+      type: "success",
+    });
+  };
+
   return (
     <Box>
-      <BreadcrumbsCom breadcrumbs="Flexible WareLess Head Phone" />
+      <BreadcrumbsCom breadcrumbs={title} />
 
-      <Container>
+      <Container sx={{ pb: 10 }}>
         <Grid
           container
           style={{
             boxShadow: "1px 3px 5px #0000003c",
             margin: "40px 0 60px 0",
-            alignItems: "center",
+            alignItems: "center !important",
           }}
         >
           <Grid item xs="12" md="12" lg="6" style={{ alignSelf: "center" }}>
@@ -154,7 +194,7 @@ const Product = ({ product }) => {
               style={{ textAlign: "center", padding: "40px" }}
               className={ProductStyle.productLeft}
             >
-              <Grid container>
+              <Grid container sx={{ alignItems: "center" }}>
                 <Grid item xs="3">
                   <IconButton
                     sx={{ mb: 1 }}
@@ -226,75 +266,97 @@ const Product = ({ product }) => {
                   <ShareOutlinedIcon style={{ cursor: "pointer" }} />
                 </Box>
               </div>
+              <div key="index" className={ProductStyle.productRightInfo}>
+                <Typography variant="h4">{title}</Typography>
+                <Typography variant="h5">
+                  Product Id: <span>{id}</span>
+                </Typography>
+                <Typography
+                  variant="span"
+                  className={ProductStyle.productRightInfoDec}
+                >
+                  {description}
+                </Typography>
+                <Typography variant="h5">
+                  Product Brand: <span>{brand.data.attributes.name}</span>
+                </Typography>
 
-              {ProductInfo.map((product, index) => {
-                return (
-                  <div key="index" className={ProductStyle.productRightInfo}>
-                    <Typography variant="h4">{title}</Typography>
-                    <Typography variant="h5">
-                      Product Id: <span>{id}</span>
+                <div className={ProductStyle.productRightPriceBox}>
+                  <Typography variant="h3">
+                    ${discountPrice ? discountPrice : price}
+                  </Typography>
+                  <div className={ProductStyle.deviderLine}></div>
+                  {discountPrice && (
+                    <Typography variant="h3">
+                      <span className={ProductStyle.productRightPriceDiscount}>
+                        {" "}
+                        ${price}
+                      </span>{" "}
+                      <sup className={ProductStyle.productPriceSub}>
+                        {(((discountPrice - price) / price) * 100).toFixed(2)}%
+                      </sup>
                     </Typography>
-                    <Typography
-                      variant="span"
-                      className={ProductStyle.productRightInfoDec}
-                    >
-                      {description}
-                    </Typography>
-                    <Typography variant="h5">
-                      Product Brand: <span>{brand.data.attributes.name}</span>
-                    </Typography>
+                  )}
+                </div>
 
-                    <div className={ProductStyle.productRightPriceBox}>
-                      <Typography variant="h3">
-                        ${discountPrice ? discountPrice : price}
-                      </Typography>
-                      <div className={ProductStyle.deviderLine}></div>
-                      {discountPrice && (
-                        <Typography variant="h3">
-                          <span
-                            className={ProductStyle.productRightPriceDiscount}
-                          >
-                            {" "}
-                            ${price}
-                          </span>{" "}
-                          <sup className={ProductStyle.productPriceSub}>
-                            {(((discountPrice - price) / price) * 100).toFixed(
-                              2
-                            )}
-                            %
-                          </sup>
-                        </Typography>
-                      )}
-                    </div>
-                    <div className={ProductStyle.productRightFooter}>
-                      <div className={ProductStyle.productInputIncre}>
-                        <ArrowBackIosIcon
+                <div className={ProductStyle.variantSection}>
+                  {variantSelectOptions?.map((item) => (
+                    <div key={`attribute-${item.id}`}>
+                      <Typography variant="h5">{item.name} :</Typography>
+                      {item.options?.map((option, i) => (
+                        <Chip
+                          key={`${id}-${item.name}-${i}`}
+                          label={option.value}
+                          variant="outlined"
+                          size="large"
+                          sx={{
+                            borderRadius: 0,
+                            mr: 2,
+                            borderColor:
+                              chosenAttributes[`${id}-${item.name}`] ===
+                              option.value
+                                ? "#000"
+                                : "#eee",
+                            "&:last-child": { mr: 0 },
+                          }}
                           onClick={() =>
-                            counter < 1
-                              ? setCounter(0)
-                              : setCounter(counter - 1)
+                            handleVariantClick({
+                              name: `${id}-${item.name}`,
+                              value: option.value,
+                            })
                           }
-                          fontSize="small"
-                          style={{ color: "rgb(85 79 79)", cursor: "pointer" }}
                         />
-                        <span style={{ alignSelf: "center" }}>{counter}</span>
-                        <ArrowForwardIosIcon
-                          onClick={() => setCounter(counter + 1)}
-                          fontSize="small"
-                          style={{ color: "rgb(85 79 79)", cursor: "pointer" }}
-                        />
-                      </div>
-                      <Button
-                        className={ProductStyle.productbtn}
-                        variant="contained"
-                        startIcon={<ShoppingCartOutlinedIcon />}
-                      >
-                        Add to Cart
-                      </Button>
+                      ))}
                     </div>
+                  ))}
+                </div>
+
+                <div className={ProductStyle.productRightFooter}>
+                  <div className={ProductStyle.productInputIncre}>
+                    <Remove
+                      onClick={() =>
+                        counter === 1 ? setCounter(1) : setCounter(counter - 1)
+                      }
+                      fontSize="small"
+                      style={{ color: "rgb(85 79 79)", cursor: "pointer" }}
+                    />
+                    <span style={{ alignSelf: "center" }}>{counter}</span>
+                    <Add
+                      onClick={() => setCounter(counter + 1)}
+                      fontSize="small"
+                      style={{ color: "rgb(85 79 79)", cursor: "pointer" }}
+                    />
                   </div>
-                );
-              })}
+                  <Button
+                    className={ProductStyle.productbtn}
+                    variant="contained"
+                    startIcon={<ShoppingCartOutlinedIcon />}
+                    onClick={handleAddToCart}
+                  >
+                    Add to Cart
+                  </Button>
+                </div>
+              </div>
             </Box>
           </Grid>
         </Grid>
@@ -302,19 +364,7 @@ const Product = ({ product }) => {
         {relatedProducts.data.length > 0 && (
           <>
             <HomeHeader subHomeHeader="Related" homeHeader="Related" />
-            <Grid container>
-              {/* [1,2,3,4].map((item)=>{
-                    return  <ProductCard/>
-                  })
-                  <Grid item></Grid> */}
-              {[1, 2, 3, 4].map((i) => {
-                return (
-                  <Grid key={i} item xs="12" md="3" lg="3">
-                    <ProductCard />
-                  </Grid>
-                );
-              })}
-            </Grid>
+            <ProductList products={relatedProducts.data.slice(0, 3)} cols={3} />
           </>
         )}
       </Container>

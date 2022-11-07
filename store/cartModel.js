@@ -23,7 +23,11 @@ const cartModel = persist(
       );
 
       if (product) {
-        product.quantity++;
+        if (payload.quantity) {
+          product.quantity += payload.quantity;
+        } else {
+          product.quantity++;
+        }
       } else {
         state.cart.push({
           id: payload.id,

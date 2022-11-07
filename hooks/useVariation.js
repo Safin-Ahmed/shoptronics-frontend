@@ -36,10 +36,6 @@ const useVariation = (id, name) => {
     }
   }, [variantAttributesLoading, variantOptionsLoading]);
 
-  useEffect(() => {
-    getVariants();
-  }, [chosenAttributes, getVariants]);
-
   const attributesList =
     variantAttributes?.product?.data?.attributes?.attributes?.data.reduce(
       (acc, cur) => {
@@ -67,6 +63,7 @@ const useVariation = (id, name) => {
   const variantSelectOptions = attributesList?.map((attr) => {
     return {
       id: attr.id,
+      name: attr.name,
       options: optionsList?.filter((option) => option.attributeId === attr.id),
     };
   });
@@ -79,12 +76,15 @@ const useVariation = (id, name) => {
     return acc;
   }, {});
 
-  console.log({
-    attributesList,
-    optionsList,
-    variantAttributes,
-    variantOptions,
-  });
+  useEffect(() => {
+    if (
+      Object.keys(chosenAttributes).length === 0 ||
+      Object.keys(chosenAttributes).length < variantSelectOptions?.length
+    ) {
+      return;
+    }
+    getVariants();
+  }, [chosenAttributes, getVariants]);
 
   return {
     attributesList,
