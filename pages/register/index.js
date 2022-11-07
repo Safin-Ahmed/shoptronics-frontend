@@ -81,7 +81,7 @@ const Register = () => {
       setStorage('authInfo', authInfo);
       authAction.setLogin(authInfo)
       alertMessage('Registration Successful!', 'success');
-      router.push('/')
+      router.push('/login')
     }
   }, [data])
 
