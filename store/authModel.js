@@ -1,4 +1,5 @@
 import { persist, action } from "easy-peasy";
+import { removeStorage } from "../utils/storage";
 
 
 
@@ -15,6 +16,8 @@ const authModel = persist({
     state.isAuthenticated = false;
     state.token = null;
     state.user = {};
+
+    removeStorage('authInfo');
   }),
 });
 

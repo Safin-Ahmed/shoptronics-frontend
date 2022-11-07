@@ -1,7 +1,7 @@
 import { ApolloProvider } from "@apollo/client";
 import { CssBaseline } from "@mui/material";
 import { StoreProvider } from "easy-peasy";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DepartmentSection from "../components/departmentSection/DepartmentSection";
 import Footer from "../components/Footer";
 import Header from "../components/header";
@@ -20,14 +20,16 @@ function MyApp({ Component, pageProps }) {
   const handleMouseLeave = () => setIsShown(false);
 
 
-  try {
-    const authInfo = getStorage('authInfo');
-    if (authInfo) {
-      store.getActions().auth.setLogin(authInfo)
+  useEffect(() => {
+    try {
+      const authInfo = getStorage('authInfo');
+      if (authInfo) {
+        store.getActions().auth.setLogin(authInfo)
+      }
+    } catch (error) {
+      console.log('error', error)
     }
-  } catch (error) {
-    console.log('error', error)
-  }
+  }, [])
 
 
 
