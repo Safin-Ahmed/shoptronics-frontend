@@ -31,6 +31,8 @@ const cartModel = persist(
       } else {
         state.cart.push({
           id: payload.id,
+          title: payload.title,
+          imgUrl: payload.imgUrl,
           variantId: payload.variantId || null,
           price: payload.price,
           discountPrice: payload.discountPrice || null,

@@ -57,6 +57,8 @@ function ProductCard({ product, view }) {
     if (variantSelectOptions?.length > 0) {
       payload = {
         id: +id,
+        title,
+        imgUrl,
         variantId: +variantData?.variations?.data[0]?.id,
         price: +variantData?.variations?.data[0]?.attributes?.price,
         discountPrice:
@@ -65,6 +67,8 @@ function ProductCard({ product, view }) {
     } else {
       payload = {
         id: +id,
+        title,
+        imgUrl,
         variantId: null,
         price,
         discountPrice,
