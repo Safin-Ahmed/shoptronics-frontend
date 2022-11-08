@@ -47,14 +47,14 @@ const SearchBar = () => {
   const router = useRouter();
   const handleSearch = () => {
     console.log(router);
-    const newRouter = {
-      pathName: "/shop",
-      query: {
-        search: searchTerm,
-      },
-    };
+    // const newRouter = {
+    //   pathName: "/shop",
+    //   query: {
+    //     search: searchTerm,
+    //   },
+    // };
 
-    router.push(newRouter);
+    router.push(`/shop?search=${searchTerm}`);
     setSearchTerm("");
   };
   return (

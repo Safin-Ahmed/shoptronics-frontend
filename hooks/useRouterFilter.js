@@ -73,6 +73,12 @@ const useRouterFilter = (type) => {
     );
   }, [queries]);
 
+  useEffect(() => {
+    if (Object.keys(router.query).length === 0) {
+      setQueries([]);
+    }
+  }, [router.query[type]]);
+
   return {
     addQueryParams,
     queries,

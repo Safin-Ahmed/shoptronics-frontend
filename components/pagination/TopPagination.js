@@ -16,7 +16,7 @@ const TopPagination = ({ pagination, viewHandler }) => {
   const { addSort, state } = useSorting();
   const handleClearFilter = () => {
     if (router.query) {
-      router.push(
+      router.replace(
         {
           query: {},
         },

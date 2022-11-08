@@ -32,6 +32,12 @@ const useFilterSlider = (sliderValue) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (Object.keys(router.query).length === 0) {
+      setValue([...sliderValue]);
+    }
+  }, [router.query]);
+
   return {
     value,
     handleChange,

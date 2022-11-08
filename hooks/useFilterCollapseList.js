@@ -80,6 +80,12 @@ const useFilterCollapseList = (options, searchTerm, setSearchTerm, type) => {
     );
   }, [queries]);
 
+  useEffect(() => {
+    if (Object.keys(router.query).length === 0) {
+      setQueries([]);
+    }
+  }, [router.query[type]]);
+
   const finalOptionsList = isViewAll ? optionsList : optionsList.slice(0, 4);
 
   useEffect(() => {
