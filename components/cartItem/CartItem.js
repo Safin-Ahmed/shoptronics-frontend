@@ -58,7 +58,7 @@ function CartItem({ cartItem }) {
               fontSize="small"
               style={{ color: 'rgb(85 79 79)', cursor: 'pointer' }}
             />
-            <span style={{ alignSelf: 'center' }}>{counter}</span>
+            <span style={{ alignSelf: 'center' }}>{cartItem.quantity}</span>
             <Add
               onClick={() =>
                 addItem({ id: cartItem.id, variantId: cartItem.variantId })

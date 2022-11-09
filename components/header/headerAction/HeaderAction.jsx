@@ -1,7 +1,7 @@
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import Person2OutlinedIcon from "@mui/icons-material/Person2Outlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import { Badge, IconButton } from "@mui/material";
+import { Badge, Drawer, IconButton } from "@mui/material";
 import { Box } from "@mui/system";
 import classes from "./HeaderAction.module.css";
 import { useStoreActions, useStoreState } from "easy-peasy";
@@ -11,6 +11,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useRouter } from "next/router";
 import Avatar from '@mui/material/Avatar';
+import SideDrawer from "../../UI/SideDrawer";
 
 
 
