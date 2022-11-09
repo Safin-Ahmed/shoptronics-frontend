@@ -6,36 +6,29 @@ import { getAllOrders } from "../../../api/api";
 import { useEffect } from "react";
 import { useState } from "react";
 import OrderDataTable from "../../../components/dataTable/OrderDataTable";
-
-
-
+import { useQuery } from "@apollo/client";
+import { getAllOrdersQuery } from "../../../lib/queries";
 
 const OrderHistory = () => {
-  const [data, setData] = useState([])
+  const { data, loading, error } = useQuery(getAllOrdersQuery, {
+    fetchPolicy: "network-only",
+  });
 
-
-  const fetchData = async () => {
-    const response = await getAllOrders();
-    setData(response);
+  if (loading) {
+    return <h1>Loading...</h1>;
   }
-
-  useEffect(() => {
-    fetchData()
-  }, [])
-
 
   return (
     <div>
       <BreadcrumbsCom breadcrumbs="Order History" />
       <Container sx={{ display: "flex", mb: 5 }}>
         <Sidebar />
-        <Box sx={{mt: 5}}>
-          <OrderDataTable data={data} />
+        <Box sx={{ mt: 5 }}>
+          <OrderDataTable data={data.orders.data} />
         </Box>
       </Container>
     </div>
   );
 };
-
 
 export default OrderHistory;

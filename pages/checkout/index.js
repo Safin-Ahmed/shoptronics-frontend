@@ -1,24 +1,3 @@
-/* 
-
-const [dateStore, setdateStore] = useState(allInfoCheckout);
-  const [useSubmit, setuseSubmit] = useState(false);
-  const {
-    firstName,
-    lastName,
-    email,
-    phoneNumber,
-    address,
-    note,
-    totalItemsCount,
-    totalItemsPrice,
-    totalPricing,
-    shipping,
-    paymentMethod,
-  } = dateStore;
-
-
-*/
-
 import {
   Button,
   FormControl,
@@ -35,23 +14,12 @@ import TextFieldMUI from "@mui/material/TextField";
 import BreadcrumbsCom from "../../components/breadcrumbs/BreadcrumbsCom";
 import img from "../../public/static/product-4.png";
 import Image from "next/image";
-import { useStoreState } from "easy-peasy";
+import { useStoreActions, useStoreState } from "easy-peasy";
 import { useState } from "react";
 import { useEffect } from "react";
-
-// const allInfoCheckout = {
-//   firstName: "Monir",
-//   lastName: "",
-//   phoneNumber: "",
-//   email: "",
-//   address: "",
-//   note: "",
-//   totalItemsCount: "",
-//   totalItemsPrice: "",
-//   totalPricing: "",
-//   paymentMethod: "",
-//   shipping: "",
-// };
+import { useLazyQuery, useMutation } from "@apollo/client";
+import { placeOrderQuery } from "../../lib/queries";
+import { useRouter } from "next/router";
 
 const initialState = {
   firstName: "",
@@ -60,13 +28,17 @@ const initialState = {
   email: "",
   address: "",
   note: "",
+  paymentMethod: "",
+  deliveryFee: 0,
 };
 
 const Checkout = () => {
   const cartcheckoutList = useStoreState((state) => state.cart.cart);
-  console.log({ cartcheckoutList });
   const [state, setState] = useState(initialState);
   const [componentDidMount, setComponentDidMount] = useState(false);
+  const [placeOrder, { data, loading, error }] = useMutation(placeOrderQuery);
+  const notify = useStoreActions((action) => action.snackbar.setMessage);
+  const router = useRouter();
 
   useEffect(() => {
     setComponentDidMount(true);
@@ -83,7 +55,7 @@ const Checkout = () => {
   },
   0);
 
-  //total item of product
+  //total price of products
   const itemsPrice = cartcheckoutList.reduce(function (
     accumulator,
     currentValue
@@ -97,17 +69,70 @@ const Checkout = () => {
   },
   0);
 
+  // total price with shipping fee
+  const totalPrice = itemsPrice + +state.deliveryFee;
+
+  // shaping cart items for server
+  const orderProducts = cartcheckoutList.reduce((acc, cur) => {
+    acc.push({
+      id: cur.id,
+      variantId: cur.variantId,
+      quantity: cur.quantity,
+    });
+
+    return acc;
+  }, []);
+
   const inputHandling = (e) => {
     const { name, value } = e.target;
+    if (name === "deliveryFee") {
+      return setState((prev) => ({
+        ...prev,
+        [name]: +value,
+      }));
+    }
     setState((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
+  const handleOrder = async () => {
+    const orderData = {
+      ...state,
+      cartProducts: orderProducts,
+    };
+
+    console.log({ orderData });
+
+    const response = await placeOrder({
+      variables: {
+        order: orderData,
+      },
+    });
+
+    console.log("response: ", response);
+    const order = response?.data?.buildOrder?.data;
+    if (order) {
+      notify({
+        message: "Order placed successfully!",
+        type: "success",
+      });
+
+      setState(initialState);
+      router.replace(`/checkout/thank-you?orderNumber=${order.id}`);
+    } else {
+      notify({
+        message: "Error creating order!",
+        type: "error",
+      });
+    }
+  };
+
   return (
     <div>
       <BreadcrumbsCom sx={{ zIndex: "-9" }} breadcrumbs="Cart" />
+
       <Box>
         <Container>
           <Grid
@@ -281,17 +306,19 @@ const Checkout = () => {
                     <FormControl>
                       <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"
-                        defaultValue="shipping-free"
-                        name="radio-buttons-group"
+                        name="deliveryFee"
+                        defaultValue={0}
+                        onChange={inputHandling}
+                        value={state.deliveryFee}
                       >
                         <FormControlLabel
-                          value="shipping-free"
+                          value={0}
                           control={<Radio />}
                           label="Shipping Free"
                           className={Classes.checkoutRightRadio}
                         />
                         <FormControlLabel
-                          value="shipping-fee"
+                          value={20}
                           control={<Radio />}
                           label="Shipping fee $20"
                           className={Classes.checkoutRightRadio}
@@ -301,7 +328,7 @@ const Checkout = () => {
                   </div>
                   <ul>
                     <li>
-                      <span>Total</span> <span>$698</span>
+                      <span>Total</span> <span>${totalPrice}</span>
                     </li>
                   </ul>
                 </div>
@@ -311,17 +338,18 @@ const Checkout = () => {
                     <FormControl>
                       <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"
-                        defaultValue="stripe"
-                        name="radio-buttons-group"
+                        name="paymentMethod"
+                        value={state.paymentMethod}
+                        onChange={inputHandling}
                       >
                         <FormControlLabel
-                          value="stripe"
+                          value="Stripe"
                           control={<Radio />}
                           label="Stripe"
                           className={Classes.checkoutRightRadio}
                         />
                         <FormControlLabel
-                          value="cod"
+                          value="COD"
                           control={<Radio />}
                           label="Cash on delivery"
                           className={Classes.checkoutRightRadio}
@@ -331,7 +359,11 @@ const Checkout = () => {
                   </div>
                 </div>
                 <div className={Classes.cartRightbtnn}>
-                  <Button className={Classes.cartRightbtn} variant="contained">
+                  <Button
+                    onClick={handleOrder}
+                    className={Classes.cartRightbtn}
+                    variant="contained"
+                  >
                     Place Order
                   </Button>
                 </div>
