@@ -1,6 +1,6 @@
 import { Box, Card, Divider, FormControl, FormGroup, InputLabel, OutlinedInput, Typography, Button, CircularProgress, FormControlLabel, Checkbox } from "@mui/material";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -8,7 +8,7 @@ import { isObjEmpty } from "../../utils/objectUtil";
 import { LOGIN_MUTATION, REGISTER_MUTATION } from "../../graphQL/Mutations";
 import { useMutation } from "@apollo/client";
 import alertMessage from "../../utils/alertMessage";
-import { setStorage } from "../../utils/storage";
+import { getStorage, removeStorage, setStorage } from "../../utils/storage";
 import { useStoreActions } from "easy-peasy";
 import { useRouter } from "next/router";
 
@@ -34,10 +34,13 @@ const LoginPage = () => {
   const authAction = useStoreActions(actions => actions.auth)
   const router = useRouter();
 
+  const [remember, setRemember] = useState(true)
+  
 
   const {
     handleSubmit,
     register,
+    setValue,
     formState: { errors }
   } = useForm({
     resolver: yupResolver(validationSchema)
@@ -56,6 +59,12 @@ const LoginPage = () => {
           password
         }
       })
+
+      if (remember) {
+        setStorage('loginInfo', { email, password })
+      }else{
+        removeStorage("loginInfo")
+      }
     } catch (error) {
       console.log('error', error);
       alertMessage('Invalid Credentials!', 'error');
@@ -75,6 +84,14 @@ const LoginPage = () => {
       router.push('/')
     }
   }, [data])
+
+  useEffect(() => {
+    const rememberUser = getStorage('loginInfo')
+    if (rememberUser) {
+      setValue("email", rememberUser.email)
+      setValue("password", rememberUser.password)
+    }
+  }, [])
 
 
 
@@ -112,6 +129,9 @@ const LoginPage = () => {
                 type="email"
                 name="email"
                 required
+                inputProps={{
+                  autoComplete: "new-password",
+                }}
                 {...register('email')}
               />
             </FormControl>
@@ -127,6 +147,9 @@ const LoginPage = () => {
               <OutlinedInput
                 type="password"
                 name="password"
+                inputProps={{
+                  autoComplete: "new-password",
+                }}
                 required
                 {...register('password')}
               />
@@ -148,7 +171,7 @@ const LoginPage = () => {
             }}>
             <FormGroup>
               <FormGroup>
-                <FormControlLabel control={<Checkbox defaultChecked />} label="Remember Me" sx={{ color: "#000000AD" }} />
+                <FormControlLabel control={<Checkbox checked={remember} onChange={e => setRemember(e.target.checked)} />} label="Remember Me" sx={{ color: "#000000AD" }} />
               </FormGroup>
             </FormGroup>
 
@@ -168,7 +191,7 @@ const LoginPage = () => {
           </Box>
 
           <Button
-          onClick={handleSubmit(onSubmit)}
+            onClick={handleSubmit(onSubmit)}
             type="submit"
             variant="contained"
             sx={{

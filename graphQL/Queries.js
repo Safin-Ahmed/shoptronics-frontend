@@ -17,3 +17,23 @@ query getProducts{
   }
 }    
 `
+
+export const LOAD_ORDERS = gql`
+query getOrders {
+  orders{
+    data {
+      id
+      attributes{
+        firstName
+        lastName
+        email
+        total
+        subTotal
+        status
+        paymentMethod
+        createdAt
+      }
+    }
+  }
+} 
+`

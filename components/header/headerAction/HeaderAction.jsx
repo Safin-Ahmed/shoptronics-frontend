@@ -1,17 +1,18 @@
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import Person2OutlinedIcon from '@mui/icons-material/Person2Outlined';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import { Badge, Drawer, IconButton } from '@mui/material';
-import Avatar from '@mui/material/Avatar';
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import Person2OutlinedIcon from "@mui/icons-material/Person2Outlined";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import { Badge, IconButton } from "@mui/material";
+import { Box } from "@mui/system";
+import classes from "./HeaderAction.module.css";
+import { useStoreActions, useStoreState } from "easy-peasy";
+import { countTotalItems } from "../../../utils/cart";
+import { Fragment, useEffect, useState } from "react";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { Box } from '@mui/system';
-import { useStoreActions, useStoreState } from 'easy-peasy';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { countTotalItems } from '../../../utils/cart';
-import SideDrawer from '../../UI/SideDrawer';
-import classes from './HeaderAction.module.css';
+import { useRouter } from "next/router";
+import Avatar from '@mui/material/Avatar';
+
+
 
 const HeaderAction = () => {
   const [hasMounted, setHasMounted] = useState(false);
@@ -85,37 +86,21 @@ const HeaderAction = () => {
           'aria-labelledby': 'basic-button',
         }}
       >
-        {isAuthenticated ? (
-          <>
-            <MenuItem
-              onClick={() => {
-                handleClose();
-                router.push('/my-account');
-              }}
-            >
-              My Account
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                handleClose();
-                logout();
-              }}
-            >
-              Logout
-            </MenuItem>
-          </>
-        ) : (
-          <>
-            <MenuItem
-              onClick={() => {
-                handleClose();
-                router.push('/login');
-              }}
-            >
-              Login
-            </MenuItem>
-          </>
-        )}
+        {isAuthenticated ? <div>
+          <MenuItem onClick={() => {
+            handleClose();
+            router.push('/my-account');
+          }}>My Account</MenuItem>
+          <MenuItem onClick={() => {
+            handleClose()
+            logout()
+          }}>Logout</MenuItem>
+        </div> : <div>
+          <MenuItem onClick={() => {
+            handleClose();
+            router.push('/login');
+          }}>Login</MenuItem>
+        </div>}
       </Menu>
     </Box>
   );
