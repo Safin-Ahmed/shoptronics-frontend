@@ -13,34 +13,52 @@ import Classes from "./checkout.module.css";
 import TextFieldMUI from "@mui/material/TextField";
 import BreadcrumbsCom from "../../components/breadcrumbs/BreadcrumbsCom";
 import img from "../../public/static/product-4.png";
-import Product from "../../public/static/product-38.png";
-import Product1 from "../../public/static/product-1.jpg";
-import Product2 from "../../public/static/product-2.jpg";
-import Product4 from "../../public/static/product-4.png";
-import Product5 from "../../public/static/product-5.png";
 import Image from "next/image";
+import { useStoreState } from "easy-peasy";
+import { useState } from "react";
 
 const Checkout = () => {
-  const orderCarts = [
-    {
-      productTitle: "Intel Core Two Duo RAM 4GB HDD 500GB",
-      productPrice: "$56.85",
-      productImage: Product2,
-      quantity: 2,
-    },
-    {
-      productTitle: "RAM 4GB HDD 500GB",
-      productPrice: "$100.85",
-      productImage: Product4,
-      quantity: 3,
-    },
-    {
-      productTitle: "RAM 4GB HDD 500GB",
-      productPrice: "$100.85",
-      productImage: Product5,
-      quantity: 1,
-    },
-  ];
+  const cartcheckoutList = useStoreState(state=> state.cart.cart);
+
+  //total item of product
+  const totalItems =  cartcheckoutList.reduce(function(accumulator, currentValue) {
+      return accumulator + currentValue.quantity;
+    }, 0);
+
+     //total item of product
+  const itemsPrice =  cartcheckoutList.reduce(function(accumulator, currentValue) {
+    return accumulator + (currentValue.discountPrice ? currentValue.discountPrice * currentValue.quantity : currentValue.price * currentValue.quantity);
+  }, 0);
+
+
+  const allInfoCheckout = {
+    firstName: "Monir",
+    lastName: "",
+    phoneNumber: "",
+    email: "",
+    address: "",
+    note: "",
+    totalItemsCount: "",
+    totalItemsPrice: "",
+    totalPricing: "",
+    paymentMethod: "",
+    shipping: "",
+  }
+  const [dateStore,setdateStore]= useState(allInfoCheckout);
+  const [useSubmit,setuseSubmit]= useState(false);
+  const  {firstName,lastName,email,phoneNumber,address,note,totalItemsCount,totalItemsPrice,totalPricing,shipping,paymentMethod}= dateStore
+console.log(dateStore);
+
+    const inputHandling =(e)=>{
+
+      const {name,value}= e.target;
+      console.log(value);
+      setdateStore({
+        [name]: value,
+      })
+    }
+  
+  
   return (
     <div>
       <BreadcrumbsCom sx={{ zIndex: "-9" }} breadcrumbs="Cart" />
@@ -66,19 +84,30 @@ const Checkout = () => {
               <form>
                 <Grid container>
                   <Grid item xs="12" md="6" lg="6">
-                    <TextFieldMUI
+                    {/* <TextFieldMUI
                       id="outlined-basic"
                       label="First Name"
+                      onChange={inputHandling}
+                      value={firstName}
                       size="medium"
                       variant="outlined"
                       className={Classes.formCheckout}
+                    /> */}
+                    <TextField
+                      id="outlined-name"
+                      label="First Name"
+                      value={firstName}
+                      onChange={inputHandling}
                     />
+                   
                   </Grid>
                   <Grid item xs="12" md="6" lg="6">
                     <TextFieldMUI
                       id="outlined-basic"
                       label="Last Name"
                       size="medium"
+                      onChange={inputHandling}
+                      value={lastName}
                       variant="outlined"
                       className={Classes.formCheckout}
                     />
@@ -88,6 +117,8 @@ const Checkout = () => {
                       id="outlined-basic"
                       label="Email"
                       size="medium"
+                      onChange={inputHandling}
+                      value={email}
                       variant="outlined"
                       className={Classes.formCheckout}
                     />
@@ -97,6 +128,8 @@ const Checkout = () => {
                       id="outlined-basic"
                       type="text"
                       label="Phone Number"
+                      onChange={inputHandling}
+                      value={phoneNumber}
                       size="medium"
                       variant="outlined"
                       className={Classes.formCheckout}
@@ -107,6 +140,8 @@ const Checkout = () => {
                       id="outlined-basic"
                       label="Street Address"
                       size="medium"
+                      onChange={inputHandling}
+                      value={address}
                       variant="outlined"
                       className={Classes.formCheckout}
                     />
@@ -117,6 +152,8 @@ const Checkout = () => {
                       id="outlined-basic"
                       label="Note"
                       size="medium"
+                      onChange={inputHandling}
+                      value={note}
                       variant="outlined"
                       className={Classes.formCheckout}
                     />
@@ -141,7 +178,7 @@ const Checkout = () => {
                 <div>
                   <Typography variant="h3">Your order</Typography>
                   <div className={Classes.checkoutRightProduct}>
-                    {orderCarts.map((orderCart, index) => {
+                    {cartcheckoutList.map((checkoutItem, index) => {
                       return (
                         <Grid
                           key={index}
@@ -151,8 +188,10 @@ const Checkout = () => {
                         >
                           <Grid item xs="3">
                             <Image
-                              src={orderCart.productImage}
+                              src={checkoutItem.imgUrl}
                               alt="Image Product"
+                              height="70"
+                              width="70"
                             ></Image>
                           </Grid>
                           <Grid
@@ -162,7 +201,7 @@ const Checkout = () => {
                             className={Classes.checkoutRightProductInfo}
                           >
                             <Typography variant="h5">
-                              {orderCart.productTitle}
+                              {checkoutItem.title}
                             </Typography>
                             <Typography>
                               {" "}
@@ -171,13 +210,13 @@ const Checkout = () => {
                                   Classes.checkoutRightProductInfoPrice
                                 }
                               ></span>
-                              {orderCart.productPrice} X{" "}
+                              ${checkoutItem.discountPrice ? checkoutItem.discountPrice : checkoutItem.price} X{" "}
                               <span
                                 className={
                                   Classes.checkoutRightProductInfoQuntity
                                 }
                               ></span>
-                              {orderCart.quantity}
+                              {checkoutItem.quantity}
                             </Typography>
                           </Grid>
                         </Grid>
@@ -186,7 +225,7 @@ const Checkout = () => {
                   </div>
                   <ul>
                     <li>
-                      <span>Subtotal (2 items)</span> <span>$698</span>
+                      <span>Total items ({totalItems})</span> <span>${itemsPrice}</span>
                     </li>
                   </ul>
                 </div>
@@ -217,7 +256,7 @@ const Checkout = () => {
                   </div>
                   <ul>
                     <li>
-                      <span>Subtotal (2 items)</span> <span>$698</span>
+                      <span>Total</span> <span>$698</span>
                     </li>
                   </ul>
                 </div>
@@ -238,9 +277,9 @@ const Checkout = () => {
                           className={Classes.checkoutRightRadio}
                         />
                         <FormControlLabel
-                          value="bkash"
+                          value="cod"
                           control={<Radio />}
-                          label="Bkash"
+                          label="Cash on delivery"
                           className={Classes.checkoutRightRadio}
                         />
                       </RadioGroup>
