@@ -6,7 +6,7 @@ import { Box } from "@mui/system";
 import classes from "./HeaderAction.module.css";
 import { useStoreActions, useStoreState } from "easy-peasy";
 import { countTotalItems } from "../../../utils/cart";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useRouter } from "next/router";
@@ -69,8 +69,8 @@ const HeaderAction = () => {
           'aria-labelledby': 'basic-button',
         }}
       >
-        {isAuthenticated ? <>
-          <MenuItem onClick={()=>{
+        {isAuthenticated ? <div>
+          <MenuItem onClick={() => {
             handleClose();
             router.push('/my-account');
           }}>My Account</MenuItem>
@@ -78,12 +78,12 @@ const HeaderAction = () => {
             handleClose()
             logout()
           }}>Logout</MenuItem>
-        </> : <>
+        </div> : <div>
           <MenuItem onClick={() => {
             handleClose();
             router.push('/login');
           }}>Login</MenuItem>
-        </>}
+        </div>}
       </Menu>
     </Box>
   );
