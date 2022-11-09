@@ -1,3 +1,24 @@
+/* 
+
+const [dateStore, setdateStore] = useState(allInfoCheckout);
+  const [useSubmit, setuseSubmit] = useState(false);
+  const {
+    firstName,
+    lastName,
+    email,
+    phoneNumber,
+    address,
+    note,
+    totalItemsCount,
+    totalItemsPrice,
+    totalPricing,
+    shipping,
+    paymentMethod,
+  } = dateStore;
+
+
+*/
+
 import {
   Button,
   FormControl,
@@ -16,49 +37,74 @@ import img from "../../public/static/product-4.png";
 import Image from "next/image";
 import { useStoreState } from "easy-peasy";
 import { useState } from "react";
+import { useEffect } from "react";
+
+// const allInfoCheckout = {
+//   firstName: "Monir",
+//   lastName: "",
+//   phoneNumber: "",
+//   email: "",
+//   address: "",
+//   note: "",
+//   totalItemsCount: "",
+//   totalItemsPrice: "",
+//   totalPricing: "",
+//   paymentMethod: "",
+//   shipping: "",
+// };
+
+const initialState = {
+  firstName: "",
+  lastName: "",
+  phone: "",
+  email: "",
+  address: "",
+  note: "",
+};
 
 const Checkout = () => {
-  const cartcheckoutList = useStoreState(state=> state.cart.cart);
+  const cartcheckoutList = useStoreState((state) => state.cart.cart);
+  console.log({ cartcheckoutList });
+  const [state, setState] = useState(initialState);
+  const [componentDidMount, setComponentDidMount] = useState(false);
+
+  useEffect(() => {
+    setComponentDidMount(true);
+  }, []);
+
+  if (!componentDidMount) return null;
 
   //total item of product
-  const totalItems =  cartcheckoutList.reduce(function(accumulator, currentValue) {
-      return accumulator + currentValue.quantity;
-    }, 0);
+  const totalItems = cartcheckoutList.reduce(function (
+    accumulator,
+    currentValue
+  ) {
+    return accumulator + currentValue.quantity;
+  },
+  0);
 
-     //total item of product
-  const itemsPrice =  cartcheckoutList.reduce(function(accumulator, currentValue) {
-    return accumulator + (currentValue.discountPrice ? currentValue.discountPrice * currentValue.quantity : currentValue.price * currentValue.quantity);
-  }, 0);
+  //total item of product
+  const itemsPrice = cartcheckoutList.reduce(function (
+    accumulator,
+    currentValue
+  ) {
+    return (
+      accumulator +
+      (currentValue.discountPrice
+        ? currentValue.discountPrice * currentValue.quantity
+        : currentValue.price * currentValue.quantity)
+    );
+  },
+  0);
 
+  const inputHandling = (e) => {
+    const { name, value } = e.target;
+    setState((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-  const allInfoCheckout = {
-    firstName: "Monir",
-    lastName: "",
-    phoneNumber: "",
-    email: "",
-    address: "",
-    note: "",
-    totalItemsCount: "",
-    totalItemsPrice: "",
-    totalPricing: "",
-    paymentMethod: "",
-    shipping: "",
-  }
-  const [dateStore,setdateStore]= useState(allInfoCheckout);
-  const [useSubmit,setuseSubmit]= useState(false);
-  const  {firstName,lastName,email,phoneNumber,address,note,totalItemsCount,totalItemsPrice,totalPricing,shipping,paymentMethod}= dateStore
-console.log(dateStore);
-
-    const inputHandling =(e)=>{
-
-      const {name,value}= e.target;
-      console.log(value);
-      setdateStore({
-        [name]: value,
-      })
-    }
-  
-  
   return (
     <div>
       <BreadcrumbsCom sx={{ zIndex: "-9" }} breadcrumbs="Cart" />
@@ -67,7 +113,11 @@ console.log(dateStore);
           <Grid
             container
             columnGap={1}
-            sx={{ justifyContent: "space-around", marginBottom: "50px" }}
+            sx={{
+              justifyContent: "space-around",
+              marginBottom: "50px",
+              alignItems: "start",
+            }}
           >
             <Grid
               sx={{
@@ -82,80 +132,71 @@ console.log(dateStore);
               className={Classes.checkoutLeft}
             >
               <form>
-                <Grid container>
-                  <Grid item xs="12" md="6" lg="6">
-                    {/* <TextFieldMUI
-                      id="outlined-basic"
-                      label="First Name"
-                      onChange={inputHandling}
-                      value={firstName}
-                      size="medium"
-                      variant="outlined"
-                      className={Classes.formCheckout}
-                    /> */}
+                <Grid
+                  container
+                  rowGap={2}
+                  columnGap={1}
+                  justifyContent="center"
+                  sx={{ pb: 25 }}
+                >
+                  <Grid item xs="12" md="5" lg="5">
                     <TextField
                       id="outlined-name"
                       label="First Name"
-                      value={firstName}
+                      fullWidth
+                      name="firstName"
+                      value={state.firstName}
                       onChange={inputHandling}
                     />
-                   
                   </Grid>
-                  <Grid item xs="12" md="6" lg="6">
-                    <TextFieldMUI
-                      id="outlined-basic"
+                  <Grid item xs="12" md="5" lg="5">
+                    <TextField
+                      id="outlined-name"
                       label="Last Name"
-                      size="medium"
+                      fullWidth
+                      name="lastName"
+                      value={state.lastName}
                       onChange={inputHandling}
-                      value={lastName}
-                      variant="outlined"
-                      className={Classes.formCheckout}
                     />
                   </Grid>
-                  <Grid item xs="12" md="6" lg="6">
-                    <TextFieldMUI
-                      id="outlined-basic"
+                  <Grid item xs="12" md="5" lg="5">
+                    <TextField
+                      id="outlined-name"
+                      label="Phone"
+                      fullWidth
+                      name="phone"
+                      value={state.phone}
+                      onChange={inputHandling}
+                    />
+                  </Grid>
+                  <Grid item xs="12" md="5" lg="5">
+                    <TextField
+                      id="outlined-name"
                       label="Email"
-                      size="medium"
+                      fullWidth
+                      name="email"
+                      value={state.email}
                       onChange={inputHandling}
-                      value={email}
-                      variant="outlined"
-                      className={Classes.formCheckout}
                     />
                   </Grid>
-                  <Grid item xs="12" md="6" lg="6">
-                    <TextFieldMUI
-                      id="outlined-basic"
-                      type="text"
-                      label="Phone Number"
-                      onChange={inputHandling}
-                      value={phoneNumber}
-                      size="medium"
-                      variant="outlined"
-                      className={Classes.formCheckout}
-                    />
-                  </Grid>
-                  <Grid item xs="12" md="12" lg="12">
-                    <TextFieldMUI
-                      id="outlined-basic"
+                  <Grid item xs="10" md="10" lg="10">
+                    <TextField
+                      id="outlined-name"
                       label="Street Address"
-                      size="medium"
+                      name="address"
+                      value={state.address}
+                      fullWidth
                       onChange={inputHandling}
-                      value={address}
-                      variant="outlined"
-                      className={Classes.formCheckout}
                     />
                   </Grid>
-                  <Grid item xs="12" md="12" lg="12">
-                    <TextFieldMUI
-                      type="textarea"
-                      id="outlined-basic"
+                  <Grid item xs="10" md="10" lg="10">
+                    <TextField
+                      id="outlined-name"
                       label="Note"
-                      size="medium"
+                      name="note"
+                      value={state.note}
+                      fullWidth
                       onChange={inputHandling}
-                      value={note}
-                      variant="outlined"
-                      className={Classes.formCheckout}
                     />
                   </Grid>
                 </Grid>
@@ -210,7 +251,11 @@ console.log(dateStore);
                                   Classes.checkoutRightProductInfoPrice
                                 }
                               ></span>
-                              ${checkoutItem.discountPrice ? checkoutItem.discountPrice : checkoutItem.price} X{" "}
+                              $
+                              {checkoutItem.discountPrice
+                                ? checkoutItem.discountPrice
+                                : checkoutItem.price}{" "}
+                              X{" "}
                               <span
                                 className={
                                   Classes.checkoutRightProductInfoQuntity
@@ -225,14 +270,14 @@ console.log(dateStore);
                   </div>
                   <ul>
                     <li>
-                      <span>Total items ({totalItems})</span> <span>${itemsPrice}</span>
+                      <span>Total items ({totalItems})</span>{" "}
+                      <span>${itemsPrice}</span>
                     </li>
                   </ul>
                 </div>
                 <div>
                   <Typography variant="h3">Shipping</Typography>
                   <div className={Classes.checkoutRightinfo}>
-
                     <FormControl>
                       <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"
@@ -263,7 +308,6 @@ console.log(dateStore);
                 <div>
                   <Typography variant="h3">Payment</Typography>
                   <div className={Classes.checkoutRightinfo}>
-
                     <FormControl>
                       <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"
