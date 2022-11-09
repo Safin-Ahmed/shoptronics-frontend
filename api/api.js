@@ -3,6 +3,7 @@ import client from "../lib/apolloClient";
 import {
   getBestSellingProductsQuery,
   getProductBySlugQuery,
+  getAllOrdersQuery
 } from "../lib/queries";
 
 export const getProductsByPageNumber = async (
@@ -134,4 +135,14 @@ export const getProductBySlug = async (slug) => {
   console.log({ data });
 
   return data.productBySlug.data;
+};
+
+
+export const getAllOrders = async () => {
+  const { data } = await client.query({
+    query: gql`
+      ${getAllOrdersQuery}
+    `
+  });
+  return data.orders.data;
 };
