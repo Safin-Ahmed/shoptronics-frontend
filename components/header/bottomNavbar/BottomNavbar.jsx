@@ -1,8 +1,10 @@
 import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Box } from "@mui/material";
+import Image from "next/image";
 import Link from "next/link";
 import styles from "./BottomNavbar.module.css";
+import barIcon from '../../../public/static/bar-icon.svg';
 
 const BottomNavbar = ({ handleMouseEnter, handleMouseLeave, isShow }) => {
   return (
@@ -13,7 +15,8 @@ const BottomNavbar = ({ handleMouseEnter, handleMouseLeave, isShow }) => {
           onMouseLeave={handleMouseLeave}
           className={styles.category}
         >
-          <FormatAlignLeftIcon />
+          <Image src={barIcon}  alt='logo' width={'20'} height='20'/>
+          <Box sx={{mr: 1}}/>
           Departments
           <KeyboardArrowDownIcon
             className={styles.arrowIcon}
