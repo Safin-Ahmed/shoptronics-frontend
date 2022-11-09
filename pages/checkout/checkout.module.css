@@ -82,6 +82,9 @@
     /* margin-bottom: 30px; */
     margin:0 10px 30px 10px;   
 }
+.checkoutRightProduct{
+    padding-bottom: 40px;
+}
 .checkoutRightProductInfo h5{
     font-size: 18px;
     color: rgba(0, 0, 0, 0.88);

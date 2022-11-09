@@ -13,43 +13,136 @@ import Classes from "./checkout.module.css";
 import TextFieldMUI from "@mui/material/TextField";
 import BreadcrumbsCom from "../../components/breadcrumbs/BreadcrumbsCom";
 import img from "../../public/static/product-4.png";
-import Product from "../../public/static/product-38.png";
-import Product1 from "../../public/static/product-1.jpg";
-import Product2 from "../../public/static/product-2.jpg";
-import Product4 from "../../public/static/product-4.png";
-import Product5 from "../../public/static/product-5.png";
 import Image from "next/image";
+import { useStoreActions, useStoreState } from "easy-peasy";
+import { useState } from "react";
+import { useEffect } from "react";
+import { useLazyQuery, useMutation } from "@apollo/client";
+import { placeOrderQuery } from "../../lib/queries";
+import { useRouter } from "next/router";
+
+const initialState = {
+  firstName: "",
+  lastName: "",
+  phone: "",
+  email: "",
+  address: "",
+  note: "",
+  paymentMethod: "",
+  deliveryFee: 0,
+};
 
 const Checkout = () => {
-  const orderCarts = [
-    {
-      productTitle: "Intel Core Two Duo RAM 4GB HDD 500GB",
-      productPrice: "$56.85",
-      productImage: Product2,
-      quantity: 2,
-    },
-    {
-      productTitle: "RAM 4GB HDD 500GB",
-      productPrice: "$100.85",
-      productImage: Product4,
-      quantity: 3,
-    },
-    {
-      productTitle: "RAM 4GB HDD 500GB",
-      productPrice: "$100.85",
-      productImage: Product5,
-      quantity: 1,
-    },
-  ];
+  const cartcheckoutList = useStoreState((state) => state.cart.cart);
+  const [state, setState] = useState(initialState);
+  const [componentDidMount, setComponentDidMount] = useState(false);
+  const [placeOrder, { data, loading, error }] = useMutation(placeOrderQuery);
+  const notify = useStoreActions((action) => action.snackbar.setMessage);
+  const router = useRouter();
+
+  useEffect(() => {
+    setComponentDidMount(true);
+  }, []);
+
+  if (!componentDidMount) return null;
+
+  //total item of product
+  const totalItems = cartcheckoutList.reduce(function (
+    accumulator,
+    currentValue
+  ) {
+    return accumulator + currentValue.quantity;
+  },
+  0);
+
+  //total price of products
+  const itemsPrice = cartcheckoutList.reduce(function (
+    accumulator,
+    currentValue
+  ) {
+    return (
+      accumulator +
+      (currentValue.discountPrice
+        ? currentValue.discountPrice * currentValue.quantity
+        : currentValue.price * currentValue.quantity)
+    );
+  },
+  0);
+
+  // total price with shipping fee
+  const totalPrice = itemsPrice + +state.deliveryFee;
+
+  // shaping cart items for server
+  const orderProducts = cartcheckoutList.reduce((acc, cur) => {
+    acc.push({
+      id: cur.id,
+      variantId: cur.variantId,
+      quantity: cur.quantity,
+    });
+
+    return acc;
+  }, []);
+
+  const inputHandling = (e) => {
+    const { name, value } = e.target;
+    if (name === "deliveryFee") {
+      return setState((prev) => ({
+        ...prev,
+        [name]: +value,
+      }));
+    }
+    setState((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleOrder = async () => {
+    const orderData = {
+      ...state,
+      cartProducts: orderProducts,
+    };
+
+    console.log({ orderData });
+
+    const response = await placeOrder({
+      variables: {
+        order: orderData,
+      },
+    });
+
+    console.log("response: ", response);
+    const order = response?.data?.buildOrder?.data;
+    if (order) {
+      notify({
+        message: "Order placed successfully!",
+        type: "success",
+      });
+
+      setState(initialState);
+      router.replace(`/checkout/thank-you?orderNumber=${order.id}`);
+    } else {
+      notify({
+        message: "Error creating order!",
+        type: "error",
+      });
+    }
+  };
+
   return (
     <div>
       <BreadcrumbsCom sx={{ zIndex: "-9" }} breadcrumbs="Cart" />
+
       <Box>
         <Container>
           <Grid
             container
             columnGap={1}
-            sx={{ justifyContent: "space-around", marginBottom: "50px" }}
+            sx={{
+              justifyContent: "space-around",
+              marginBottom: "50px",
+              alignItems: "start",
+            }}
           >
             <Grid
               sx={{
@@ -64,61 +157,71 @@ const Checkout = () => {
               className={Classes.checkoutLeft}
             >
               <form>
-                <Grid container>
-                  <Grid item xs="12" md="6" lg="6">
-                    <TextFieldMUI
-                      id="outlined-basic"
+                <Grid
+                  container
+                  rowGap={2}
+                  columnGap={1}
+                  justifyContent="center"
+                  sx={{ pb: 25 }}
+                >
+                  <Grid item xs="12" md="5" lg="5">
+                    <TextField
+                      id="outlined-name"
                       label="First Name"
-                      size="medium"
-                      variant="outlined"
-                      className={Classes.formCheckout}
+                      fullWidth
+                      name="firstName"
+                      value={state.firstName}
+                      onChange={inputHandling}
                     />
                   </Grid>
-                  <Grid item xs="12" md="6" lg="6">
-                    <TextFieldMUI
-                      id="outlined-basic"
+                  <Grid item xs="12" md="5" lg="5">
+                    <TextField
+                      id="outlined-name"
                       label="Last Name"
-                      size="medium"
-                      variant="outlined"
-                      className={Classes.formCheckout}
+                      fullWidth
+                      name="lastName"
+                      value={state.lastName}
+                      onChange={inputHandling}
                     />
                   </Grid>
-                  <Grid item xs="12" md="6" lg="6">
-                    <TextFieldMUI
-                      id="outlined-basic"
+                  <Grid item xs="12" md="5" lg="5">
+                    <TextField
+                      id="outlined-name"
+                      label="Phone"
+                      fullWidth
+                      name="phone"
+                      value={state.phone}
+                      onChange={inputHandling}
+                    />
+                  </Grid>
+                  <Grid item xs="12" md="5" lg="5">
+                    <TextField
+                      id="outlined-name"
                       label="Email"
-                      size="medium"
-                      variant="outlined"
-                      className={Classes.formCheckout}
+                      fullWidth
+                      name="email"
+                      value={state.email}
+                      onChange={inputHandling}
                     />
                   </Grid>
-                  <Grid item xs="12" md="6" lg="6">
-                    <TextFieldMUI
-                      id="outlined-basic"
-                      type="text"
-                      label="Phone Number"
-                      size="medium"
-                      variant="outlined"
-                      className={Classes.formCheckout}
-                    />
-                  </Grid>
-                  <Grid item xs="12" md="12" lg="12">
-                    <TextFieldMUI
-                      id="outlined-basic"
+                  <Grid item xs="10" md="10" lg="10">
+                    <TextField
+                      id="outlined-name"
                       label="Street Address"
-                      size="medium"
-                      variant="outlined"
-                      className={Classes.formCheckout}
+                      name="address"
+                      value={state.address}
+                      fullWidth
+                      onChange={inputHandling}
                     />
                   </Grid>
-                  <Grid item xs="12" md="12" lg="12">
-                    <TextFieldMUI
-                      type="textarea"
-                      id="outlined-basic"
+                  <Grid item xs="10" md="10" lg="10">
+                    <TextField
+                      id="outlined-name"
                       label="Note"
-                      size="medium"
-                      variant="outlined"
-                      className={Classes.formCheckout}
+                      name="note"
+                      value={state.note}
+                      fullWidth
+                      onChange={inputHandling}
                     />
                   </Grid>
                 </Grid>
@@ -141,7 +244,7 @@ const Checkout = () => {
                 <div>
                   <Typography variant="h3">Your order</Typography>
                   <div className={Classes.checkoutRightProduct}>
-                    {orderCarts.map((orderCart, index) => {
+                    {cartcheckoutList.map((checkoutItem, index) => {
                       return (
                         <Grid
                           key={index}
@@ -151,8 +254,10 @@ const Checkout = () => {
                         >
                           <Grid item xs="3">
                             <Image
-                              src={orderCart.productImage}
+                              src={checkoutItem.imgUrl}
                               alt="Image Product"
+                              height="70"
+                              width="70"
                             ></Image>
                           </Grid>
                           <Grid
@@ -162,7 +267,7 @@ const Checkout = () => {
                             className={Classes.checkoutRightProductInfo}
                           >
                             <Typography variant="h5">
-                              {orderCart.productTitle}
+                              {checkoutItem.title}
                             </Typography>
                             <Typography>
                               {" "}
@@ -171,13 +276,17 @@ const Checkout = () => {
                                   Classes.checkoutRightProductInfoPrice
                                 }
                               ></span>
-                              {orderCart.productPrice} X{" "}
+                              $
+                              {checkoutItem.discountPrice
+                                ? checkoutItem.discountPrice
+                                : checkoutItem.price}{" "}
+                              X{" "}
                               <span
                                 className={
                                   Classes.checkoutRightProductInfoQuntity
                                 }
                               ></span>
-                              {orderCart.quantity}
+                              {checkoutItem.quantity}
                             </Typography>
                           </Grid>
                         </Grid>
@@ -186,28 +295,30 @@ const Checkout = () => {
                   </div>
                   <ul>
                     <li>
-                      <span>Subtotal (2 items)</span> <span>$698</span>
+                      <span>Total items ({totalItems})</span>{" "}
+                      <span>${itemsPrice}</span>
                     </li>
                   </ul>
                 </div>
                 <div>
                   <Typography variant="h3">Shipping</Typography>
                   <div className={Classes.checkoutRightinfo}>
-
                     <FormControl>
                       <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"
-                        defaultValue="shipping-free"
-                        name="radio-buttons-group"
+                        name="deliveryFee"
+                        defaultValue={0}
+                        onChange={inputHandling}
+                        value={state.deliveryFee}
                       >
                         <FormControlLabel
-                          value="shipping-free"
+                          value={0}
                           control={<Radio />}
                           label="Shipping Free"
                           className={Classes.checkoutRightRadio}
                         />
                         <FormControlLabel
-                          value="shipping-fee"
+                          value={20}
                           control={<Radio />}
                           label="Shipping fee $20"
                           className={Classes.checkoutRightRadio}
@@ -217,30 +328,30 @@ const Checkout = () => {
                   </div>
                   <ul>
                     <li>
-                      <span>Subtotal (2 items)</span> <span>$698</span>
+                      <span>Total</span> <span>${totalPrice}</span>
                     </li>
                   </ul>
                 </div>
                 <div>
                   <Typography variant="h3">Payment</Typography>
                   <div className={Classes.checkoutRightinfo}>
-
                     <FormControl>
                       <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"
-                        defaultValue="stripe"
-                        name="radio-buttons-group"
+                        name="paymentMethod"
+                        value={state.paymentMethod}
+                        onChange={inputHandling}
                       >
                         <FormControlLabel
-                          value="stripe"
+                          value="Stripe"
                           control={<Radio />}
                           label="Stripe"
                           className={Classes.checkoutRightRadio}
                         />
                         <FormControlLabel
-                          value="bkash"
+                          value="COD"
                           control={<Radio />}
-                          label="Bkash"
+                          label="Cash on delivery"
                           className={Classes.checkoutRightRadio}
                         />
                       </RadioGroup>
@@ -248,7 +359,11 @@ const Checkout = () => {
                   </div>
                 </div>
                 <div className={Classes.cartRightbtnn}>
-                  <Button className={Classes.cartRightbtn} variant="contained">
+                  <Button
+                    onClick={handleOrder}
+                    className={Classes.cartRightbtn}
+                    variant="contained"
+                  >
                     Place Order
                   </Button>
                 </div>

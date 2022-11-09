@@ -1,46 +1,47 @@
 .thank_you {
-    width: 1200px;
-    margin: auto;
-    padding: 50px;
-    font-family: "Rubik";
-    text-align: center;
-    box-sizing: border-box;
-    background: #FFFFFF;
-    border: 0.5px solid rgba(0, 0, 0, 0.5);
-    border-radius: 3px;
+  max-width: 80%;
+  margin: auto;
+  padding: 6rem 0;
+  font-family: "Rubik";
+  text-align: center;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 0.5px solid rgba(0, 0, 0, 0.5);
+  border-radius: 3px;
+  margin-top: -50px;
+  margin-bottom: 200px;
 }
 
 .thank_title {
-    font-size: 25x;
-    font-weight: 600
+  font-size: 25x;
+  font-weight: 600;
 }
 
 .order_info {
-    width: 800px;
-    margin: auto;
-
+  max-width: 80%;
+  margin: auto;
+  margin-top: 2rem;
 }
 
 .child_span_1 {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    justify-content: center;
-
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  justify-content: center;
 }
 
 .child_span_2 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: center;
 }
 
 .order_info span {
-    box-sizing: border-box;
-    padding: 10px;
-    text-align: center;
-    margin: 7px;
-    font-family: 'Rubik';
-    background: rgba(60, 31, 244, 0.04);
-    border: 0.6px solid rgba(0, 0, 0, 0.33);
-    border-radius: 3px;
+  box-sizing: border-box;
+  padding: 10px;
+  text-align: center;
+  margin: 7px;
+  font-family: "Rubik";
+  background: rgba(60, 31, 244, 0.04);
+  border: 0.6px solid rgba(0, 0, 0, 0.33);
+  border-radius: 3px;
 }
