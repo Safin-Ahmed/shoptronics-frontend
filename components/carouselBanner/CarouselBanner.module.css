@@ -16,8 +16,8 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background: url('/public/static/shape-1-1.png') center -80%,
-    url('/public/static/shape-1-2.png') 90% 94%;
+  background: url('../../public/static/shape-1-1.png') center -80%,
+    url('../../public/static/shape-1-2.png') 90% 94%;
   background-repeat: no-repeat;
 }
 

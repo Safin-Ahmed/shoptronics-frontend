@@ -1,3 +1,4 @@
+import { PlaylistAddOutlined, Splitscreen } from "@mui/icons-material";
 import { action, persist } from "easy-peasy";
 const cartModel = persist(
   {
@@ -50,6 +51,12 @@ const cartModel = persist(
         state.cart.find((item) => item.id !== payload.id);
       }
     }),
+    deleteItem: action((state, payload) => {
+      // const newCart = [...state.cart];
+      const productIndex = state.cart.findIndex(item => item.id === payload.id);
+      state.cart.splice(productIndex, 1);
+      
+    })
   },
   { storage: "localStorage" }
 );
