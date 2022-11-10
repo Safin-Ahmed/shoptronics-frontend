@@ -1,14 +1,14 @@
-import { Box } from '@mui/system';
+import { Box } from "@mui/system";
 
-import { Divider } from '@mui/material';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { useStoreActions, useStoreState } from 'easy-peasy';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { totalAndSubtotalCal } from '../../../utils/cart';
-import SideCart from '../../sideCart/SideCart';
-import classes from './SideDrawer.module.css';
+import { Divider } from "@mui/material";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import { useStoreActions, useStoreState } from "easy-peasy";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { totalAndSubtotalCal } from "../../../utils/cart";
+import SideCart from "../../sideCart/SideCart";
+import classes from "./SideDrawer.module.css";
 
 const SideDrawer = ({ drawerOpen, setDrawerOpen }) => {
   const cartProducts = useStoreState((state) => state.cart.cart);
@@ -26,34 +26,34 @@ const SideDrawer = ({ drawerOpen, setDrawerOpen }) => {
 
   const handleDelete = (id) => {
     deleteItem({ id });
-    console.log('deleted!');
+    console.log("deleted!");
   };
 
   const handleRoutes = () => {
     setDrawerOpen(false);
-    router.push('/cart');
+    router.push("/cart");
   };
   return (
     <div
       style={{
         width: 400,
-        display: 'flex',
-        flexDirection: 'column',
-        height: '100vh',
+        display: "flex",
+        flexDirection: "column",
+        height: "100vh",
       }}
     >
       <Typography
         variant="h5"
         sx={{
-          fontWeight: 'bold',
+          fontWeight: "bold",
           py: 2,
           px: 3,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
         }}
       >
-        <Box sx={{ flexGrow: 1, fontSize: '22px', fontWeight: '900' }}>
+        <Box sx={{ flexGrow: 1, fontSize: "22px", fontWeight: "900" }}>
           Shopping Cart
         </Box>
         <Box className={classes.close} onClick={() => setDrawerOpen(false)}>
@@ -64,15 +64,19 @@ const SideDrawer = ({ drawerOpen, setDrawerOpen }) => {
       <Divider />
 
       {cartProducts.length ? (
-        <Box sx={{ overflowY: 'auto' }}>
+        <Box sx={{ overflowY: "auto" }}>
           {cartProducts.map((cart, index) => {
             return (
-              <SideCart key={cart.id} cart={cart} removeItem={handleDelete} />
+              <SideCart
+                key={`${index} - ${cart.id}`}
+                cart={cart}
+                removeItem={handleDelete}
+              />
             );
           })}
         </Box>
       ) : (
-        <Typography sx={{ p: 6 }} variant={'h5'}>
+        <Typography sx={{ p: 6 }} variant={"h5"}>
           No products in the cart.
         </Typography>
       )}

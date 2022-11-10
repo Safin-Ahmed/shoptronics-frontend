@@ -153,8 +153,8 @@ const Product = ({ product }) => {
       }
       payload = {
         id: +id,
-        title,
-        imgUrl,
+        title: variantData?.variations?.data[0]?.attributes?.title,
+        imgUrl: variantData?.variations?.data[0]?.attributes?.imgUrl,
         variantId: +variantData?.variations?.data[0]?.id,
         price: +variantData?.variations?.data[0]?.attributes?.price,
         discountPrice:

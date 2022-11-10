@@ -38,6 +38,7 @@ const Checkout = () => {
   const [componentDidMount, setComponentDidMount] = useState(false);
   const [placeOrder, { data, loading, error }] = useMutation(placeOrderQuery);
   const notify = useStoreActions((action) => action.snackbar.setMessage);
+  const clearCart = useStoreActions((action) => action.cart.clear);
   const router = useRouter();
 
   useEffect(() => {
@@ -121,6 +122,7 @@ const Checkout = () => {
 
       setState(initialState);
       router.replace(`/checkout/thank-you?orderNumber=${order.id}`);
+      clearCart();
     } else {
       notify({
         message: "Error creating order!",
