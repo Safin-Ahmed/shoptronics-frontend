@@ -10,36 +10,58 @@ import {
 } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import Classes from "./checkout.module.css";
-import TextFieldMUI from "@mui/material/TextField";
 import BreadcrumbsCom from "../../components/breadcrumbs/BreadcrumbsCom";
-import img from "../../public/static/product-4.png";
 import Image from "next/image";
 import { useStoreActions, useStoreState } from "easy-peasy";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useLazyQuery, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { placeOrderQuery } from "../../lib/queries";
 import { useRouter } from "next/router";
+import { loadStripe } from "@stripe/stripe-js";
 
-const initialState = {
-  firstName: "",
-  lastName: "",
-  phone: "",
-  email: "",
-  address: "",
-  note: "",
-  paymentMethod: "",
-  deliveryFee: 0,
-};
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+);
 
 const Checkout = () => {
   const cartcheckoutList = useStoreState((state) => state.cart.cart);
+  const auth = useStoreState((state) => state.auth);
+  const initialState = {
+    firstName: "",
+    lastName: "",
+    phone: "",
+    email: auth.user.email,
+    address: "",
+    note: "",
+    paymentMethod: "",
+    deliveryFee: 0,
+  };
   const [state, setState] = useState(initialState);
   const [componentDidMount, setComponentDidMount] = useState(false);
   const [placeOrder, { data, loading, error }] = useMutation(placeOrderQuery);
   const notify = useStoreActions((action) => action.snackbar.setMessage);
-  const clearCart = useStoreActions((action) => action.cart.clear);
   const router = useRouter();
+
+  const handleStripe = async () => {
+    const stripe = await stripePromise;
+    const orderData = {
+      ...state,
+      cartProducts: orderProducts,
+    };
+    const response = await placeOrder({
+      variables: {
+        order: orderData,
+      },
+    });
+    console.log({ response });
+    const session =
+      response?.data?.buildOrder?.data.attributes.checkout_session;
+
+    const result = await stripe.redirectToCheckout({
+      sessionId: session,
+    });
+  };
 
   useEffect(() => {
     setComponentDidMount(true);
@@ -99,12 +121,14 @@ const Checkout = () => {
   };
 
   const handleOrder = async () => {
+    if (state.paymentMethod === "Stripe") {
+      handleStripe();
+      return;
+    }
     const orderData = {
       ...state,
       cartProducts: orderProducts,
     };
-
-    console.log({ orderData });
 
     const response = await placeOrder({
       variables: {
@@ -119,10 +143,8 @@ const Checkout = () => {
         message: "Order placed successfully!",
         type: "success",
       });
-
       setState(initialState);
       router.replace(`/checkout/thank-you?orderNumber=${order.id}`);
-      clearCart();
     } else {
       notify({
         message: "Error creating order!",
@@ -203,7 +225,7 @@ const Checkout = () => {
                       fullWidth
                       name="email"
                       value={state.email}
-                      onChange={inputHandling}
+                      disabled
                     />
                   </Grid>
                   <Grid item xs="10" md="10" lg="10">

@@ -191,7 +191,7 @@ function ProductCard({ product, view }) {
                       sx={{ background: "#3C1FF4 !important", mt: 3 }}
                       fullWidth
                       variant="contained"
-                      onClick={handleToCart}
+                      onClick={handleAddToCart}
                     >
                       Add to cart
                     </Button>
