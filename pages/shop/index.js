@@ -71,11 +71,9 @@ export async function getServerSideProps(ctx) {
     (item) => +item
   );
   const searchTerm = query["search"];
-  console.log({ searchTerm });
   const attributes = Object.keys(query)
     .filter((item) => item.includes("attribute"))
     .map((item) => query[item]);
-  console.log({ attributes });
   const gqlQuery = generateGetProductsQuery();
   const queryObject = {
     subCategories,

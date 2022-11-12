@@ -12,7 +12,6 @@ export const getProductsByPageNumber = async (
   gqlQuery,
   queryObject
 ) => {
-  console.log(queryObject);
   const { data, errors, loading } = await client.query({
     query: gql`
       ${gqlQuery}
@@ -131,8 +130,6 @@ export const getProductBySlug = async (slug) => {
       slug,
     },
   });
-
-  console.log({ data });
 
   return data.productBySlug.data;
 };

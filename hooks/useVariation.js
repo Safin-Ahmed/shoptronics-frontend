@@ -86,6 +86,10 @@ const useVariation = (id, name) => {
     getVariants();
   }, [chosenAttributes, getVariants]);
 
+  useEffect(() => {
+    setChosenAttributes({});
+  }, [id]);
+
   return {
     attributesList,
     optionsList,

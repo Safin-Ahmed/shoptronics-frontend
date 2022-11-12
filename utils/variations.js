@@ -11,6 +11,9 @@ export const buildInitialState = (attributesList, optionsList, productId) => {
 };
 
 export const buildVariationTitle = (productName, chosenAttributes) => {
+  if (Object.keys(chosenAttributes).length === 0) {
+    return null;
+  }
   return `${productName} ${Object.values(chosenAttributes).reduce(
     (acc, cur, i) => {
       return (acc += cur + (i === chosenAttributes.length - 1 ? "" : " "));
@@ -31,7 +34,6 @@ export const formatAttributes = (attributes) => {
 };
 
 export const formatAttributeTerms = (terms) => {
-  console.log({ terms });
   return terms?.attributeterms.data?.reduce((acc, cur) => {
     acc?.push({
       attributeId: cur.attributes.attribute.data.id,
@@ -43,7 +45,6 @@ export const formatAttributeTerms = (terms) => {
 };
 
 export const buildCheckboxOptions = (attributesList, optionsList) => {
-  console.log({ attributesList, optionsList });
   return attributesList?.map((attr) => {
     return {
       id: attr.id,

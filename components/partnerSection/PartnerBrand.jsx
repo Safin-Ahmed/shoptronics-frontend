@@ -1,19 +1,19 @@
-import { A11y, Autoplay, Navigation, Pagination, Scrollbar } from 'swiper';
+import { A11y, Autoplay, Navigation, Pagination, Scrollbar } from "swiper";
 
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide } from "swiper/react";
 
-import { Box } from '@mui/system';
-import Image from 'next/image';
-import 'swiper/css';
-import 'swiper/css/autoplay';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
-import classes from './PartnerBrand.module.css';
-import Logo1 from '/public/static/brands/asus.jpg';
-import Logo2 from '/public/static/brands/hp.png';
-import Logo3 from '/public/static/brands/mi3.png';
-import Logo4 from '/public/static/brands/nvidia-logo.png';
+import { Box } from "@mui/system";
+import Image from "next/image";
+import "swiper/css";
+import "swiper/css/autoplay";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+import classes from "./PartnerBrand.module.css";
+import Logo1 from "/public/static/brands/asus.jpg";
+import Logo2 from "/public/static/brands/hp.png";
+import Logo3 from "/public/static/brands/mi3.png";
+import Logo4 from "/public/static/brands/nvidia-logo.png";
 
 const data = [
   { id: 1, logo: Logo1 },
@@ -24,13 +24,11 @@ const data = [
 
 function PartnerBrand() {
   return (
-    <Box sx={{width: '80%', margin: 'auto', mb: 3}}>
+    <Box sx={{ width: "80%", margin: "auto", mb: 3 }}>
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
         spaceBetween={7}
         slidesPerView={4}
-        onSwiper={(swiper) => console.log(swiper)}
-        onSlideChange={() => console.log('slide change')}
         speed={500}
         breakpoints={{
           0: {
@@ -47,7 +45,7 @@ function PartnerBrand() {
           },
           1024: {
             slidesPerView: 4,
-          }
+          },
         }}
         loop={true}
         autoplay={{
@@ -55,7 +53,7 @@ function PartnerBrand() {
           disableOnInteraction: false,
         }}
         touchRatio={1.5}
-        effect={'flip'}
+        effect={"flip"}
         className={classes.mySwiper}
       >
         {data.map((item, i) => (

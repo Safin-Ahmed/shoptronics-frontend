@@ -54,7 +54,6 @@ const Checkout = () => {
         order: orderData,
       },
     });
-    console.log({ response });
     const session =
       response?.data?.buildOrder?.data.attributes.checkout_session;
 
@@ -136,7 +135,6 @@ const Checkout = () => {
       },
     });
 
-    console.log("response: ", response);
     const order = response?.data?.buildOrder?.data;
     if (order) {
       notify({

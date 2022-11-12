@@ -43,7 +43,6 @@ const useProduct = (product) => {
 
   const navigateProductGallery = (action) => {
     if (action === "down") {
-      console.log({ allProductImages });
       const lastIndex = allProductImages.findIndex(
         (item) => item === productGallery[productGallery.length - 1]
       );
@@ -69,10 +68,6 @@ const useProduct = (product) => {
             ? allProductImages.slice(firstIndex - 4, firstIndex)
             : allProductImages.slice(0, firstIndex);
 
-        console.log("Remaining Items for up: ", {
-          remainingItems,
-          firstIndex,
-        });
         setProductGallery([...remainingItems]);
         return;
       } else {
@@ -97,14 +92,18 @@ const useProduct = (product) => {
     setProductGallery(
       productImages.length > 4 ? productImages.slice(0, 4) : productImages
     );
+    setMainImage(imgUrl);
   }, [product]);
 
   useEffect(() => {
     if (!variantData) {
       return;
     }
-    console.log({ variantData });
-    setMainImage(variantData?.variations.data[0].attributes.imgUrl);
+    if (variantData?.variations.data.length === 0) {
+      setMainImage(allProductImages[0]);
+    } else {
+      setMainImage(variantData?.variations.data[0].attributes.imgUrl);
+    }
   }, [variantData]);
 
   const addItem = useStoreActions((action) => action.cart.addItem);
