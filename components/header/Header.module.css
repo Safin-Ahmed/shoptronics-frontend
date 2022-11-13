@@ -1,3 +1,14 @@
+.header {
+  box-shadow: 0 5px 30px 0 rgb(38 42 76 / 5%);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 500;
+  
+}
+
 .nav {
 }
 

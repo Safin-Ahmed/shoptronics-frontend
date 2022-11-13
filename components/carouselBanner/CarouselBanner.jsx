@@ -11,6 +11,7 @@ import 'swiper/css/scrollbar';
 import classes from './CarouselBanner.module.css';
 import bannerImg1 from '/public/static/banner-mockup1.png';
 import bannerImg2 from '/public/static/banner-mockup2.png';
+import { Box } from '@mui/system';
 
 const bannerData = [
   {
@@ -56,7 +57,7 @@ const bannerData = [
 ]
 
 const CarouselBanner = () => {
-  const handleClick = () => console.log(click);
+  const handleClick = () => console.log('clicked');
 
   return (
     <Swiper
@@ -92,11 +93,14 @@ const CarouselBanner = () => {
                 </div>
               </div>
             </div>
+            <Box>
             <Image
-              src={banner.bannerImg}
-              alt="img"
-              className={classes.slideImg}
-            />
+        
+          src={banner.bannerImg}
+          alt="img"
+          className={classes.slideImg}
+        />
+            </Box>
             <div className={classes.priceTag}>
               <h1>${banner.priceTag}</h1>
             </div>

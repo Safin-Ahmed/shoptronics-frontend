@@ -21,7 +21,7 @@ const Search = styled("div")(({ theme }) => ({
   marginLeft: 0,
   width: "100%",
   [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
+    // marginLeft: theme.spacing(3),
     width: "auto",
   },
 }));
@@ -59,10 +59,10 @@ const SearchBar = () => {
   };
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Box>
-        <Toolbar>
-          <Box sx={{ display: "flex", flexGrow: 1, px: 10 }}>
-            <Search sx={{ flexGrow: 1, border: 1 }}>
+      <Box >
+        <Toolbar sx={{p: {xs: 0, md: 0, lg: 0,}}} >
+          <Box sx={{ display: "flex", flexGrow: 1, px: {xs: 0, md: 1, lg: 8}}}>
+            <Search sx={{ flexGrow: 1, border: 1, }}>
               <div className={classes.SearchIconWrapper}>
                 <SearchIcon />
               </div>
@@ -80,8 +80,9 @@ const SearchBar = () => {
               sx={{
                 borderRadius: "0 3px 3px 0",
                 boxShadow: 0,
-                px: "36px",
                 bgcolor: "#3C1FF4",
+                px:{xs: '25px',md: "36px"},
+                fontSize: {xs: '12px', md: '14px'}
               }}
             >
               Search
