@@ -4,6 +4,8 @@ import {
   getBestSellingProductsQuery,
   getProductBySlugQuery,
   getAllOrdersQuery,
+  getAllReviewsByProductIdQuery,
+  getProductByIdQuery,
 } from "../lib/queries";
 
 export const getProductsByPageNumber = async (
@@ -12,7 +14,6 @@ export const getProductsByPageNumber = async (
   gqlQuery,
   queryObject
 ) => {
-  console.log(queryObject);
   const { data, errors, loading } = await client.query({
     query: gql`
       ${gqlQuery}
@@ -132,8 +133,6 @@ export const getProductBySlug = async (slug) => {
     },
   });
 
-  console.log({ data });
-
   return data.productBySlug.data;
 };
 
@@ -144,4 +143,31 @@ export const getAllOrders = async () => {
     `,
   });
   return data.orders.data;
+};
+
+export const getAllReviews = async (params) => {
+  const { data } = await client.query({
+    query: gql`
+      ${getAllReviewsByProductIdQuery}
+    `,
+    variables: {
+      id: params.id,
+      page: params.page,
+    },
+  });
+
+  return data.reviews;
+};
+
+export const getProductById = async (id) => {
+  const { data } = await client.query({
+    query: gql`
+      ${getProductByIdQuery}
+    `,
+    variables: {
+      id,
+    },
+  });
+
+  return data.product.data;
 };

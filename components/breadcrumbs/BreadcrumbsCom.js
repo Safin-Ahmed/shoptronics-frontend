@@ -8,7 +8,6 @@ import { Container } from "@mui/system";
 function BreadcrumbsCom({ breadcrumbs }) {
   function handleClick(event) {
     event.preventDefault();
-    console.info("You clicked a breadcrumb.");
   }
   return (
     <Box

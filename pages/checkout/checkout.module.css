@@ -1,112 +1,110 @@
-.checkoutLeft{
-    border-radius: 3px;
-    box-shadow: 0px 3px 6px #33333326;
-    margin-bottom: 40px;
-    padding: 50px 30px 20px 25px;
+.checkoutLeft {
+  border-radius: 3px;
+  box-shadow: 0px 3px 6px #33333326;
+  margin-bottom: 40px;
+  padding: 50px 30px 20px 25px;
 }
 
-
-.cartBoxRight h6{
-    color:rgba(0, 0, 0, 0.88);
-    font-size: 20px;
-    font-weight: 500;
+.cartBoxRight h6 {
+  color: rgba(0, 0, 0, 0.88);
+  font-size: 20px;
+  font-weight: 500;
 }
 
-.cartBoxRight input{
-    border:none;
-    /* width: 100px; */
+.cartBoxRight input {
+  border: none;
+  /* width: 100px; */
 }
-.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root{
-    width: 100px!important;
+.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root {
+  width: 100px !important;
 }
-.cartBoxRight input:focus{
-    outline: none;
-   
+.cartBoxRight input:focus {
+  outline: none;
 }
-.cartBoxRightbtn{
-    margin-top: 13px;
+.cartBoxRightbtn {
+  margin-top: 13px;
 }
-.cartBoxRightbtn:hover{
-    background-color: rgba(255, 0, 0, 0.205);
-    border: 1px solid  rgba(255, 0, 0, 0.205);
-    color:#F12C2C;
-    
+.cartBoxRightbtn:hover {
+  background-color: rgba(255, 0, 0, 0.205);
+  border: 1px solid rgba(255, 0, 0, 0.205);
+  color: #f12c2c;
 }
-.checkoutRight{
-    box-shadow: 0px 3px 6px #33333326;
-    width: 100%;
+.checkoutRight {
+  box-shadow: 0px 3px 6px #33333326;
+  width: 100%;
 }
-.checkoutRight h3{
-    color:rgba(0, 0, 0, 0.75);
-    font-size:22px;
-    font-weight: 600;
-    text-align: center;
-    padding:25px 0;
-    
+.checkoutRight h3 {
+  color: rgba(0, 0, 0, 0.75);
+  font-size: 22px;
+  font-weight: 600;
+  text-align: center;
+  padding: 25px 0;
 }
-.checkoutRight ul{
-    /* margin:10px 0; */
-    padding: 20px 40px;
-    margin: 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.148);
-  
+.checkoutRight ul {
+  /* margin:10px 0; */
+  padding: 20px 40px;
+  margin: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.148);
 }
-.checkoutRight ul li{
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-    line-height: 30px;
-    color:rgba(0, 0, 0, 0.72);
-    font-size: 16px;
-    font-weight: 500;
+.checkoutRight ul li {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  line-height: 30px;
+  color: rgba(0, 0, 0, 0.72);
+  font-size: 16px;
+  font-weight: 500;
 }
-.checkoutRight ul li span{
-    color:rgba(0, 0, 0, 0.72);
-    font-size: 16px;
-    font-weight: 500;
+.checkoutRight ul li span {
+  color: rgba(0, 0, 0, 0.72);
+  font-size: 16px;
+  font-weight: 500;
 }
-.cartRightbtn{
-    width: 100%;
-    background-color: #3C1FF4;
-    color: #fff;
-    font-size: 14px;
-    text-transform: none;
-    border-radius: 3px;
+.cartRightbtn {
+  width: 100%;
+  background-color: #3c1ff4;
+  color: #fff;
+  font-size: 14px;
+  text-transform: none;
+  border-radius: 3px;
 }
-.cartRightbtnn{
-    margin: 0 40px;
-    padding-bottom: 40px;
+.cartRightbtnn {
+  margin: 0 40px;
+  padding-bottom: 40px;
 }
-.formCheckout{
-    width: 98%;
-    /* margin-bottom: 30px; */
-    margin:0 10px 30px 10px;   
+.formCheckout {
+  width: 98%;
+  /* margin-bottom: 30px; */
+  margin: 0 10px 30px 10px;
 }
-.checkoutRightProduct{
-    padding-bottom: 40px;
+.checkoutRightProduct {
+  padding-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 3rem;
 }
-.checkoutRightProductInfo h5{
-    font-size: 18px;
-    color: rgba(0, 0, 0, 0.88);
+.checkoutRightProductInfo h5 {
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.88);
 }
-.checkoutRightProductInfo span{
-    font-size: 14px;
-    color: rgba(0, 0, 0, 0.88);
+.checkoutRightProductInfo span {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.88);
 }
-.checkoutRightProductitem{
-    padding: 0 40px;
+.checkoutRightProductitem {
+  padding: 0 40px;
 }
-.checkoutRightProductInfo p{
-    color: #3C1FF4;
-    font-weight: 400;
-    font-size: 14px;
-    margin-top: 3px;
+.checkoutRightProductInfo p {
+  color: #3c1ff4;
+  font-weight: 400;
+  font-size: 14px;
+  margin-top: 3px;
 }
-.checkoutRightinfo{
-    padding: 0 40px;
-    margin-bottom: 20px;
+.checkoutRightinfo {
+  padding: 0 40px;
+  margin-bottom: 20px;
 }
-.checkoutRightRadio{
-    font-size: 16px;
-    color: rgba(0, 0, 0, 0.72);
+.checkoutRightRadio {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.72);
 }

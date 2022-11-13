@@ -1,4 +1,4 @@
-import { Box } from '@mui/system';
+import { Box } from "@mui/system";
 
 import CloseIcon from '@mui/icons-material/Close';
 import { Divider, IconButton } from '@mui/material';
@@ -23,16 +23,14 @@ const SideDrawer = ({ drawerOpen, setDrawerOpen }) => {
   }, [cartProducts]);
 
   const router = useRouter();
-  console.log(cartProducts);
 
   const handleDelete = (id) => {
     deleteItem({ id });
-    console.log('deleted!');
   };
 
-  const handleRoutes = () => {
+  const handleRoutes = (route) => {
     setDrawerOpen(false);
-    router.push('/cart');
+    router.push(route);
   };
   return (
     <Box
@@ -46,12 +44,12 @@ const SideDrawer = ({ drawerOpen, setDrawerOpen }) => {
       <Typography
         variant="h5"
         sx={{
-          fontWeight: 'bold',
+          fontWeight: "bold",
           py: 2,
           px: 3,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
         }}
       >
         <Box
@@ -82,10 +80,14 @@ const SideDrawer = ({ drawerOpen, setDrawerOpen }) => {
       <Divider />
 
       {cartProducts.length ? (
-        <Box sx={{ overflowY: 'auto' }}>
+        <Box sx={{ overflowY: "auto" }}>
           {cartProducts.map((cart, index) => {
             return (
-              <SideCart key={cart.id} cart={cart} removeItem={handleDelete} />
+              <SideCart
+                key={`${index} - ${cart.id}`}
+                cart={cart}
+                removeItem={handleDelete}
+              />
             );
           })}
         </Box>
@@ -106,7 +108,12 @@ const SideDrawer = ({ drawerOpen, setDrawerOpen }) => {
             <Box>Subtotal: </Box>
             <Box>${subtotal}</Box>
           </Typography>
-          <Button variant="contained" fullWidth className={classes.checkout}>
+          <Button
+            onClick={() => handleRoutes("/checkout")}
+            variant="contained"
+            fullWidth
+            className={classes.checkout}
+          >
             Checkout
           </Button>
           <Box sx={{ my: 2 }} />
@@ -114,7 +121,7 @@ const SideDrawer = ({ drawerOpen, setDrawerOpen }) => {
             variant="outlined"
             fullWidth
             className={classes.viewCart}
-            onClick={handleRoutes}
+            onClick={() => handleRoutes("/cart")}
           >
             View cart
           </Button>

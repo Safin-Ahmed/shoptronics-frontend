@@ -46,14 +46,6 @@ const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const router = useRouter();
   const handleSearch = () => {
-    console.log(router);
-    // const newRouter = {
-    //   pathName: "/shop",
-    //   query: {
-    //     search: searchTerm,
-    //   },
-    // };
-
     router.push(`/shop?search=${searchTerm}`);
     setSearchTerm("");
   };

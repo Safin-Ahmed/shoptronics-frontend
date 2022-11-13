@@ -53,10 +53,15 @@ const cartModel = persist(
     }),
     deleteItem: action((state, payload) => {
       // const newCart = [...state.cart];
-      const productIndex = state.cart.findIndex(item => item.id === payload.id);
+      const productIndex = state.cart.findIndex(
+        (item) => item.id === payload.id
+      );
       state.cart.splice(productIndex, 1);
-      
-    })
+    }),
+
+    clear: action((state, payload) => {
+      state.cart = [];
+    }),
   },
   { storage: "localStorage" }
 );

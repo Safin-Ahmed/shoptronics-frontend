@@ -1,16 +1,18 @@
 import { useQuery } from "@apollo/client";
 import { Typography } from "@mui/material";
+import { useStoreActions } from "easy-peasy";
 import { useRouter } from "next/router";
 import React from "react";
 import { useEffect } from "react";
 import BreadcrumbsCom from "../../../components/breadcrumbs/BreadcrumbsCom";
-import { getOrderById } from "../../../lib/queries";
+import { confirmStripeSessionQuery, getOrderById } from "../../../lib/queries";
 import module from "../../../public/Styles/thank-you.module.css";
 import { dateTime } from "../../../utils/helper";
 
 const ThankYou = () => {
   const router = useRouter();
-  const { orderNumber = null } = router.query;
+  const clearCart = useStoreActions((action) => action.cart.clear);
+  const { orderNumber = null, session_id } = router.query;
 
   const { data, loading, error } = useQuery(getOrderById, {
     variables: {
@@ -18,11 +20,25 @@ const ThankYou = () => {
     },
   });
 
-  if (loading) {
+  const {
+    data: orderData,
+    loading: sessionLoading,
+    error: sessionError,
+  } = useQuery(confirmStripeSessionQuery, {
+    variables: {
+      sessionId: session_id,
+    },
+  });
+
+  if (loading || sessionLoading) {
     return <h1>Loading...</h1>;
   }
 
-  if (!data?.order.data || !data) {
+  if (session_id || orderNumber) {
+    clearCart();
+  }
+
+  if ((!data?.order.data || !data) && !orderData) {
     router.replace("/");
     return (
       <>
@@ -40,9 +56,8 @@ const ThankYou = () => {
     );
   }
   const { createdAt, email, paymentMethod, total } =
-    data?.order?.data?.attributes;
-
-  console.log(data);
+    data?.order?.data?.attributes ||
+    orderData?.confirmSession?.data?.attributes;
 
   return (
     <>
@@ -56,7 +71,10 @@ const ThankYou = () => {
           </div>
           <div className={module.order_info}>
             <div className={module.child_span_1}>
-              <span>Order Number: {orderNumber}</span>
+              <span>
+                Order Number:{" "}
+                {orderNumber || orderData?.confirmSession?.data?.id}
+              </span>
               <span>Date: {dateTime(createdAt, 2)}</span>
               <span>Total: ${total}</span>
             </div>

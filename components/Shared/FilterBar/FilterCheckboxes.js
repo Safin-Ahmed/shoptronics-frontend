@@ -29,7 +29,6 @@ const FilterCheckboxes = () => {
     allAttributesTermData
   );
 
-  console.log({ attributes });
   return (
     <>
       <FilterCheckbox
