@@ -8,22 +8,30 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import BreadcrumbsCom from "../../components/breadcrumbs/BreadcrumbsCom";
-import ProductStyle from "./product.module.css";
+import BreadcrumbsCom from "../../../components/breadcrumbs/BreadcrumbsCom";
+import ProductStyle from "../product.module.css";
 import Rating from "@mui/material/Rating";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 
 import Image from "next/image";
-import HomeHeader from "../../components/Shared/HomeHeader";
-import { getProductBySlug } from "../../api/api";
+import HomeHeader from "../../../components/Shared/HomeHeader";
+import { getAllReviews, getProductBySlug } from "../../../api/api";
 import { GridArrowDownwardIcon, GridArrowUpwardIcon } from "@mui/x-data-grid";
 import { Add, Remove } from "@mui/icons-material";
-import ProductList from "../../components/product-list";
-import useProduct from "../../hooks/useProduct";
+import ProductList from "../../../components/product-list";
+import useProduct from "../../../hooks/useProduct";
+import ReviewsCard from "../../../components/reviewsCard";
+import { useStoreState } from "easy-peasy";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import useReview from "../../../hooks/useReview";
 
-const Product = ({ product }) => {
+const Product = ({ product, reviewsData }) => {
+  const { isAuthenticated } = useStoreState((state) => state.auth);
+  console.log({ reviewsData });
+  const router = useRouter();
   const {
     title,
     navigateProductGallery,
@@ -46,6 +54,19 @@ const Product = ({ product }) => {
     chosenAttributes,
   } = useProduct(product);
 
+  const { currentReviews, pagination, onClickHandler } = useReview(
+    reviewsData,
+    id
+  );
+
+  const addReviewHandler = () => {
+    console.log(router);
+    if (isAuthenticated) {
+      router.push(`${router.asPath}/review?product=${id}`, undefined, {
+        shallow: true,
+      });
+    }
+  };
   return (
     <Box>
       <BreadcrumbsCom breadcrumbs={title} />
@@ -119,11 +140,8 @@ const Product = ({ product }) => {
               >
                 <Box
                   className={ProductStyle.productRightHeaderReview}
-                  sx={{ display: "flex" }}
+                  sx={{ display: "flex", alignItems: "center" }}
                 >
-                  <Typography variant="span" component="legend">
-                    Review:
-                  </Typography>
                   <Rating name="read-only" value={averageRating} readOnly />
                   <Typography>{`(${reviews.data.length})`}</Typography>
                 </Box>
@@ -237,6 +255,16 @@ const Product = ({ product }) => {
           </Grid>
         </Grid>
 
+        <div className={ProductStyle.reviews}>
+          <ReviewsCard
+            addReviewHandler={addReviewHandler}
+            reviews={currentReviews}
+            averageRating={averageRating}
+            pagination={pagination}
+            onClickHandler={onClickHandler}
+          />
+        </div>
+
         {relatedProducts.data.length > 0 && (
           <>
             <HomeHeader subHomeHeader="Related" homeHeader="Related" />
@@ -253,10 +281,12 @@ export async function getServerSideProps(ctx) {
   const { params, query } = ctx;
   const slug = query.slug;
   const data = await getProductBySlug(slug);
+  const reviewsData = await getAllReviews({ id: data.id, page: 1 });
 
   return {
     props: {
       product: data,
+      reviewsData,
     },
   };
 }
