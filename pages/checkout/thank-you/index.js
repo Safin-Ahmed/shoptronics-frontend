@@ -55,7 +55,6 @@ const ThankYou = () => {
       </>
     );
   }
-  console.log({ data, orderData });
   const { createdAt, email, paymentMethod, total } =
     data?.order?.data?.attributes ||
     orderData?.confirmSession?.data?.attributes;

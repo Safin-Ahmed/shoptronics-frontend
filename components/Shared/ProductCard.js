@@ -54,7 +54,6 @@ function ProductCard({ product, view }) {
   const handleAddToCart = async (e) => {
     e.preventDefault();
     let payload = {};
-    console.log({ variantData });
     if (variantSelectOptions?.length > 0) {
       payload = {
         id: +id,

@@ -26,7 +26,6 @@ export async function getServerSideProps(context) {
     data: { data: bestSellingProducts },
   } = await getBestSellingProducts();
 
-  console.log({ bestSellingProducts });
   return {
     props: {
       trendingProducts,

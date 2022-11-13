@@ -22,16 +22,14 @@ const SideDrawer = ({ drawerOpen, setDrawerOpen }) => {
   }, [cartProducts]);
 
   const router = useRouter();
-  console.log(cartProducts);
 
   const handleDelete = (id) => {
     deleteItem({ id });
-    console.log("deleted!");
   };
 
-  const handleRoutes = () => {
+  const handleRoutes = (route) => {
     setDrawerOpen(false);
-    router.push("/cart");
+    router.push(route);
   };
   return (
     <div
@@ -92,7 +90,12 @@ const SideDrawer = ({ drawerOpen, setDrawerOpen }) => {
             <Box>Subtotal: </Box>
             <Box>${subtotal}</Box>
           </Typography>
-          <Button variant="contained" fullWidth className={classes.checkout}>
+          <Button
+            onClick={() => handleRoutes("/checkout")}
+            variant="contained"
+            fullWidth
+            className={classes.checkout}
+          >
             Checkout
           </Button>
           <Box sx={{ my: 2 }} />
@@ -100,7 +103,7 @@ const SideDrawer = ({ drawerOpen, setDrawerOpen }) => {
             variant="outlined"
             fullWidth
             className={classes.viewCart}
-            onClick={handleRoutes}
+            onClick={() => handleRoutes("/cart")}
           >
             View cart
           </Button>

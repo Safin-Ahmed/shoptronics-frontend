@@ -57,7 +57,6 @@ const useFilterCollapseList = (options, searchTerm, setSearchTerm, type) => {
       return;
     }
 
-    console.log({ router: router.query, queries });
     if (queries.length < 1) {
       const newRouter = { ...router.query };
       delete newRouter[type];

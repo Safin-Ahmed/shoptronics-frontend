@@ -15,8 +15,6 @@ export default function FilterSlider() {
       const newValues = [...prev];
       newValues[index] = +e.target.value;
 
-      console.log(newValues);
-
       return newValues;
     });
   };
