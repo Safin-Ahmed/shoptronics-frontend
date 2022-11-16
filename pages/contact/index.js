@@ -1,10 +1,11 @@
+import { Box } from "@mui/material";
 import React from "react";
 
 const Contact = () => {
   return (
-    <div>
+    <Box sx={{mt: '180px'}}>
       <h1>This is contact page</h1>
-    </div>
+    </Box>
   );
 };
 

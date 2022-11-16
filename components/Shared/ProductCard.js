@@ -1,14 +1,21 @@
-import Image from "next/image";
-import HomeStyled from "../../public/Styles/home.module.css";
-import { Button, Rating, Typography, Box, Chip } from "@mui/material";
-import { calculateAverageRating } from "../../utils/rating";
-import Link from "next/link";
-import useVariation from "../../hooks/useVariation";
-import VariantSelect from "../UI/variantSelect";
-import { useStoreActions } from "easy-peasy";
-import CircularProgress from "@mui/material/CircularProgress";
-import { generateCategoryNames } from "../../utils/string";
+import {
+  Box,
+  Button,
+  Chip,
+  Rating,
+  StyledEngineProvider,
+  Typography,
+} from '@mui/material';
+import { useStoreActions } from 'easy-peasy';
+import Image from 'next/image';
+import Link from 'next/link';
+import useVariation from '../../hooks/useVariation';
+import HomeStyled from '../../public/Styles/home.module.css';
+import { generateCategoryNames } from '../../utils/string';
+import VariantSelect from '../UI/variantSelect';
+import WishlistButton from '../wishlistButton/WishlistButton';
 
+const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 function ProductCard({ product, view }) {
   const {
     id,
@@ -22,12 +29,12 @@ function ProductCard({ product, view }) {
       averageRating,
     },
   } = product || {
-    id: "test",
+    id: 'test',
     attributes: {
-      title: "test product",
+      title: 'test product',
       price: 15,
       discountPrice: null,
-      imgUrl: "",
+      imgUrl: '',
       reviews: {
         data: [],
       },
@@ -38,7 +45,7 @@ function ProductCard({ product, view }) {
   const subCategories = product?.attributes?.sub_categories?.data;
   const subCategoryNames = generateCategoryNames(subCategories);
   const categoryNames = generateCategoryNames(categories);
-  const stock = stockStatus === "in_stock" ? "In Stock" : "Out of Stock";
+  const stock = stockStatus === 'in_stock' ? 'In Stock' : 'Out of Stock';
 
   const {
     variantSelectOptions,
@@ -91,17 +98,17 @@ function ProductCard({ product, view }) {
   //     </div>
   //   );
   // }
-
+  
   return (
     <>
       <Link href={`/product/${product?.attributes?.slug}`}>
         <a>
           <div
             style={{
-              display: view === "list" ? "flex" : "",
-              alignItems: view === "list" ? "center" : "",
-              height: view === "list" ? "auto" : "",
-              flexDirection: view === "list" ? "row" : "",
+              display: view === 'list' ? 'flex' : '',
+              alignItems: view === 'list' ? 'center' : '',
+              height: view === 'list' ? 'auto' : '',
+              flexDirection: view === 'list' ? 'row' : '',
             }}
             className={HomeStyled.productCard}
           >
@@ -110,7 +117,7 @@ function ProductCard({ product, view }) {
                 width={350}
                 height={350}
                 objectFit="contain"
-                src={imgUrl || ""}
+                src={imgUrl || ''}
                 alt={title}
               />
             </div>
@@ -118,23 +125,27 @@ function ProductCard({ product, view }) {
               onClick={(e) => e.preventDefault()}
               className={HomeStyled.productCardFooter}
             >
-              <Chip
-                label={stock}
-                size="small"
-                color={stock.includes("Out") ? "error" : "success"}
-                variant="outlined"
-                sx={{ mt: 1, maxWidth: "fit-content", mb: 1 }}
-              />
-
+              <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Chip
+                  label={stock}
+                  size="small"
+                  color={stock.includes('Out') ? 'error' : 'success'}
+                  variant="outlined"
+                  sx={{ mt: 1, maxWidth: 'fit-content', mb: 1 }}
+                />
+                <StyledEngineProvider injectFirst>
+                  <WishlistButton productId={product.id}/>
+                </StyledEngineProvider>
+              </Box>
               <Typography variant="subTitle1">
                 {categoryNames} | {subCategoryNames}
               </Typography>
               <Typography variant="subTitle1"></Typography>
-              <h4 style={{ fontSize: view === "list" ? "30px" : "" }}>
+              <h4 style={{ fontSize: view === 'list' ? '30px' : '' }}>
                 {title}
               </h4>
 
-              {view === "list" && (
+              {view === 'list' && (
                 <div>
                   <Rating value={averageRating} readOnly />
                 </div>
@@ -142,27 +153,27 @@ function ProductCard({ product, view }) {
 
               <div
                 style={{
-                  flexDirection: view === "list" ? "column" : "row",
-                  alignItems: view !== "list" ? "center" : "",
+                  flexDirection: view === 'list' ? 'column' : 'row',
+                  alignItems: view !== 'list' ? 'center' : '',
                 }}
                 className={HomeStyled.productCardFooterMoreInfo}
               >
                 <div
-                  style={{ fontSize: view === "list" ? "20px" : "" }}
+                  style={{ fontSize: view === 'list' ? '20px' : '' }}
                   className={HomeStyled.productPrice}
                 >
-                  ${discountPrice ? discountPrice : price}{" "}
+                  ${discountPrice ? discountPrice : price}{' '}
                   {discountPrice && (
-                    <span style={{ fontSize: view === "list" ? "18px" : "" }}>
+                    <span style={{ fontSize: view === 'list' ? '18px' : '' }}>
                       ${price}
                     </span>
                   )}
                 </div>
                 <div
                   style={{
-                    display: "flex",
-                    gap: "1rem",
-                    marginTop: view === "list" ? "2rem" : 0,
+                    display: 'flex',
+                    gap: '1rem',
+                    marginTop: view === 'list' ? '2rem' : 0,
                   }}
                 >
                   {variantSelectOptions?.length > 0 &&
@@ -178,16 +189,16 @@ function ProductCard({ product, view }) {
                       );
                     })}
                 </div>
-                {view !== "list" && (
+                {view !== 'list' && (
                   <div>
                     <Rating value={averageRating} readOnly />
                   </div>
                 )}
 
-                {view === "list" && (
+                {view === 'list' && (
                   <div className={HomeStyled.add_to_cart_btn}>
                     <Button
-                      sx={{ background: "#3C1FF4 !important", mt: 3 }}
+                      sx={{ background: '#3C1FF4 !important', mt: 3 }}
                       fullWidth
                       variant="contained"
                       onClick={handleAddToCart}
@@ -201,10 +212,10 @@ function ProductCard({ product, view }) {
 
             <Box sx={{ flexGrow: 1 }}></Box>
 
-            {view !== "list" && (
+            {view !== 'list' && (
               <div className={HomeStyled.add_to_cart_btn}>
                 <Button
-                  sx={{ background: "#3C1FF4 !important", mt: 3 }}
+                  sx={{ background: '#3C1FF4 !important', mt: 3 }}
                   fullWidth
                   variant="contained"
                   onClick={handleAddToCart}

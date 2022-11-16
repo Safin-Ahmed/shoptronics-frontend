@@ -1,6 +1,6 @@
 import { ApolloProvider } from "@apollo/client";
 import { CssBaseline } from "@mui/material";
-import { StoreProvider } from "easy-peasy";
+import { StoreProvider, useStoreState } from "easy-peasy";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import DepartmentSection from "../components/departmentSection/DepartmentSection";
@@ -18,6 +18,8 @@ function MyApp({ Component, pageProps }) {
   const [isShow, setIsShown] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  
+  
   useEffect(() => {
     router.events.on("routeChangeStart", () => {
       setLoading(true);
@@ -52,7 +54,7 @@ function MyApp({ Component, pageProps }) {
             handleMouseEnter={handleMouseEnter}
             handleMouseLeave={handleMouseLeave}
           />
-          <Layout style={{ position: "relative", zIndex: "1" }}>
+          <Layout style={{ position: "relative", zIndex: "1"}}>
             {loading && <Loader />}
             <Component {...pageProps} title={"title"} />
             <DepartmentSection

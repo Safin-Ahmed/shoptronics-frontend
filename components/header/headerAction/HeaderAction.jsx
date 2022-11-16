@@ -1,29 +1,26 @@
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import Person2OutlinedIcon from "@mui/icons-material/Person2Outlined";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import { Badge, Drawer, IconButton } from "@mui/material";
-import { Box } from "@mui/system";
-import classes from "./HeaderAction.module.css";
-import { useStoreActions, useStoreState } from "easy-peasy";
-import { countTotalItems } from "../../../utils/cart";
-import { Fragment, useEffect, useState } from "react";
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import Person2OutlinedIcon from '@mui/icons-material/Person2Outlined';
+import { IconButton } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { useRouter } from "next/router";
-import Avatar from '@mui/material/Avatar';
-import SideDrawer from "../../UI/SideDrawer";
-
-
+import { Box } from '@mui/system';
+import { useStoreActions, useStoreState } from 'easy-peasy';
+import Router, { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { countTotalItems } from '../../../utils/cart';
+import CartAction from '../../Shared/cartAction/cartAction';
+import classes from './HeaderAction.module.css';
 
 const HeaderAction = () => {
   const [hasMounted, setHasMounted] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [drawerOpen, setDrawerOpen] = useState(false);
+
   const router = useRouter();
   const open = Boolean(anchorEl);
 
   const cart = useStoreState((state) => state.cart.cart);
-  const totalCount = countTotalItems(cart);
+  
   const isAuthenticated = useStoreState((state) => state.auth.isAuthenticated);
   const authUser = useStoreState((state) => state.auth.user);
 
@@ -37,6 +34,14 @@ const HeaderAction = () => {
     setAnchorEl(event.currentTarget);
   };
 
+  const wishlistPageHandler = () =>  {
+    if (isAuthenticated) {
+      router.push('/wishlist');
+    } else {
+      router.push('/login');
+    }
+  }
+
   useEffect(() => {
     setHasMounted(true);
   }, []);
@@ -46,7 +51,7 @@ const HeaderAction = () => {
   }
 
   return (
-    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+    <Box sx={{ display: { md: 'flex' } }}>
       <IconButton size="large" onClick={handleClick}>
         {isAuthenticated ? (
           <Avatar sx={{ backgroundColor: '#3c1ff4' }}>
@@ -56,27 +61,12 @@ const HeaderAction = () => {
           <Person2OutlinedIcon className={classes.actionIcon} />
         )}
       </IconButton>
-      <IconButton size="large">
+      
+      <IconButton size="large" onClick={wishlistPageHandler}>
         <FavoriteBorderOutlinedIcon className={classes.actionIcon} />
       </IconButton>
-      <IconButton
-        size="large"
-        edge="end"
-        aria-haspopup="true"
-        onClick={() => setDrawerOpen(true)}
-      >
-        <Badge badgeContent={totalCount} color="error">
-          <ShoppingCartOutlinedIcon className={classes.actionIcon} />
-        </Badge>
-      </IconButton>
 
-      <Drawer
-        open={drawerOpen}
-        anchor={'right'}
-        onClose={() => setDrawerOpen(false)}
-      >
-        <SideDrawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
-      </Drawer>
+        <CartAction />
 
       <Menu
         id="basic-menu"
@@ -87,21 +77,37 @@ const HeaderAction = () => {
           'aria-labelledby': 'basic-button',
         }}
       >
-        {isAuthenticated ? <div>
-          <MenuItem onClick={() => {
-            handleClose();
-            router.push('/my-account');
-          }}>My Account</MenuItem>
-          <MenuItem onClick={() => {
-            handleClose()
-            logout()
-          }}>Logout</MenuItem>
-        </div> : <div>
-          <MenuItem onClick={() => {
-            handleClose();
-            router.push('/login');
-          }}>Login</MenuItem>
-        </div>}
+        {isAuthenticated ? (
+          <div>
+            <MenuItem
+              onClick={() => {
+                handleClose();
+                router.push('/my-account');
+              }}
+            >
+              My Account
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                handleClose();
+                logout();
+              }}
+            >
+              Logout
+            </MenuItem>
+          </div>
+        ) : (
+          <div>
+            <MenuItem
+              onClick={() => {
+                handleClose();
+                router.push('/login');
+              }}
+            >
+              Login
+            </MenuItem>
+          </div>
+        )}
       </Menu>
     </Box>
   );

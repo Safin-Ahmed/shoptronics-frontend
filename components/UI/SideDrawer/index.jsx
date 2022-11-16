@@ -1,14 +1,15 @@
 import { Box } from "@mui/system";
 
-import { Divider } from "@mui/material";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import { useStoreActions, useStoreState } from "easy-peasy";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { totalAndSubtotalCal } from "../../../utils/cart";
-import SideCart from "../../sideCart/SideCart";
-import classes from "./SideDrawer.module.css";
+import CloseIcon from '@mui/icons-material/Close';
+import { Divider, IconButton } from '@mui/material';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { useStoreActions, useStoreState } from 'easy-peasy';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { totalAndSubtotalCal } from '../../../utils/cart';
+import SideCart from '../../sideCart/SideCart';
+import classes from './SideDrawer.module.css';
 
 const SideDrawer = ({ drawerOpen, setDrawerOpen }) => {
   const cartProducts = useStoreState((state) => state.cart.cart);
@@ -32,12 +33,12 @@ const SideDrawer = ({ drawerOpen, setDrawerOpen }) => {
     router.push(route);
   };
   return (
-    <div
-      style={{
-        width: 400,
-        display: "flex",
-        flexDirection: "column",
-        height: "100vh",
+    <Box
+      sx={{
+        width: { sm: '300px', md: '400px' },
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100vh',
       }}
     >
       <Typography
@@ -51,12 +52,29 @@ const SideDrawer = ({ drawerOpen, setDrawerOpen }) => {
           justifyContent: "space-between",
         }}
       >
-        <Box sx={{ flexGrow: 1, fontSize: "22px", fontWeight: "900" }}>
+        <Box
+          sx={{
+            flexGrow: 1,
+            fontSize: { xs: '15px', md: '22px' },
+            fontWeight: { xm: '400', md: '900' },
+          }}
+        >
           Shopping Cart
         </Box>
         <Box className={classes.close} onClick={() => setDrawerOpen(false)}>
-          Close
-          <Box className={classes.line}></Box>
+          <Typography
+            variant="span"
+            sx={{ display: { xs: 'none', md: 'block' } }}
+          >
+            Close
+          </Typography>
+          <Box
+            sx={{ display: { xs: 'none', md: 'block' } }}
+            className={classes.line}
+          ></Box>
+          <IconButton sx={{ display: { md: 'none' } }}>
+            <CloseIcon />
+          </IconButton>
         </Box>
       </Typography>
       <Divider />
@@ -74,7 +92,7 @@ const SideDrawer = ({ drawerOpen, setDrawerOpen }) => {
           })}
         </Box>
       ) : (
-        <Typography sx={{ p: 6 }} variant={"h5"}>
+        <Typography sx={{ p: 6, fontSize: {xs: '17px', md: '25px'} }} variant={'h5'}>
           No products in the cart.
         </Typography>
       )}
@@ -109,7 +127,7 @@ const SideDrawer = ({ drawerOpen, setDrawerOpen }) => {
           </Button>
         </Box>
       )}
-    </div>
+    </Box>
   );
 };
 export default SideDrawer;

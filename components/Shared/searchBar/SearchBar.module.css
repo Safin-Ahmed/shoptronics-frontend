@@ -1,6 +1,6 @@
 .SearchIconWrapper {
     padding: 0 15px;
-    height: 100%;
+    height: 80%;
     position: absolute;
     pointer-events: none;
     display: flex;
@@ -8,3 +8,5 @@
     justify-content: center;
     color: #000;
   }
+
+ 

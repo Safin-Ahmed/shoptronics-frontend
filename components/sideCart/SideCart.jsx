@@ -28,23 +28,23 @@ function SideCart({ cart, removeItem }) {
           <Box sx={{ ml: 1, width: '100%' }}>
             <Typography
               variant="h6"
-              sx={{ fontWeight: '600', fontSize: '17px', color: '#444' }}
+              sx={{ fontWeight: '600', fontSize:{xs: '14px', md: '17px'}, color: '#444' }}
             >
               {cart?.title}
             </Typography>
             <Box />
             <Box sx={{ display: 'flex' }}>
-              <Typography variant="text" sx={{ fontSize: '16px' }}>
+              <Typography variant="text" sx={{ fontSize: {xs:'14px' , md: '16px'} }}>
                 {cart?.discountPrice ? (
                   <span>${cart?.discountPrice}</span>
                 ) : (
                   <span>${cart?.price}</span>
                 )}
               </Typography>
-              <Typography variant="div" sx={{ mx: 1 }}>
+              <Typography variant="div" sx={{ mx: 1, fontSize: {xs:'14px' , md: '16px'} }}>
                 x
               </Typography>
-              <Box> {cart?.quantity}</Box>
+              <Box sx={{ fontSize: {xs:'14px' , md: '16px'} }}> {cart?.quantity}</Box>
             </Box>
           </Box>
         </Box>

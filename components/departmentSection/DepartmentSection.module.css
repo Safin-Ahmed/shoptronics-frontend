@@ -2,7 +2,7 @@
   width: 60%;
   height: 90vh;
   background: #FDFDFD;
-  position: absolute;
+  position: fixed;
   top: 15%;
   left: 10%;
   box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
