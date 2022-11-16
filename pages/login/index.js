@@ -1,51 +1,54 @@
-import { Box, Card, Divider, FormControl, FormGroup, InputLabel, OutlinedInput, Typography, Button, CircularProgress, FormControlLabel, Checkbox } from "@mui/material";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
+import {
+  Box,
+  Button,
+  Card,
+  Checkbox,
+  CircularProgress,
+  Divider,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  InputLabel,
+  OutlinedInput,
+  Typography,
+} from '@mui/material';
+import { useStoreActions } from 'easy-peasy';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
-import { isObjEmpty } from "../../utils/objectUtil";
-import { LOGIN_MUTATION, REGISTER_MUTATION } from "../../graphQL/Mutations";
-import { useMutation } from "@apollo/client";
-import alertMessage from "../../utils/alertMessage";
-import { getStorage, removeStorage, setStorage } from "../../utils/storage";
-import { useStoreActions } from "easy-peasy";
-import { useRouter } from "next/router";
-
-
-
+import { LOGIN_MUTATION } from '../../graphQL/Mutations';
+import alertMessage from '../../utils/alertMessage';
+import { isObjEmpty } from '../../utils/objectUtil';
+import { getStorage, removeStorage, setStorage } from '../../utils/storage';
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string()
-    .required('Email is required')
-    .email('Email is invalid'),
+  email: Yup.string().required('Email is required').email('Email is invalid'),
   password: Yup.string()
     .required('Password is required')
     .min(6, 'Password must be at least 6 characters')
     .max(40, 'Password must not exceed 40 characters'),
 });
 
-
-
 const LoginPage = () => {
   const [registration, { data, loading }] = useMutation(LOGIN_MUTATION);
 
-
-  const authAction = useStoreActions(actions => actions.auth)
+  const authAction = useStoreActions((actions) => actions.auth);
   const router = useRouter();
 
-  const [remember, setRemember] = useState(true)
-  
+  const [remember, setRemember] = useState(true);
 
   const {
     handleSubmit,
     register,
     setValue,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
-    resolver: yupResolver(validationSchema)
+    resolver: yupResolver(validationSchema),
   });
-
 
   const onSubmit = async (formData) => {
     if (!isObjEmpty(errors)) return null;
@@ -56,14 +59,14 @@ const LoginPage = () => {
       await registration({
         variables: {
           email,
-          password
-        }
-      })
+          password,
+        },
+      });
 
       if (remember) {
-        setStorage('loginInfo', { email, password })
-      }else{
-        removeStorage("loginInfo")
+        setStorage('loginInfo', { email, password });
+      } else {
+        removeStorage('loginInfo');
       }
     } catch (error) {
       console.log('error', error);
@@ -71,57 +74,56 @@ const LoginPage = () => {
     }
   };
 
-
   useEffect(() => {
     if (data) {
       const authInfo = {
         user: data.login.user,
-        token: data.login.jwt
-      }
+        token: data.login.jwt,
+      };
       setStorage('authInfo', authInfo);
-      authAction.setLogin(authInfo)
+      authAction.setLogin(authInfo);
       alertMessage('Login Successful!', 'success');
-      router.push('/')
+      router.push('/');
     }
-  }, [data])
+  }, [data]);
 
   useEffect(() => {
-    const rememberUser = getStorage('loginInfo')
+    const rememberUser = getStorage('loginInfo');
     if (rememberUser) {
-      setValue("email", rememberUser.email)
-      setValue("password", rememberUser.password)
+      setValue('email', rememberUser.email);
+      setValue('password', rememberUser.password);
     }
-  }, [])
-
-
-
+  }, []);
 
   return (
-    <Box sx={{
-      display: "flex",
-      justifyContent: "center"
-    }}>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+      }}
+    >
       <Card
         variant="outlined"
         sx={{
           width: 500,
-          boxShadow: "1px 3px 14px 1px rgba(0, 0, 0, 0.2)",
-          borderRadius: "3px",
+          boxShadow: '1px 3px 14px 1px rgba(0, 0, 0, 0.2)',
+          borderRadius: '3px',
           py: 5,
-          justifySelf: "center",
-          my: 10
-        }}>
-        <Box sx={{
-          display: "flex",
-          justifyContent: "center",
-          mb: 2
-        }}>
+          justifySelf: 'center',
+          my: 10,
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            mb: 2,
+          }}
+        >
           <Typography>Sign In</Typography>
         </Box>
         <Divider sx={{ mb: 4 }} />
         <Box sx={{ px: 5 }}>
-
-
           <FormGroup sx={{ my: 2 }}>
             <InputLabel>Enter Email</InputLabel>
             <FormControl sx={{ width: '100%' }}>
@@ -130,7 +132,7 @@ const LoginPage = () => {
                 name="email"
                 required
                 inputProps={{
-                  autoComplete: "new-password",
+                  autoComplete: 'new-password',
                 }}
                 {...register('email')}
               />
@@ -140,7 +142,6 @@ const LoginPage = () => {
             </Typography>
           </FormGroup>
 
-
           <FormGroup sx={{ my: 2 }}>
             <InputLabel>Enter Password</InputLabel>
             <FormControl sx={{ width: '100%' }}>
@@ -148,7 +149,7 @@ const LoginPage = () => {
                 type="password"
                 name="password"
                 inputProps={{
-                  autoComplete: "new-password",
+                  autoComplete: 'new-password',
                 }}
                 required
                 {...register('password')}
@@ -159,34 +160,42 @@ const LoginPage = () => {
             </Typography>
           </FormGroup>
 
-
-
           <Box
             sx={{
-              display: "flex",
-              justifyContent: "space-between",
+              display: 'flex',
+              justifyContent: 'space-between',
               my: 2,
-              alignItems: "center",
-              color: "##000000AD"
-            }}>
+              alignItems: 'center',
+              color: '##000000AD',
+            }}
+          >
             <FormGroup>
               <FormGroup>
-                <FormControlLabel control={<Checkbox checked={remember} onChange={e => setRemember(e.target.checked)} />} label="Remember Me" sx={{ color: "#000000AD" }} />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={remember}
+                      onChange={(e) => setRemember(e.target.checked)}
+                    />
+                  }
+                  label="Remember Me"
+                  sx={{ color: '#000000AD' }}
+                />
               </FormGroup>
             </FormGroup>
 
-            <Link
-              href="/forgot-password"
-            >
+            <Link href="/forgot-password">
               <a
                 style={{
-                  color: "#000",
-                  textDecoration: "none",
-                  color: "#000000AD",
+                  color: '#000',
+                  textDecoration: 'none',
+                  color: '#000000AD',
                   fontFamily: 'Rubik',
-                  fontStyle: "normal",
+                  fontStyle: 'normal',
                 }}
-              >Forgotten Password?</a>
+              >
+                Forgotten Password?
+              </a>
             </Link>
           </Box>
 
@@ -195,62 +204,69 @@ const LoginPage = () => {
             type="submit"
             variant="contained"
             sx={{
-              width: "100%",
-              backgroundColor: "#3C1FF4",
-              color: "#fff",
-              py: 1.5
-            }}>
+              width: '100%',
+              backgroundColor: '#3C1FF4',
+              color: '#fff',
+              py: 1.5,
+            }}
+          >
             {loading ? <CircularProgress color="info" size={25} /> : 'Sign In'}
           </Button>
 
+          <Button
+            variant="contained"
+            sx={{
+              width: '100%',
+              backgroundColor: '#c64030',
+              color: '#fff',
+              py: 1.5,
+              mt: 3,
+            }}
+          >
+            Login with Google
+          </Button>
 
           <Button
             variant="contained"
             sx={{
-              width: "100%",
-              backgroundColor: "#c64030",
-              color: "#fff",
+              width: '100%',
+              backgroundColor: '#4267B2',
+              color: '#fff',
               py: 1.5,
-              mt: 3
-            }}>Login with Google</Button>
-
-          <Button
-            variant="contained"
-            sx={{
-              width: "100%",
-              backgroundColor: "#4267B2",
-              color: "#fff",
-              py: 1.5,
-              mt: 3
-            }}>Login with Facebook</Button>
+              mt: 3,
+            }}
+          >
+            Login with Facebook
+          </Button>
 
           <Box
             sx={{
-              display: "flex",
-              justifyContent: "center",
+              display: 'flex',
+              justifyContent: 'center',
               pb: 2,
-              mt: 3
-            }}>
+              mt: 3,
+            }}
+          >
             <Typography>Don't have an account?</Typography>
           </Box>
           <Box>
-            <Link
-              href="/register"
-            >
+            <Link href="/register">
               <a
                 style={{
-                  color: "#000",
-                  textDecoration: "none",
-                  color: "#000000AD",
+                  color: '#000',
+                  textDecoration: 'none',
+                  color: '#000000AD',
                   fontFamily: 'Rubik',
-                  fontStyle: "normal",
-                  border: "1px solid #000",
-                  padding: "10px 0",
-                  textAlign: "center",
-                  width: "100%",
-                  display: "block"
+                  fontStyle: 'normal',
+                  border: '1px solid #000',
+                  padding: '10px 0',
+                  textAlign: 'center',
+                  width: '100%',
+                  display: 'block',
                 }}
-              >Sign up</a>
+              >
+                Sign up
+              </a>
             </Link>
           </Box>
         </Box>

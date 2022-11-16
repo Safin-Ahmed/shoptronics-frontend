@@ -6,7 +6,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Box } from '@mui/system';
 import { useStoreActions, useStoreState } from 'easy-peasy';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { countTotalItems } from '../../../utils/cart';
 import CartAction from '../../Shared/cartAction/cartAction';
@@ -34,6 +34,14 @@ const HeaderAction = () => {
     setAnchorEl(event.currentTarget);
   };
 
+  const wishlistPageHandler = () =>  {
+    if (isAuthenticated) {
+      router.push('/wishlist');
+    } else {
+      router.push('/login');
+    }
+  }
+
   useEffect(() => {
     setHasMounted(true);
   }, []);
@@ -54,7 +62,7 @@ const HeaderAction = () => {
         )}
       </IconButton>
       
-      <IconButton size="large">
+      <IconButton size="large" onClick={wishlistPageHandler}>
         <FavoriteBorderOutlinedIcon className={classes.actionIcon} />
       </IconButton>
 

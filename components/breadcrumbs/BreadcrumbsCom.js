@@ -16,6 +16,7 @@ function BreadcrumbsCom({ breadcrumbs }) {
         padding: "60px 0 70px 0",
         color: "#fff",
         zIndex: -9,
+        marginTop: '140.98px'
       }}
     >
       <Container>

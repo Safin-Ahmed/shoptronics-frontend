@@ -6,37 +6,43 @@ class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <link
-            rel="preload"
+            
+            rel="preconnect"
             href="../public/fonts/Rubik-Black.ttf"
             as="font"
             crossOrigin="anonymous"
           />
           <link
-            rel="preload "
+            
+            rel="preconnect"
             href="../public/fonts/Rubik-Bold.ttf"
             as="font"
             crossOrigin="anonymous"
           />
           <link
-            rel="preload"
+            
+            rel="preconnect"
             href="../public/fonts/Rubik-Light.ttf"
             as="font"
             crossOrigin="anonymous"
           />
           <link
-            rel="preload"
+            
+            rel="preconnect"
             href="../public/fonts/Rubik-Medium.ttf"
             as="font"
             crossOrigin="anonymous"
           />
           <link
-            rel="preload"
+            
+            rel="preconnect"
             href="../public/fonts/Rubik-Regular.ttf"
             as="font"
             crossOrigin="anonymous"
           />
           <link
-            rel="preload"
+            
+            rel="preconnect"
             href="../public/fonts/Rubik-SemiBold.ttf"
             as="font"
             crossOrigin="anonymous"

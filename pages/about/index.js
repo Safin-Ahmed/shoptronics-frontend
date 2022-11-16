@@ -1,10 +1,10 @@
-import React from "react";
+import { Box } from "@mui/material";
 
 const About = () => {
   return (
-    <div>
+    <Box sx={{mt: '142px'}}>
       <h1>This is About Page</h1>
-    </div>
+    </Box>
   );
 };
 
