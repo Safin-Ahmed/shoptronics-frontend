@@ -16,6 +16,7 @@ import { useStoreActions, useStoreState } from 'easy-peasy';
 import Router, { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import BottomPagination from '../../components/pagination/BottomPagination';
+import PrivateRoute from '../../components/privateRoute';
 import Loader from '../../components/UI/Loader';
 import { deleteFromWishlist, deleteWishlist, getWishlistByPagination, getWishlists } from '../../lib/queries';
 
@@ -84,7 +85,9 @@ const Wishlist = () => {
   }
 
   return (
-    <Box sx={{ m: '180px auto 50px', width: '80%' }}>
+   
+
+<Box sx={{ m: '180px auto 50px', width: '80%' }}>
       {wishlistInfo?.length > 0 ? (
         <Box>
         <Table>
@@ -153,6 +156,8 @@ const Wishlist = () => {
         </Alert>
       )} 
     </Box>
+
+ 
   );
 };
 

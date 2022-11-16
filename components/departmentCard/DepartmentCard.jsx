@@ -1,74 +1,43 @@
-import Image from "next/image"
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 import img from '../../public/static/product-38.png';
+import { convertArrayToQueryParams } from '../../utils/queryParams';
+import { formatString } from '../../utils/string';
 import classes from './DepartmentCard.module.css';
 
-const cardInfo = [
-  {
-    id: 1, 
-    name: 'Headphone',
-    imgLink: img,
-  },
-  {
-    id: 2, 
-    name: 'Headphone',
-    imgLink: img,
-  },
-  {
-    id: 3, 
-    name: 'Headphone',
-    imgLink: img,
-  },
-  {
-    id: 4, 
-    name: 'Headphone',
-    imgLink: img,
-  },
-  {
-    id: 5, 
-    name: 'Headphone',
-    imgLink: img,
-  },
-  {
-    id: 6, 
-    name: 'Headphone',
-    imgLink: img,
-  },
-  {
-    id: 7, 
-    name: 'Headphone',
-    imgLink: img,
-  },
-  {
-    id: 8, 
-    name: 'Headphone',
-    imgLink: img,
-  },
-  {
-    id: 9, 
-    name: 'Headphone',
-    imgLink: img,
-  },
-]
+const DepartmentCard = ({ category }) => {
+  const router = useRouter();
 
-const cardItem = cardInfo.map(item =>  <div key={item.id} className={classes.cardWrapper}>
-  <div className={classes.imgWrapper}>
-  <Image src={item.imgLink} alt="img" width="100" height="100"></Image>
-  </div>
-  <div className={classes.title}>
-    <h3>{item.name}</h3>
-  </div>
-</div>)
+  const {
+      attributes: {
+        name,
+        sub_categories: { data },
+      },
+    } = category;
 
+  const formattedSubCategory = data?.map((subCategory) => {
+    return formatString(subCategory?.attributes?.Name);
+  });
 
-const DepartmentCard = () => {
+  const handleClick = () => {
+    router.push({
+      query: {
+        ...router.query,
+        filter_category: convertArrayToQueryParams(formattedSubCategory),
+      },
+      pathname: '/shop/',
+    });
+  };
+
   return (
-    
-      <div className={classes.cardContainer}>
-        {cardItem}
-      
+    <div className={classes.cardWrapper} onClick={handleClick}>
+      <div className={classes.imgWrapper}>
+        <Image src={img} alt="img" width="100" height="100"></Image>
+      </div>
+      <div className={classes.title}>
+        <h3>{name}</h3>
+      </div>
     </div>
-   
-  )
-}
-export default DepartmentCard
-
+  );
+};
+export default DepartmentCard;
