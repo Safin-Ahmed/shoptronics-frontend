@@ -172,7 +172,7 @@ const Checkout = () => {
       <BreadcrumbsCom sx={{ zIndex: "-9" }} breadcrumbs="Cart" />
 
       <Box>
-        <Container sx={{ py: 5 }}>
+        <Container sx={{ py: 5, position: 'relative', zIndex: '1' }}>
           {cartcheckoutList.length === 0 && (
             <>
               <Typography variant="h4">

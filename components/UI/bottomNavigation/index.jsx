@@ -52,7 +52,7 @@ const BottomNav = () => {
       <SwipeableDrawer
         open={open}
         anchor="bottom"
-        sx={{ zIndex: "90000", width: "50%", display: { md: "none" } }}
+        sx={{ zIndex: "899", width: "50%", display: { md: "none" } }}
       >
         <Box sx={{ width: "80%", m: "auto", height: "100vh" }}>
           <BottomCategory setOpen={setOpen} />
