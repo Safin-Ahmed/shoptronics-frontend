@@ -7,19 +7,14 @@ import SearchInput from "../../../UI/SearchInput";
 import FilterCollapseList from "./FilterCollapseList";
 import { useState } from "react";
 
-export default function FilterCollapse({
-  title,
-  options,
-  expanded,
-  handleChange,
-  setExpanded,
-}) {
+export default function FilterCollapse({ title, options }) {
   const [searchTerm, setSearchTerm] = useState("");
+  const [expanded, setExpanded] = useState(false);
 
   return (
     <Accordion
-      expanded={expanded === title.toLowerCase()}
-      onChange={handleChange(title.toLowerCase())}
+      expanded={expanded}
+      onChange={() => setExpanded((prev) => !prev)}
       sx={{ boxShadow: "none", marginBottom: "0px !important" }}
     >
       <AccordionSummary
@@ -54,7 +49,6 @@ export default function FilterCollapse({
           options={options}
           title={title}
           setExpanded={setExpanded}
-          handleChange={handleChange}
         />
       </AccordionDetails>
     </Accordion>

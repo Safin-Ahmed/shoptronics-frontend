@@ -11,8 +11,6 @@ export default function FilterCollapseList({
   options,
   searchTerm,
   setSearchTerm,
-  title,
-  handleChange,
   setExpanded,
 }) {
   const { finalOptionsList, handleViewAll, handleQuery, queries } =
@@ -22,6 +20,18 @@ export default function FilterCollapseList({
       setSearchTerm,
       "filter_category"
     );
+
+  const isSelected = finalOptionsList
+    .map((item) => queries?.includes(item.toLowerCase()))
+    .includes(true);
+
+  useEffect(() => {
+    if (isSelected) {
+      setExpanded(true);
+    } else {
+      setExpanded(false);
+    }
+  }, [isSelected, setExpanded]);
 
   return (
     <List sx={{ width: "95%", margin: "auto", bgcolor: "background.paper" }}>

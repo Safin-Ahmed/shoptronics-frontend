@@ -6,10 +6,7 @@ import FilterCollapse from "./FilterCollapse/FilterCollapse";
 
 const FilterCategories = () => {
   const { data, loading, error } = useQuery(categoryQuery);
-  const [expanded, setExpanded] = useState(false);
-  const handleChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
-  };
+
   if (loading) {
     return <h2>Loading...</h2>;
   }
@@ -30,16 +27,7 @@ const FilterCategories = () => {
         const options = sub_categories.data.reduce((acc, cur) => {
           return (acc = [...acc, cur.attributes.Name]);
         }, []);
-        return (
-          <FilterCollapse
-            key={item.id}
-            title={name}
-            options={options}
-            expanded={expanded}
-            handleChange={handleChange}
-            setExpanded={setExpanded}
-          />
-        );
+        return <FilterCollapse key={item.id} title={name} options={options} />;
       })}
     </>
   );
