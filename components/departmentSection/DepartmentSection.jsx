@@ -8,10 +8,13 @@ import Loader from '../../components/UI/Loader';
 
 const DepartmentSection = ({ mouseEnter, mouseLeave, isShow }) => {
     const { loading, error, data } = useQuery(categoryQuery);
-  
+    
     if (loading) {
       return <Loader/>
     }
+
+    
+    const {categories: {data:categoryData}} = data;
 
 
   return (
@@ -27,7 +30,7 @@ const DepartmentSection = ({ mouseEnter, mouseLeave, isShow }) => {
       }}
     >
        <div className={classes.cardContainer}>
-        {data?.categories?.data.map((category) => (
+        {categoryData.map((category) => (
           <DepartmentCard key={category.id} category={category} />
         ))}
       </div>
