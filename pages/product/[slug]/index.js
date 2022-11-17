@@ -27,10 +27,11 @@ import { useStoreState } from "easy-peasy";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import useReview from "../../../hooks/useReview";
+import Head from "next/head";
+import WishlistButton from "../../../components/wishlistButton/WishlistButton";
 
 const Product = ({ product, reviewsData }) => {
   const { isAuthenticated } = useStoreState((state) => state.auth);
-  console.log({ reviewsData });
   const router = useRouter();
   const {
     title,
@@ -60,15 +61,22 @@ const Product = ({ product, reviewsData }) => {
   );
 
   const addReviewHandler = () => {
-    console.log(router);
     if (isAuthenticated) {
       router.push(`${router.asPath}/review?product=${id}`, undefined, {
         shallow: true,
       });
+    } else {
+      router.push("/login", undefined, { shallow: true });
     }
   };
   return (
     <Box>
+      <Head>
+        <title>Shoptronics - {title}</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta name="description" content={description} />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <BreadcrumbsCom breadcrumbs={title} />
 
       <Container sx={{ pb: 10 }}>
@@ -148,9 +156,14 @@ const Product = ({ product, reviewsData }) => {
                 <Box
                   className={ProductStyle.productRightHeaderIcons}
                   spacing={2}
-                  sx={{ marginBottom: "10px", display: "flex", gap: "10px" }}
+                  sx={{
+                    marginBottom: "10px",
+                    display: "flex",
+                    gap: "10px",
+                    alignItems: "center",
+                  }}
                 >
-                  <FavoriteBorderIcon style={{ cursor: "pointer" }} />
+                  <WishlistButton productId={id} />
                   <ShareOutlinedIcon style={{ cursor: "pointer" }} />
                 </Box>
               </div>

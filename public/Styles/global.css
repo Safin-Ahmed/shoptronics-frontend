@@ -8,3 +8,6 @@ a {
   text-decoration: none;
   color: rgba(24, 20, 20, 0.56);
 }
+li.MuiBreadcrumbs-li a {
+  color: #fff;
+}

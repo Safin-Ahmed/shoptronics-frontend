@@ -19,8 +19,7 @@ function MyApp({ Component, pageProps }) {
   const [isShow, setIsShown] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  
-  
+
   useEffect(() => {
     router.events.on("routeChangeStart", () => {
       setLoading(true);
@@ -55,7 +54,7 @@ function MyApp({ Component, pageProps }) {
             handleMouseEnter={handleMouseEnter}
             handleMouseLeave={handleMouseLeave}
           />
-          <Layout style={{ position: "relative", zIndex: "1"}}>
+          <Layout style={{ position: "relative", zIndex: "1" }}>
             {loading && <Loader />}
             <Component {...pageProps} title={"title"} />
             <DepartmentSection
@@ -64,7 +63,7 @@ function MyApp({ Component, pageProps }) {
               isShow={isShow}
             />
           </Layout>
-          <BottomNav/>
+          <BottomNav />
           <Footer />
         </CssBaseline>
       </StoreProvider>

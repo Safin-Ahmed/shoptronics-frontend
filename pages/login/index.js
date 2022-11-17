@@ -1,5 +1,5 @@
-import { useMutation } from '@apollo/client';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation } from "@apollo/client";
+import { yupResolver } from "@hookform/resolvers/yup";
 import {
   Box,
   Button,
@@ -13,24 +13,25 @@ import {
   InputLabel,
   OutlinedInput,
   Typography,
-} from '@mui/material';
-import { useStoreActions } from 'easy-peasy';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import * as Yup from 'yup';
-import { LOGIN_MUTATION } from '../../graphQL/Mutations';
-import alertMessage from '../../utils/alertMessage';
-import { isObjEmpty } from '../../utils/objectUtil';
-import { getStorage, removeStorage, setStorage } from '../../utils/storage';
+} from "@mui/material";
+import { useStoreActions } from "easy-peasy";
+import Head from "next/head";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import * as Yup from "yup";
+import { LOGIN_MUTATION } from "../../graphQL/Mutations";
+import alertMessage from "../../utils/alertMessage";
+import { isObjEmpty } from "../../utils/objectUtil";
+import { getStorage, removeStorage, setStorage } from "../../utils/storage";
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string().required('Email is required').email('Email is invalid'),
+  email: Yup.string().required("Email is required").email("Email is invalid"),
   password: Yup.string()
-    .required('Password is required')
-    .min(6, 'Password must be at least 6 characters')
-    .max(40, 'Password must not exceed 40 characters'),
+    .required("Password is required")
+    .min(6, "Password must be at least 6 characters")
+    .max(40, "Password must not exceed 40 characters"),
 });
 
 const LoginPage = () => {
@@ -64,13 +65,13 @@ const LoginPage = () => {
       });
 
       if (remember) {
-        setStorage('loginInfo', { email, password });
+        setStorage("loginInfo", { email, password });
       } else {
-        removeStorage('loginInfo');
+        removeStorage("loginInfo");
       }
     } catch (error) {
-      console.log('error', error);
-      alertMessage('Invalid Credentials!', 'error');
+      console.log("error", error);
+      alertMessage("Invalid Credentials!", "error");
     }
   };
 
@@ -80,198 +81,214 @@ const LoginPage = () => {
         user: data.login.user,
         token: data.login.jwt,
       };
-      setStorage('authInfo', authInfo);
+      setStorage("authInfo", authInfo);
       authAction.setLogin(authInfo);
-      alertMessage('Login Successful!', 'success');
-      router.push('/');
+      alertMessage("Login Successful!", "success");
+      router.push("/");
     }
   }, [data]);
 
   useEffect(() => {
-    const rememberUser = getStorage('loginInfo');
+    const rememberUser = getStorage("loginInfo");
     if (rememberUser) {
-      setValue('email', rememberUser.email);
-      setValue('password', rememberUser.password);
+      setValue("email", rememberUser.email);
+      setValue("password", rememberUser.password);
     }
   }, []);
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-      }}
-    >
-      <Card
-        variant="outlined"
+    <>
+      <Head>
+        <title>Shoptronics - Login</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta
+          name="description"
+          content="Login to Shoptronics with your credentials"
+        />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Box
         sx={{
-          width: 500,
-          boxShadow: '1px 3px 14px 1px rgba(0, 0, 0, 0.2)',
-          borderRadius: '3px',
-          py: 5,
-          justifySelf: 'center',
-          my: 10,
+          display: "flex",
+          justifyContent: "center",
+          pt: 15,
         }}
       >
-        <Box
+        <Card
+          variant="outlined"
           sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            mb: 2,
+            width: 500,
+            boxShadow: "1px 3px 14px 1px rgba(0, 0, 0, 0.2)",
+            borderRadius: "3px",
+            py: 5,
+            justifySelf: "center",
+            my: 10,
           }}
         >
-          <Typography>Sign In</Typography>
-        </Box>
-        <Divider sx={{ mb: 4 }} />
-        <Box sx={{ px: 5 }}>
-          <FormGroup sx={{ my: 2 }}>
-            <InputLabel>Enter Email</InputLabel>
-            <FormControl sx={{ width: '100%' }}>
-              <OutlinedInput
-                type="email"
-                name="email"
-                required
-                inputProps={{
-                  autoComplete: 'new-password',
-                }}
-                {...register('email')}
-              />
-            </FormControl>
-            <Typography variant="inherit" color="red">
-              {errors.email?.message}
-            </Typography>
-          </FormGroup>
-
-          <FormGroup sx={{ my: 2 }}>
-            <InputLabel>Enter Password</InputLabel>
-            <FormControl sx={{ width: '100%' }}>
-              <OutlinedInput
-                type="password"
-                name="password"
-                inputProps={{
-                  autoComplete: 'new-password',
-                }}
-                required
-                {...register('password')}
-              />
-            </FormControl>
-            <Typography variant="inherit" color="red">
-              {errors.password?.message}
-            </Typography>
-          </FormGroup>
-
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              my: 2,
-              alignItems: 'center',
-              color: '##000000AD',
+              display: "flex",
+              justifyContent: "center",
+              mb: 2,
             }}
           >
-            <FormGroup>
-              <FormGroup>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={remember}
-                      onChange={(e) => setRemember(e.target.checked)}
-                    />
-                  }
-                  label="Remember Me"
-                  sx={{ color: '#000000AD' }}
+            <Typography>Sign In</Typography>
+          </Box>
+          <Divider sx={{ mb: 4 }} />
+          <Box sx={{ px: 5 }}>
+            <FormGroup sx={{ my: 2 }}>
+              <InputLabel>Enter Email</InputLabel>
+              <FormControl sx={{ width: "100%" }}>
+                <OutlinedInput
+                  type="email"
+                  name="email"
+                  required
+                  inputProps={{
+                    autoComplete: "new-password",
+                  }}
+                  {...register("email")}
                 />
-              </FormGroup>
+              </FormControl>
+              <Typography variant="inherit" color="red">
+                {errors.email?.message}
+              </Typography>
             </FormGroup>
 
-            <Link href="/forgot-password">
-              <a
-                style={{
-                  color: '#000',
-                  textDecoration: 'none',
-                  color: '#000000AD',
-                  fontFamily: 'Rubik',
-                  fontStyle: 'normal',
-                }}
-              >
-                Forgotten Password?
-              </a>
-            </Link>
+            <FormGroup sx={{ my: 2 }}>
+              <InputLabel>Enter Password</InputLabel>
+              <FormControl sx={{ width: "100%" }}>
+                <OutlinedInput
+                  type="password"
+                  name="password"
+                  inputProps={{
+                    autoComplete: "new-password",
+                  }}
+                  required
+                  {...register("password")}
+                />
+              </FormControl>
+              <Typography variant="inherit" color="red">
+                {errors.password?.message}
+              </Typography>
+            </FormGroup>
+
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                my: 2,
+                alignItems: "center",
+                color: "##000000AD",
+              }}
+            >
+              <FormGroup>
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={remember}
+                        onChange={(e) => setRemember(e.target.checked)}
+                      />
+                    }
+                    label="Remember Me"
+                    sx={{ color: "#000000AD" }}
+                  />
+                </FormGroup>
+              </FormGroup>
+
+              <Link href="/forgot-password">
+                <a
+                  style={{
+                    color: "#000",
+                    textDecoration: "none",
+                    color: "#000000AD",
+                    fontFamily: "Rubik",
+                    fontStyle: "normal",
+                  }}
+                >
+                  Forgotten Password?
+                </a>
+              </Link>
+            </Box>
+
+            <Button
+              onClick={handleSubmit(onSubmit)}
+              type="submit"
+              variant="contained"
+              sx={{
+                width: "100%",
+                backgroundColor: "#3C1FF4",
+                color: "#fff",
+                py: 1.5,
+              }}
+            >
+              {loading ? (
+                <CircularProgress color="info" size={25} />
+              ) : (
+                "Sign In"
+              )}
+            </Button>
+
+            <Button
+              variant="contained"
+              sx={{
+                width: "100%",
+                backgroundColor: "#c64030",
+                color: "#fff",
+                py: 1.5,
+                mt: 3,
+              }}
+            >
+              Login with Google
+            </Button>
+
+            <Button
+              variant="contained"
+              sx={{
+                width: "100%",
+                backgroundColor: "#4267B2",
+                color: "#fff",
+                py: 1.5,
+                mt: 3,
+              }}
+            >
+              Login with Facebook
+            </Button>
+
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                pb: 2,
+                mt: 3,
+              }}
+            >
+              <Typography>Don't have an account?</Typography>
+            </Box>
+            <Box>
+              <Link href="/register">
+                <a
+                  style={{
+                    color: "#000",
+                    textDecoration: "none",
+                    color: "#000000AD",
+                    fontFamily: "Rubik",
+                    fontStyle: "normal",
+                    border: "1px solid #000",
+                    padding: "10px 0",
+                    textAlign: "center",
+                    width: "100%",
+                    display: "block",
+                  }}
+                >
+                  Sign up
+                </a>
+              </Link>
+            </Box>
           </Box>
-
-          <Button
-            onClick={handleSubmit(onSubmit)}
-            type="submit"
-            variant="contained"
-            sx={{
-              width: '100%',
-              backgroundColor: '#3C1FF4',
-              color: '#fff',
-              py: 1.5,
-            }}
-          >
-            {loading ? <CircularProgress color="info" size={25} /> : 'Sign In'}
-          </Button>
-
-          <Button
-            variant="contained"
-            sx={{
-              width: '100%',
-              backgroundColor: '#c64030',
-              color: '#fff',
-              py: 1.5,
-              mt: 3,
-            }}
-          >
-            Login with Google
-          </Button>
-
-          <Button
-            variant="contained"
-            sx={{
-              width: '100%',
-              backgroundColor: '#4267B2',
-              color: '#fff',
-              py: 1.5,
-              mt: 3,
-            }}
-          >
-            Login with Facebook
-          </Button>
-
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              pb: 2,
-              mt: 3,
-            }}
-          >
-            <Typography>Don't have an account?</Typography>
-          </Box>
-          <Box>
-            <Link href="/register">
-              <a
-                style={{
-                  color: '#000',
-                  textDecoration: 'none',
-                  color: '#000000AD',
-                  fontFamily: 'Rubik',
-                  fontStyle: 'normal',
-                  border: '1px solid #000',
-                  padding: '10px 0',
-                  textAlign: 'center',
-                  width: '100%',
-                  display: 'block',
-                }}
-              >
-                Sign up
-              </a>
-            </Link>
-          </Box>
-        </Box>
-      </Card>
-    </Box>
+        </Card>
+      </Box>
+    </>
   );
 };
 

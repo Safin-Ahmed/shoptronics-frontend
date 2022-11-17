@@ -1,6 +1,7 @@
 import { Alert, Button, Grid, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import { useStoreState } from "easy-peasy";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import BreadcrumbsCom from "../../components/breadcrumbs/BreadcrumbsCom";
@@ -34,6 +35,12 @@ const Cart = () => {
 
   return (
     <div>
+      <Head>
+        <title>Shoptronics - Cart</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta name="description" content="All the products added to the cart" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <BreadcrumbsCom breadcrumbs="Cart" />
       <Box>
         <Container>

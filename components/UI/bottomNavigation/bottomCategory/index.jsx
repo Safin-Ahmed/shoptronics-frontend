@@ -1,26 +1,24 @@
-import { useQuery } from '@apollo/client';
-import { Box } from '@mui/material';
-import { categoryQuery } from '../../../../lib/queries';
-import Loader from '../../Loader';
-import CategoryCard from './categoryCard/categoryCard';
+import { useQuery } from "@apollo/client";
+import { Box } from "@mui/material";
+import { categoryQuery } from "../../../../lib/queries";
+import Loader from "../../Loader";
+import CategoryCard from "./categoryCard/categoryCard";
 
-const BottomCategory = ({setOpen}) => {
+const BottomCategory = ({ setOpen }) => {
   const { loading, error, data } = useQuery(categoryQuery);
 
-console.log(data);
   if (loading) {
-    return <Loader/>;
+    return <Loader />;
   }
   return (
     <Box
       sx={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        width: '80%',
-        m: 'auto',
+        display: "flex",
+        flexWrap: "wrap",
+        width: "80%",
+        m: "auto",
         mt: 10,
-        overflowY: 'auto',
-        
+        overflowY: "auto",
       }}
     >
       {data?.categories?.data?.map((data) => (

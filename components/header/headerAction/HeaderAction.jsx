@@ -1,16 +1,16 @@
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import Person2OutlinedIcon from '@mui/icons-material/Person2Outlined';
-import { IconButton } from '@mui/material';
-import Avatar from '@mui/material/Avatar';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import { Box } from '@mui/system';
-import { useStoreActions, useStoreState } from 'easy-peasy';
-import Router, { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { countTotalItems } from '../../../utils/cart';
-import CartAction from '../../Shared/cartAction/cartAction';
-import classes from './HeaderAction.module.css';
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import Person2OutlinedIcon from "@mui/icons-material/Person2Outlined";
+import { IconButton } from "@mui/material";
+import Avatar from "@mui/material/Avatar";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import { Box } from "@mui/system";
+import { useStoreActions, useStoreState } from "easy-peasy";
+import Router, { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { countTotalItems } from "../../../utils/cart";
+import CartAction from "../../Shared/cartAction/cartAction";
+import classes from "./HeaderAction.module.css";
 
 const HeaderAction = () => {
   const [hasMounted, setHasMounted] = useState(false);
@@ -20,7 +20,7 @@ const HeaderAction = () => {
   const open = Boolean(anchorEl);
 
   const cart = useStoreState((state) => state.cart.cart);
-  
+
   const isAuthenticated = useStoreState((state) => state.auth.isAuthenticated);
   const authUser = useStoreState((state) => state.auth.user);
 
@@ -34,13 +34,13 @@ const HeaderAction = () => {
     setAnchorEl(event.currentTarget);
   };
 
-  const wishlistPageHandler = () =>  {
+  const wishlistPageHandler = () => {
     if (isAuthenticated) {
-      router.push('/wishlist');
+      router.push("/wishlist");
     } else {
-      router.push('/login');
+      router.push("/login");
     }
-  }
+  };
 
   useEffect(() => {
     setHasMounted(true);
@@ -51,22 +51,22 @@ const HeaderAction = () => {
   }
 
   return (
-    <Box sx={{ display: { md: 'flex' } }}>
+    <Box sx={{ display: { md: "flex" } }}>
       <IconButton size="large" onClick={handleClick}>
         {isAuthenticated ? (
-          <Avatar sx={{ backgroundColor: '#3c1ff4' }}>
-            {authUser.username?.charAt(0)?.toUpperCase() || 'U'}
+          <Avatar sx={{ backgroundColor: "#3c1ff4" }}>
+            {authUser.username?.charAt(0)?.toUpperCase() || "U"}
           </Avatar>
         ) : (
           <Person2OutlinedIcon className={classes.actionIcon} />
         )}
       </IconButton>
-      
+
       <IconButton size="large" onClick={wishlistPageHandler}>
         <FavoriteBorderOutlinedIcon className={classes.actionIcon} />
       </IconButton>
 
-        <CartAction />
+      <CartAction />
 
       <Menu
         id="basic-menu"
@@ -74,15 +74,15 @@ const HeaderAction = () => {
         open={open}
         onClose={handleClose}
         MenuListProps={{
-          'aria-labelledby': 'basic-button',
+          "aria-labelledby": "basic-button",
         }}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
+          vertical: "bottom",
+          horizontal: "left",
         }}
         transformOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
+          vertical: "bottom",
+          horizontal: "left",
         }}
       >
         {isAuthenticated ? (
@@ -90,7 +90,7 @@ const HeaderAction = () => {
             <MenuItem
               onClick={() => {
                 handleClose();
-                router.push('/my-account');
+                router.push("/my-account");
               }}
             >
               My Account
@@ -99,6 +99,7 @@ const HeaderAction = () => {
               onClick={() => {
                 handleClose();
                 logout();
+                router.replace("/", undefined, { shallow: true });
               }}
             >
               Logout
@@ -109,7 +110,7 @@ const HeaderAction = () => {
             <MenuItem
               onClick={() => {
                 handleClose();
-                router.push('/login');
+                router.push("/login");
               }}
             >
               Login

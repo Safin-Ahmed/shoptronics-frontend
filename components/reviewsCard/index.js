@@ -17,7 +17,6 @@ const ReviewsCard = ({
   addReviewHandler,
   onClickHandler,
 }) => {
-  console.log({ reviews });
   return (
     <>
       <Card sx={{ py: 5, mb: 10 }}>

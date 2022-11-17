@@ -26,7 +26,6 @@ const useReview = (reviewsData, productId) => {
     if (page < pageCount) {
       setPagination((prev) => ({ ...prev, page: prev.page + 1 }));
     }
-    console.log({ pagination });
     getReviews();
   };
 

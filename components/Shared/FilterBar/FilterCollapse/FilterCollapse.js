@@ -9,8 +9,13 @@ import { useState } from "react";
 
 export default function FilterCollapse({ title, options }) {
   const [searchTerm, setSearchTerm] = useState("");
+  const [isSelected, setIsSelected] = useState(false);
+
   return (
-    <Accordion sx={{ boxShadow: "none", marginBottom: "0px !important" }}>
+    <Accordion
+      expanded={isSelected}
+      sx={{ boxShadow: "none", marginBottom: "0px !important" }}
+    >
       <AccordionSummary
         sx={{ p: 0 }}
         expandIcon={
@@ -21,6 +26,7 @@ export default function FilterCollapse({ title, options }) {
             }}
           />
         }
+        onClick={() => setIsSelected((prev) => !prev)}
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
@@ -41,6 +47,7 @@ export default function FilterCollapse({ title, options }) {
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
           options={options}
+          setIsSelected={setIsSelected}
         />
       </AccordionDetails>
     </Accordion>

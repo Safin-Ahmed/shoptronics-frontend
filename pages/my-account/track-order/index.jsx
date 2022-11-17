@@ -1,5 +1,5 @@
 import { Box, CircularProgress, Container } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import BreadcrumbsCom from "../../../components/breadcrumbs/BreadcrumbsCom";
 import Sidebar from "../../../components/my-account/Sidebar";
 import OrderDataTable from "../../../components/dataTable/OrderDataTable";
@@ -7,6 +7,8 @@ import { useQuery } from "@apollo/client";
 import { getAllOrdersQuery } from "../../../lib/queries";
 import BottomPagination from "../../../components/pagination/BottomPagination";
 import { useRouter } from "next/router";
+import Head from "next/head";
+import { useStoreState } from "easy-peasy";
 
 const OrderTracking = () => {
   const router = useRouter();
@@ -18,8 +20,21 @@ const OrderTracking = () => {
     },
   });
 
+  const auth = useStoreState((state) => state.auth);
+  useEffect(() => {
+    if (!auth.isAuthenticated) {
+      router.push("/login", undefined, { shallow: true });
+    }
+  }, []);
+
   return (
     <div>
+      <Head>
+        <title>Shoptronics - Track Your Order</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta name="description" content="Track Your Order with Shoptronics" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <BreadcrumbsCom breadcrumbs="Order History" />
       <Container sx={{ display: "flex", mb: 5 }}>
         <Sidebar />

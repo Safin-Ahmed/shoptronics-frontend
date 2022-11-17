@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { getBestSellingProducts, getTrendingProducts } from "../api/api";
 import CarouselBanner from "../components/carouselBanner/carouselBanner";
 import PartnerBrand from "../components/partnerSection/PartnerBrand";
@@ -7,7 +8,16 @@ import TrendingProductSection from "../components/Section/TrendingProductSection
 
 export default function Home({ trendingProducts, bestSellingProducts }) {
   return (
-    <div style={{ position: "relative", zIndex: "1", }}>
+    <div style={{ position: "relative", zIndex: "1" }}>
+      <Head>
+        <title>Shoptronics - Home</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta
+          name="description"
+          content="ShopTronics is an electronics niche based E-commerce Store , Where a customer can purchase various electronics product such as computers, phones, laptops, tablets, camera, monitors etc and place an order by various payment gateways."
+        />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <CarouselBanner />
       <TrendingProductSection products={trendingProducts} />
       <PromotionalBanner />

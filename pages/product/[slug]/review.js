@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useStoreState } from "easy-peasy";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
 import { getProductById } from "../../../api/api";
@@ -23,12 +24,17 @@ const Review = ({ product }) => {
       id: productId,
     },
   });
-  console.log(customerOrderedProduct);
   if (loading) {
     return <Loader />;
   }
   return (
     <>
+      <Head>
+        <title>Shoptronics - Add Review</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta name="description" content="Add Review For a Product" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <BreadcrumbsCom />
       <ReviewForm
         customerOrderedProduct={customerOrderedProduct?.orders?.data}

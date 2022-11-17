@@ -1,4 +1,5 @@
 import { Typography } from "@mui/material";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { getProductsByPageNumber } from "../../api/api";
@@ -23,6 +24,15 @@ const Shop = ({ products, pagination }) => {
   };
   return (
     <>
+      <Head>
+        <title>Shoptronics - Shop</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta
+          name="description"
+          content="ShopTronics Shop Page - Where you can get all the products of shoptronics"
+        />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <BreadcrumbsCom breadcrumbs="shop" />
 
       <div

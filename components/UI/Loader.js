@@ -9,7 +9,7 @@ const Loader = () => {
         top: 0,
         left: 0,
         background: "#ffffff87",
-        zIndex: 999,
+        zIndex: 999999,
         width: "100%",
         height: "100%",
       }}
@@ -19,7 +19,7 @@ const Loader = () => {
           position: "absolute",
           top: "50%",
           left: "50%",
-          zIndex: "999",
+          zIndex: "999999",
           background: "#3c1ff4",
           color: "transparent",
         }}

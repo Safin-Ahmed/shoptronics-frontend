@@ -57,7 +57,7 @@ const useFilterCollapseList = (options, searchTerm, setSearchTerm, type) => {
       return;
     }
 
-    if (queries.length < 1) {
+    if (queries?.length < 1) {
       const newRouter = { ...router.query };
       delete newRouter[type];
       router.push(
@@ -82,6 +82,8 @@ const useFilterCollapseList = (options, searchTerm, setSearchTerm, type) => {
   useEffect(() => {
     if (Object.keys(router.query).length === 0) {
       setQueries([]);
+    } else {
+      setQueries(convertParamsToArray(router.query[type]));
     }
   }, [router.query[type]]);
 
