@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 const PrivateRoute = ({children}) => {
     const { isAuthenticated } = useStoreState((state) => state.auth);
-    route = useRouter();
+    const route = useRouter();
     if (isAuthenticated) {
         return children;
     }
