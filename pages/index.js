@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { getBestSellingProducts, getTrendingProducts } from "../api/api";
-import CarouselBanner from "../components/carouselBanner/carouselBanner";
+import CarouselBanner from "../components/carouselBanner/CarouselBanner";
 import PartnerBrand from "../components/partnerSection/PartnerBrand";
 import PromotionalBanner from "../components/promotionalBanner/PromotionalBanner";
 import BestSellingSection from "../components/Section/BestSellingSection";

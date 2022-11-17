@@ -8,11 +8,11 @@ import Footer from "../components/Footer";
 import Header from "../components/header";
 import Layout from "../components/Layout";
 import CustomSnackbar from "../components/snackbar";
-import BottomNav from "../components/UI/BottomNavigation";
 import Loader from "../components/UI/Loader";
 import client from "../lib/apolloClient";
 import "../public/Styles/global.css";
 import store from "../store";
+import BottomNav from "../components/UI/bottomNavigation";
 import { getStorage } from "../utils/storage";
 
 function MyApp({ Component, pageProps }) {
