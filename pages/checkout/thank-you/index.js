@@ -3,8 +3,10 @@ import { Typography } from "@mui/material";
 import { useStoreActions } from "easy-peasy";
 import { useRouter } from "next/router";
 import React from "react";
+import { useState } from "react";
 import { useEffect } from "react";
 import BreadcrumbsCom from "../../../components/breadcrumbs/BreadcrumbsCom";
+import Loader from "../../../components/UI/Loader";
 import { confirmStripeSessionQuery, getOrderById } from "../../../lib/queries";
 import module from "../../../public/Styles/thank-you.module.css";
 import { dateTime } from "../../../utils/helper";
@@ -13,6 +15,12 @@ const ThankYou = () => {
   const router = useRouter();
   const clearCart = useStoreActions((action) => action.cart.clear);
   const { orderNumber = null, session_id } = router.query;
+  const [componentDidMount, setComponentDidMount] = useState(false);
+
+  useEffect(() => {
+    setComponentDidMount(true);
+    clearCart();
+  }, []);
 
   const { data, loading, error } = useQuery(getOrderById, {
     variables: {
@@ -30,12 +38,12 @@ const ThankYou = () => {
     },
   });
 
-  if (loading || sessionLoading) {
-    return <h1>Loading...</h1>;
+  if (!componentDidMount) {
+    return <Loader />;
   }
 
-  if (session_id || orderNumber) {
-    clearCart();
+  if (loading || sessionLoading) {
+    return <Loader />;
   }
 
   if ((!data?.order.data || !data) && !orderData) {
@@ -55,6 +63,7 @@ const ThankYou = () => {
       </>
     );
   }
+
   const { createdAt, email, paymentMethod, total } =
     data?.order?.data?.attributes ||
     orderData?.confirmSession?.data?.attributes;
