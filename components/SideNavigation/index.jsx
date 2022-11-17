@@ -1,35 +1,34 @@
-import CloseIcon from '@mui/icons-material/Close';
-import { IconButton, Link } from '@mui/material';
-import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-import PrimaryLogo from '../shared/primary-logo/PrimaryLogo';
-import SearchBar from '../shared/searchBar/SearchBar';
-
+import CloseIcon from "@mui/icons-material/Close";
+import { IconButton, Link } from "@mui/material";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import SwipeableDrawer from "@mui/material/SwipeableDrawer";
+import PrimaryLogo from "../shared/primary-logo/PrimaryLogo";
+import SearchBar from "../shared/searchBar/SearchBar";
 
 const menuItem = [
-  { id: 1, navItem: 'Home', navLink: '/' },
-  { id: 2, navItem: 'Shop', navLink: '/shop' },
-  { id: 3, navItem: 'About', navLink: '/about' },
-  { id: 4, navItem: 'Contact', navLink: '/contact' },
-  { id: 5, navItem: 'Account', navLink: '/account' },
+  { id: 1, navItem: "Home", navLink: "/" },
+  { id: 2, navItem: "Shop", navLink: "/shop" },
+  { id: 3, navItem: "About", navLink: "/about" },
+  { id: 4, navItem: "Contact", navLink: "/contact" },
+  { id: 5, navItem: "Account", navLink: "/account" },
 ];
 
 const SideNavbar = ({ open, handleOpen, handleClose }) => {
   const list = (
-    <Box sx={{ width: '300px' }} role="presentation">
+    <Box sx={{ width: "300px" }} role="presentation">
       <Box
         sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
           mt: 2,
           mb: 2,
           px: 1,
-          cursor: 'pointer',
+          cursor: "pointer",
         }}
         onClick={handleClose}
       >
@@ -38,14 +37,16 @@ const SideNavbar = ({ open, handleOpen, handleClose }) => {
           <CloseIcon />
         </IconButton>
       </Box>
-      <Box sx={{px: 1}}><SearchBar/></Box>
+      <Box sx={{ px: 1 }}>
+        <SearchBar />
+      </Box>
       <List>
         {menuItem.map(({ navItem, navLink, id }) => (
           <Box key={id} onClick={handleClose}>
             <ListItem disablePadding>
               <ListItemButton>
                 <Link
-                  style={{ textDecoration: 'none', color: '#433838' }}
+                  style={{ textDecoration: "none", color: "#433838" }}
                   href={navLink}
                 >
                   {navItem}
@@ -63,12 +64,11 @@ const SideNavbar = ({ open, handleOpen, handleClose }) => {
     <div>
       <>
         <SwipeableDrawer
-          sx={{ display: { md: 'none' } }}
-          anchor={'left'}
+          sx={{ display: { md: "none" } }}
+          anchor={"left"}
           open={open}
           onClose={handleClose}
         >
- 
           {list}
         </SwipeableDrawer>
       </>

@@ -1,7 +1,5 @@
-import Image from 'next/image';
-import Logo from '../public/static/logo.png';
-import HomeStyled from '../public/Styles/home.module.css';
-import PrimaryLogo from './shared/primary-logo/PrimaryLogo';
+import HomeStyled from "../public/Styles/home.module.css";
+import PrimaryLogo from "./shared/primary-logo/PrimaryLogo";
 
 function Footer() {
   return (
@@ -74,8 +72,7 @@ function Footer() {
         </div>
       </div>
     </footer>
-  );;
+  );
 }
 
 export default Footer;
-;

@@ -13,6 +13,7 @@ import useVariation from "../../hooks/useVariation";
 import HomeStyled from "../../public/Styles/home.module.css";
 import { generateCategoryNames } from "../../utils/string";
 import VariantSelect from "../UI/variantSelect";
+
 import WishlistButton from "../wishlistButton/WishlistButton";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };

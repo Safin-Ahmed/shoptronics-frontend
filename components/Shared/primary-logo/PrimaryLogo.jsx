@@ -1,6 +1,6 @@
-import { Box } from '@mui/system';
-import Image from 'next/image';
-import Logo from '../../../public/static/logo.png';
+import { Box } from "@mui/system";
+import Image from "next/image";
+import Logo from "../../../public/static/logo.png";
 
 const PrimaryLogo = ({ alt, width, height }) => {
   return (
