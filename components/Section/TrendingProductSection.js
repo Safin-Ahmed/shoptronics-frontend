@@ -1,7 +1,7 @@
 import React from "react";
 import HomeStyled from "../../public/Styles/home.module.css";
 import ProductList from "../product-list";
-import HomeHeader from "../Shared/HomeHeader";
+import HomeHeader from "../shared/HomeHeader";
 
 function TrendingProductSection({ products }) {
   return (

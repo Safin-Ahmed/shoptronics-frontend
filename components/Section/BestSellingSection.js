@@ -1,6 +1,6 @@
 import React from "react";
-import HomeHeader from "../Shared/HomeHeader";
-import ProductCard from "../Shared/ProductCard";
+import HomeHeader from "../shared/HomeHeader";
+import ProductCard from "../shared/ProductCard";
 import HomeStyled from "../../public/Styles/home.module.css";
 import ProductList from "../product-list";
 

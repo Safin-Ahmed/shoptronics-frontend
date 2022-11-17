@@ -4,7 +4,7 @@ import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Link from "next/link";
 import { useState } from "react";
-import CartAction from "../../Shared/cartAction/cartAction";
+import CartAction from "../../shared/cartAction/cartAction";
 import PrimaryLogo from "../../shared/primary-logo/PrimaryLogo";
 import SearchBar from "../../shared/searchBar/SearchBar";
 import SideNavbar from "../../SideNavigation";

@@ -7,7 +7,7 @@ import BreadcrumbsCom from "../../components/breadcrumbs/BreadcrumbsCom";
 import BottomPagination from "../../components/pagination/BottomPagination";
 import TopPagination from "../../components/pagination/TopPagination";
 import ProductList from "../../components/product-list";
-import FilterBar from "../../components/Shared/FilterBar";
+import FilterBar from "../../components/shared/FilterBar";
 import {
   generateGetProductsQuery,
   getProductsByCategories,

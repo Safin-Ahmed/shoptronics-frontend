@@ -16,7 +16,7 @@ import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 
 import Image from "next/image";
-import HomeHeader from "../../../components/Shared/HomeHeader";
+import HomeHeader from "../../../components/shared/HomeHeader";
 import { getAllReviews, getProductBySlug } from "../../../api/api";
 import { GridArrowDownwardIcon, GridArrowUpwardIcon } from "@mui/x-data-grid";
 import { Add, Remove } from "@mui/icons-material";

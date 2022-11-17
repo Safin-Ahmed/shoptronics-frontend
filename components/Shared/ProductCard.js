@@ -12,7 +12,7 @@ import Link from "next/link";
 import useVariation from "../../hooks/useVariation";
 import HomeStyled from "../../public/Styles/home.module.css";
 import { generateCategoryNames } from "../../utils/string";
-import VariantSelect from "../UI/variantSelect";
+import VariantSelect from "../UI/VariantSelect";
 
 import WishlistButton from "../wishlistButton/WishlistButton";
 

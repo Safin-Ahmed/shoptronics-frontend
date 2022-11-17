@@ -9,7 +9,7 @@ import { useStoreActions, useStoreState } from "easy-peasy";
 import Router, { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { countTotalItems } from "../../../utils/cart";
-import CartAction from "../../Shared/cartAction/cartAction";
+import CartAction from "../../shared/cartAction/cartAction";
 import classes from "./HeaderAction.module.css";
 
 const HeaderAction = () => {
