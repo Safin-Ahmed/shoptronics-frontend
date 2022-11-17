@@ -9,3 +9,11 @@
   transition: all 0.3s ease-out;
   overflow-y: scroll;
 }
+
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 20px;
+}
+

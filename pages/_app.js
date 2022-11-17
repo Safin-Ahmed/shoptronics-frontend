@@ -8,6 +8,7 @@ import Footer from "../components/Footer";
 import Header from "../components/header";
 import Layout from "../components/Layout";
 import CustomSnackbar from "../components/snackbar";
+import BottomNav from "../components/UI/BottomNavigation";
 import Loader from "../components/UI/Loader";
 import client from "../lib/apolloClient";
 import "../public/Styles/global.css";
@@ -63,6 +64,7 @@ function MyApp({ Component, pageProps }) {
               isShow={isShow}
             />
           </Layout>
+          <BottomNav/>
           <Footer />
         </CssBaseline>
       </StoreProvider>

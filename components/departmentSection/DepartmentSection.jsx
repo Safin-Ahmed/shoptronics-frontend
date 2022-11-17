@@ -1,8 +1,22 @@
+import { useQuery } from '@apollo/client';
 import { Box } from '@mui/material';
+import { categoryQuery } from '../../lib/queries';
 import DepartmentCard from '../departmentCard/DepartmentCard';
 import classes from './DepartmentSection.module.css';
+import Loader from '../../components/UI/Loader';
+
 
 const DepartmentSection = ({ mouseEnter, mouseLeave, isShow }) => {
+    const { loading, error, data } = useQuery(categoryQuery);
+    
+    if (loading) {
+      return <Loader/>
+    }
+
+    
+    const {categories: {data:categoryData}} = data;
+
+
   return (
     <Box
       onMouseEnter={mouseEnter}
@@ -15,7 +29,11 @@ const DepartmentSection = ({ mouseEnter, mouseLeave, isShow }) => {
         zIndex: isShow ? '6000' : '-1',
       }}
     >
-      <DepartmentCard />
+       <div className={classes.cardContainer}>
+        {categoryData.map((category) => (
+          <DepartmentCard key={category.id} category={category} />
+        ))}
+      </div>
     </Box>
   );
 };
