@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import icon from "../../../public/static/bar-icon.svg";
-import AccountProfile from "../../AccountProfile/AccountProfile";
+import AccountProfile from "../../accountProfile/AccountProfile";
 import BottomCategory from "./bottomCategory";
 
 const BottomNav = () => {
