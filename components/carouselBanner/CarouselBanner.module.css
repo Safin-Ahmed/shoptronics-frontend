@@ -115,6 +115,11 @@
   .content h1 {
     font-size: 30px;
   }
+
+  .priceTag {
+    top: 8%;
+    right: 10%;
+  }
 }
 
 @media (max-width: 1075px) {
@@ -136,7 +141,7 @@
 
 @media (max-width: 899px) {
   .mySwiper {
-    height: 700px;
+    height: 900px;
   }
   .content h4 {
     font-size: 20px;
@@ -157,6 +162,7 @@
     flex-direction: column;
     margin: 0;
     padding: 0;
+    justify-content: start;
   }
 
 
@@ -170,9 +176,21 @@
   .content {
     order: 1;
   }
+
+  .priceTag {
+    width: 120px;
+    height: 120px;
+    font-size: 13px;
+    top: 8%;
+    right: 10%;
+  }
 }
 
 @media (max-width: 490px) {
+
+  .mySwiper {
+    height: 600px;
+  }
   .content {
     padding: 0 20px;
   }
@@ -193,5 +211,9 @@
     font-size: 12px;
     top: 8%;
     right: 10%;
+  }
+  
+  .bgImg {
+    justify-content: flex-start;
   }
 }
