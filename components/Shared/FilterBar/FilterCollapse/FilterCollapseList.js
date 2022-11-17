@@ -31,7 +31,7 @@ export default function FilterCollapseList({
     } else {
       setIsSelected(false);
     }
-  }, [queries]);
+  }, [queries, finalOptionsList, setIsSelected]);
 
   return (
     <List sx={{ width: "95%", margin: "auto", bgcolor: "background.paper" }}>

@@ -45,7 +45,7 @@ const Sidebar = () => {
     if (isAuthenticated) {
       setUserName(authUser.username);
     }
-  }, []);
+  }, [authUser.username, isAuthenticated]);
 
   return (
     <Card sx={{ mr: 5, minWidth: 250, mt: -4 }}>

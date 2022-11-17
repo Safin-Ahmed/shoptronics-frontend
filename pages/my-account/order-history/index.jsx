@@ -25,7 +25,7 @@ const OrderHistory = () => {
     if (!auth.isAuthenticated) {
       router.push("/login", undefined, { shallow: true });
     }
-  }, []);
+  }, [auth.isAuthenticated, router]);
 
   return (
     <div>

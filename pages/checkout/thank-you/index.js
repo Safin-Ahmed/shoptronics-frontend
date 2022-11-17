@@ -20,7 +20,7 @@ const ThankYou = () => {
   useEffect(() => {
     setComponentDidMount(true);
     clearCart();
-  }, []);
+  }, [clearCart]);
 
   const { data, loading, error } = useQuery(getOrderById, {
     variables: {

@@ -55,7 +55,7 @@ const Wishlist = () => {
   useEffect(() => {
     setComponentDidMount(true);
     getWishlists();
-  }, []);
+  }, [getWishlists]);
 
   if (!componentDidMount) return null;
 

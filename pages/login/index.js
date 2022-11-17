@@ -86,7 +86,7 @@ const LoginPage = () => {
       alertMessage("Login Successful!", "success");
       router.push("/");
     }
-  }, [data]);
+  }, [data, authAction, router]);
 
   useEffect(() => {
     const rememberUser = getStorage("loginInfo");
@@ -94,7 +94,7 @@ const LoginPage = () => {
       setValue("email", rememberUser.email);
       setValue("password", rememberUser.password);
     }
-  }, []);
+  }, [setValue]);
 
   return (
     <>
@@ -263,7 +263,7 @@ const LoginPage = () => {
                 mt: 3,
               }}
             >
-              <Typography>Don't have an account?</Typography>
+              <Typography>{`Don't have an account?`}</Typography>
             </Box>
             <Box>
               <Link href="/register">

@@ -70,7 +70,7 @@ const Checkout = () => {
       router.push("/login", undefined, { shallow: true });
     }
     setComponentDidMount(true);
-  }, []);
+  }, [auth.isAuthenticated, router]);
 
   if (!componentDidMount) return null;
 

@@ -9,7 +9,7 @@ const VariantSelect = ({ options, setChosenAttributes, name }) => {
       ...prev,
       [name]: state,
     }));
-  }, [state]);
+  }, [state, name, setChosenAttributes]);
   return (
     <FormControl fullWidth>
       <Select

@@ -83,7 +83,7 @@ const Register = () => {
       alertMessage("Registration Successful!", "success");
       router.push("/login");
     }
-  }, [data]);
+  }, [data, authAction, router]);
 
   return (
     <>
