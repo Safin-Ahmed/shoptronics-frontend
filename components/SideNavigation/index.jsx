@@ -41,7 +41,7 @@ const SideNavbar = ({ open, handleOpen, handleClose }) => {
       <Box sx={{px: 1}}><SearchBar/></Box>
       <List>
         {menuItem.map(({ navItem, navLink, id }) => (
-          <Box key={id}>
+          <Box key={id} onClick={handleClose}>
             <ListItem disablePadding>
               <ListItemButton>
                 <Link
