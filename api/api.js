@@ -62,6 +62,14 @@ export const getTrendingProducts = async () => {
                   }
                 }
               }
+              sub_categories {
+                data {
+                  id
+                  attributes {
+                    Name
+                  }
+                }
+              }
               reviews {
                 data {
                   id
