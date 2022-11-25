@@ -71,4 +71,7 @@
   .views {
     display: none;
   }
+  .wrapper {
+    padding: 10px 10px;
+  }
 }
