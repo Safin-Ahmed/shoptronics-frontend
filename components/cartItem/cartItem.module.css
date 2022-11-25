@@ -2,13 +2,11 @@
   justify-content: space-around;
   display: flex;
   gap: 1rem;
-  align-self: center;
 }
 .cartBoxRight {
   display: flex;
   flex-direction: column;
   text-align: left;
-  align-self: center;
 }
 .cartBox {
   justify-content: space-around;
@@ -16,7 +14,6 @@
   /* background-color: rgb(170, 160, 160); */
 }
 .cartBoxLeftInfo {
-  align-self: center;
 }
 .cartBoxLeftInfo h6 {
   color: rgba(0, 0, 0, 0.88);
@@ -43,7 +40,7 @@
   height: 30px;
   padding: 5px !important;
 }
-.cartInputIncre {
+/* .cartInputIncre {
   width: 100%;
   display: flex;
   border: 1px solid #e1e1e1;
@@ -51,6 +48,27 @@
   display: inline-block;
   padding: 6px 10px 6px 10px;
   vertical-align: middle;
+} */
+
+.cartInputIncre {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #e1e1e1;
+  padding: 6px 10px 6px 10px;
+}
+
+@media (max-width: 730px) {
+ 
+  .cartBoxLeftInfo h6 {
+    font-size: 15px;
+    line-height: 21px;
+  }
+
+  .cartBoxRightbtn {
+    /* font-size: 12px */
+  }
 }
 .cartInputIncre span {
   padding: 0 45px;
