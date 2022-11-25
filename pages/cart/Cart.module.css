@@ -2,6 +2,9 @@
     border-radius: 3px;
     box-shadow: 0px 3px 6px #33333326;
     margin-bottom: 40px;
+    height: auto;
+    position: relative;
+    z-index: 3;
 }
 
 
@@ -34,6 +37,7 @@
 .cartRight{
     box-shadow: 0px 3px 6px #33333326;
     width: 100%;
+    margin-bottom: 30px;
 }
 .cartRight h3{
     color:rgba(0, 0, 0, 0.75);
