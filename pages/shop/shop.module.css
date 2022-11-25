@@ -1,0 +1,36 @@
+.shopSection {
+  display: flex;
+  padding: 2rem 2rem;
+  justify-content: space-between;
+  margin-top: 100px;
+}
+.filterbar {
+  max-width: 20%;
+  height: 100%;
+}
+.mainShop {
+  width: 80%;
+}
+
+@media (max-width: 1800px) {
+  .filterbar {
+    max-width: 30%;
+    height: 100%;
+  }
+  .mainShop {
+    width: 70%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .filterbar {
+    display: none;
+  }
+  .mainShop {
+    width: 100%;
+    margin: auto;
+  }
+  .shopSection {
+    margin-top: 30px;
+  }
+}

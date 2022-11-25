@@ -6,13 +6,12 @@ import {
 } from "../utils/queryParams";
 import { formatString } from "../utils/string";
 
-let isInitial = true;
-
 const useFilterCollapseList = (options, searchTerm, setSearchTerm, type) => {
   const router = useRouter();
   const [isViewAll, setIsViewAll] = useState(false);
   const [optionsList, setOptionsList] = useState([...options]);
   const [queries, setQueries] = useState([]);
+  const [isMounted, setIsMounted] = useState(false);
   const handleViewAll = () => {
     if (searchTerm) {
       setSearchTerm("");
@@ -23,7 +22,7 @@ const useFilterCollapseList = (options, searchTerm, setSearchTerm, type) => {
 
   const handleQuery = (params) => {
     const newQueryParam = formatString(params.id);
-    isInitial = false;
+    setIsMounted(true);
     let newArr = [];
     const prevQueries = router.query[type]
       ? convertParamsToArray(router.query[type])
@@ -48,44 +47,53 @@ const useFilterCollapseList = (options, searchTerm, setSearchTerm, type) => {
       ?.split("&")
       ?.filter((item) => item.includes(type));
     const values = filterTypeOption?.[0]?.split("=")[1];
-    const valuesArray = convertParamsToArray(values);
+    let valuesArray = [];
+    if (values) {
+      valuesArray = convertParamsToArray(values);
+    }
     setQueries(valuesArray);
-  }, []);
+  }, [router.query[type]]);
 
   useEffect(() => {
-    if (isInitial) {
+    if (!isMounted) {
       return;
-    }
+    } else {
+      if (queries?.length < 1) {
+        const newRouter = { ...router.query };
+        delete newRouter[type];
+        router.push(
+          {
+            query: newRouter,
+          },
+          undefined,
+          { shallow: false }
+        );
 
-    if (queries?.length < 1) {
-      const newRouter = { ...router.query };
-      delete newRouter[type];
-      router.push(
-        {
-          query: newRouter,
-        },
-        undefined,
-        { shallow: false }
-      );
-
-      return;
+        return;
+      } else {
+        router.push(
+          {
+            query: {
+              ...router.query,
+              [type]: convertArrayToQueryParams(queries),
+            },
+          },
+          undefined,
+          { shallow: false }
+        );
+      }
     }
-    router.push(
-      {
-        query: { ...router.query, [type]: convertArrayToQueryParams(queries) },
-      },
-      undefined,
-      { shallow: false }
-    );
   }, [queries]);
 
-  useEffect(() => {
-    if (Object.keys(router.query).length === 0) {
-      setQueries([]);
-    } else {
-      setQueries(convertParamsToArray(router.query[type]));
-    }
-  }, [router.query[type]]);
+  // useEffect(() => {
+  //   if (isInitial) {
+  //   }
+  //   if (Object.keys(router.query).length === 0) {
+  //     setQueries([]);
+  //   } else {
+  //     setQueries(convertParamsToArray(router.query[type]));
+  //   }
+  // }, [router.query[type]]);
 
   const finalOptionsList = isViewAll ? optionsList : optionsList.slice(0, 4);
 

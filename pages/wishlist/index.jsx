@@ -4,9 +4,11 @@ import {
   Alert,
   Button,
   IconButton,
+  Paper,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
   Typography,
@@ -133,63 +135,65 @@ const Wishlist = () => {
       <Box sx={{ m: "auto", my: 2, width: "80%" }}>
         {wishlistInfo?.length > 0 ? (
           <Box>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>
-                    <IconButton>
-                      <RemoveCircle />
-                    </IconButton>
-                  </TableCell>
-                  <TableCell>Name</TableCell>
-                  <TableCell>Price</TableCell>
-                  <TableCell>Stock</TableCell>
-                  <TableCell></TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {wishlistInfo?.map((row) => (
-                  <TableRow key={row.id}>
+            <TableContainer component={Paper}>
+              <Table sx={{ minWidth: 800 }}>
+                <TableHead>
+                  <TableRow>
                     <TableCell>
-                      <IconButton
-                        sx={{ "&:hover": { color: "#ff1111" } }}
-                        onClick={() =>
-                          deleteWishlistHandler(
-                            row?.attributes.product?.data?.id
-                          )
-                        }
-                      >
-                        <CancelOutlined />
+                      <IconButton>
+                        <RemoveCircle />
                       </IconButton>
                     </TableCell>
-                    <TableCell>
-                      {row?.attributes?.product?.data?.attributes?.title}
-                    </TableCell>
-                    <TableCell>
-                      ${row?.attributes?.product?.data?.attributes?.price}
-                    </TableCell>
-                    <TableCell>
-                      {row?.attributes?.product?.data?.attributes
-                        ?.stockStatus === "in_stock" ? (
-                        <span style={{ color: "green" }}>IN STOCK</span>
-                      ) : (
-                        <span style={{ color: "red" }}>STOCK OUT</span>
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      <Button
-                        onClick={() =>
-                          addToCartHandler(row.attributes.product.data)
-                        }
-                        variant="outlined"
-                      >
-                        Add to cart
-                      </Button>
-                    </TableCell>
+                    <TableCell>Name</TableCell>
+                    <TableCell>Price</TableCell>
+                    <TableCell>Stock</TableCell>
+                    <TableCell></TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHead>
+                <TableBody>
+                  {wishlistInfo?.map((row) => (
+                    <TableRow key={row.id}>
+                      <TableCell>
+                        <IconButton
+                          sx={{ "&:hover": { color: "#ff1111" } }}
+                          onClick={() =>
+                            deleteWishlistHandler(
+                              row?.attributes.product?.data?.id
+                            )
+                          }
+                        >
+                          <CancelOutlined />
+                        </IconButton>
+                      </TableCell>
+                      <TableCell>
+                        {row?.attributes?.product?.data?.attributes?.title}
+                      </TableCell>
+                      <TableCell>
+                        ${row?.attributes?.product?.data?.attributes?.price}
+                      </TableCell>
+                      <TableCell>
+                        {row?.attributes?.product?.data?.attributes
+                          ?.stockStatus === "in_stock" ? (
+                          <span style={{ color: "green" }}>IN STOCK</span>
+                        ) : (
+                          <span style={{ color: "red" }}>STOCK OUT</span>
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        <Button
+                          onClick={() =>
+                            addToCartHandler(row.attributes.product.data)
+                          }
+                          variant="outlined"
+                        >
+                          Add to cart
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
             <BottomPagination
               pagination={{
                 page: data?.wishlists?.meta?.pagination?.page,
