@@ -1,5 +1,10 @@
-import { ArrowBackIos, ArrowForwardIos, ClearAll } from "@mui/icons-material";
-import { Button } from "@mui/material";
+import {
+  ArrowBackIos,
+  ArrowForwardIos,
+  ClearAll,
+  FilterList,
+} from "@mui/icons-material";
+import { Button, Drawer, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import usePagination from "../../hooks/usePagination";
@@ -7,6 +12,7 @@ import useSorting from "../../hooks/useSorting";
 import GridListLine from "../../public/icons/GridListLine";
 import GridViewLine from "../../public/icons/GridViewLine";
 import styles from "../../public/Styles/topPagination.module.css";
+import FilterDrawer from "../shared/FilterDrawer";
 import SelectInput from "../UI/SelectInput";
 
 const TopPagination = ({ pagination, viewHandler }) => {
@@ -64,8 +70,11 @@ const TopPagination = ({ pagination, viewHandler }) => {
           </Button>
         )}
       </div>
+      <div className={styles.mobileLeftSide}>
+        <FilterDrawer />
+      </div>
       <div className={styles.rightside}>
-        <div>
+        <div className={styles.lgClearAll}>
           <Button
             onClick={handleClearFilter}
             variant="text"
@@ -103,13 +112,14 @@ const TopPagination = ({ pagination, viewHandler }) => {
             stateValue={state.value}
           />
         </div>
-        <span>View:</span>
-        <a onClick={() => viewHandler("grid")} style={{ cursor: "pointer" }}>
-          <GridViewLine />
-        </a>
-        <a onClick={() => viewHandler("list")} style={{ cursor: "pointer" }}>
-          <GridListLine />
-        </a>
+        <div className={styles.views}>
+          <a onClick={() => viewHandler("grid")} style={{ cursor: "pointer" }}>
+            <GridViewLine />
+          </a>
+          <a onClick={() => viewHandler("list")} style={{ cursor: "pointer" }}>
+            <GridListLine />
+          </a>
+        </div>
       </div>
     </div>
   );

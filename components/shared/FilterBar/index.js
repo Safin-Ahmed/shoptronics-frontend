@@ -22,7 +22,14 @@ export default function FilterBar() {
         borderRadius: "3px",
         px: 1,
         py: 2,
-        marginTop: "-47%",
+        marginTop: {
+          xs: 0,
+          lg: "-47%",
+        },
+        overflow: {
+          xs: "scroll",
+          lg: "hidden",
+        },
       }}
     >
       <CardContent>
