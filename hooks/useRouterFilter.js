@@ -6,13 +6,12 @@ import {
 } from "../utils/queryParams";
 import { formatString } from "../utils/string";
 
-let isInitial = true;
-
 const useRouterFilter = (type) => {
   const router = useRouter();
   const [queries, setQueries] = useState([]);
+  const [isMounted, setIsMounted] = useState(false);
   const addQueryParams = (e) => {
-    isInitial = false;
+    setIsMounted(true);
     if (e.target.checked) {
       setQueries((prev) => {
         let newArr = prev
@@ -37,47 +36,44 @@ const useRouterFilter = (type) => {
       ?.split("&")
       ?.filter((item) => item.includes(type));
     const values = filterTypeOption?.[0]?.split("=")[1];
-    const valuesArray = convertParamsToArray(values);
+    let valuesArray = [];
+    if (values) {
+      valuesArray = convertParamsToArray(values);
+    }
     setQueries(valuesArray);
-  }, []);
+  }, [router.query[type]]);
 
   // UseEffect to add query params whenever the queries change
   useEffect(() => {
-    if (isInitial) {
+    if (!isMounted) {
       return;
+    } else {
+      if (queries?.length === 0) {
+        const newRouter = { ...router.query };
+        delete newRouter[type];
+        router.push(
+          {
+            query: newRouter,
+          },
+          undefined,
+          { shallow: false }
+        );
+
+        return;
+      } else {
+        router.push(
+          {
+            query: {
+              ...router.query,
+              [type]: `${convertArrayToQueryParams(queries)}`,
+            },
+          },
+          undefined,
+          { shallow: false }
+        );
+      }
     }
-
-    if (queries?.length === 0) {
-      const newRouter = { ...router.query };
-      delete newRouter[type];
-      router.push(
-        {
-          query: newRouter,
-        },
-        undefined,
-        { shallow: false }
-      );
-
-      return;
-    }
-
-    router.push(
-      {
-        query: {
-          ...router.query,
-          [type]: `${convertArrayToQueryParams(queries)}`,
-        },
-      },
-      undefined,
-      { shallow: false }
-    );
   }, [queries]);
-
-  useEffect(() => {
-    if (Object.keys(router.query).length === 0) {
-      setQueries([]);
-    }
-  }, [router.query[type]]);
 
   return {
     addQueryParams,

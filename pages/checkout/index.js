@@ -172,7 +172,7 @@ const Checkout = () => {
       <BreadcrumbsCom sx={{ zIndex: "-9" }} breadcrumbs="Cart" />
 
       <Box>
-        <Container sx={{ py: 5, position: 'relative', zIndex: '1' }}>
+        <Container sx={{ py: 5, position: "relative", zIndex: "1" }}>
           {cartcheckoutList.length === 0 && (
             <>
               <Typography variant="h4">
@@ -215,7 +215,12 @@ const Checkout = () => {
                     rowGap={2}
                     columnGap={1}
                     justifyContent="center"
-                    sx={{ pb: 25 }}
+                    sx={{
+                      pb: {
+                        xs: 5,
+                        lg: 25,
+                      },
+                    }}
                   >
                     <Grid item xs="12" md="5" lg="5">
                       <TextField

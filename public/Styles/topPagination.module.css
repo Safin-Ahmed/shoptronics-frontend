@@ -13,6 +13,16 @@
   font-style: normal;
 }
 
+.views {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.lgClearAll {
+  display: block;
+}
+
 .leftside {
   color: #000000;
   letter-spacing: 5px;
@@ -42,4 +52,26 @@
   height: 25px;
   margin-top: 10px;
   border-color: #3e3c3c5d;
+}
+
+.mobileLeftSide {
+  display: none;
+}
+
+@media (max-width: 1200px) {
+  .leftside {
+    display: none;
+  }
+  .mobileLeftSide {
+    display: block;
+  }
+  .lgClearAll {
+    display: none;
+  }
+  .views {
+    display: none;
+  }
+  .wrapper {
+    padding: 10px 10px;
+  }
 }

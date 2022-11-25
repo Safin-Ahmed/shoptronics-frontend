@@ -8,6 +8,7 @@ import BottomPagination from "../../components/pagination/BottomPagination";
 import TopPagination from "../../components/pagination/TopPagination";
 import ProductList from "../../components/product-list";
 import FilterBar from "../../components/shared/FilterBar";
+import classes from "./shop.module.css";
 import {
   generateGetProductsQuery,
   getProductsByCategories,
@@ -35,23 +36,11 @@ const Shop = ({ products, pagination }) => {
       </Head>
       <BreadcrumbsCom breadcrumbs="shop" />
 
-      <div
-        className="section-padding"
-        style={{
-          display: "flex",
-          padding: "2rem 2rem",
-          justifyContent: "space-between",
-        }}
-      >
-        <div
-          style={{
-            width: "20%",
-            height: "100%",
-          }}
-        >
+      <div className={classes.shopSection}>
+        <div className={classes.filterbar}>
           <FilterBar />
         </div>
-        <div style={{ width: "78%" }}>
+        <div className={classes.mainShop}>
           {searchTerm && (
             <div style={{ marginBottom: "2rem" }}>
               <Typography variant="h5">

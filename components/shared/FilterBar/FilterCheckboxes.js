@@ -21,7 +21,7 @@ const FilterCheckboxes = () => {
   const { data: allAttributesTermData, loading: attributesTermLoading } =
     useQuery(getAllAttributesTerms);
 
-  if (attributesLoading || attributesTermLoading) {
+  if (attributesLoading || attributesTermLoading || loading) {
     return;
   }
   const attributes = buildAttributesCheckboxOptions(
