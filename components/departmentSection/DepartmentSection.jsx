@@ -13,7 +13,6 @@ const DepartmentSection = ({ mouseEnter, mouseLeave, isShow }) => {
   }
 
   const categoryData = data?.categories?.data;
-
   return (
     <Box
       onMouseEnter={mouseEnter}

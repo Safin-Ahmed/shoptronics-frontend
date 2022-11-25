@@ -58,7 +58,7 @@ function CartItem({ cartItem }) {
               fontSize="small"
               style={{ color: 'rgb(85 79 79)', cursor: 'pointer' }}
             />
-            <span style={{ alignSelf: 'center' }}>{cartItem.quantity}</span>
+            <Box style={{ alignSelf: 'center' }}>{cartItem.quantity}</Box>
             <Add
               onClick={() =>
                 addItem({ id: cartItem.id, variantId: cartItem.variantId })
@@ -72,7 +72,7 @@ function CartItem({ cartItem }) {
             className={Classes.cartBoxRightbtn}
             sx={{ backgroundColor: '#0000ff0d' }}
             variant="outlined"
-            startIcon={<CancelOutlinedIcon />}
+            startIcon={<CancelOutlinedIcon/>}
             onClick={() => deleteItem({id: cartItem.id})}
           >
             Delete

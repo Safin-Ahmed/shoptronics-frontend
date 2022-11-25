@@ -88,22 +88,21 @@ const Product = ({ product, reviewsData }) => {
             alignItems: "center !important",
           }}
         >
-          <Grid item xs="12" md="12" lg="6" style={{ alignSelf: "center" }}>
+          <Grid item xs="12" md="12" lg="6" style={{ alignSelf: "center"}}>
             <Box
               style={{ textAlign: "center", padding: "40px" }}
               className={ProductStyle.productLeft}
             >
               <Grid container sx={{ alignItems: "center" }}>
-                <Grid item xs="3">
+                <Grid item xs="12" md="3" className={ProductStyle.variantImg}>
                   <IconButton
-                    sx={{ mb: 1 }}
+                    sx={{ mb: 1, height: {xs: '50px', md: '0'} } }
                     onClick={() => navigateProductGallery("up")}
                   >
-                    <GridArrowUpwardIcon />
+                    <GridArrowUpwardIcon className={ProductStyle.arrowIcon}  />
                   </IconButton>
                   <div
                     className={ProductStyle.productGallery}
-                    style={{ flexDirection: "column", alignItems: "center" }}
                   >
                     {productGallery.map((item, i) => (
                       <Image
@@ -119,13 +118,13 @@ const Product = ({ product, reviewsData }) => {
                     ))}
                   </div>
                   <IconButton
-                    sx={{ mt: 1 }}
+                    sx={{ mt: 1, height: {xs: '50px', md: '0'} }}
                     onClick={() => navigateProductGallery("down")}
                   >
-                    <GridArrowDownwardIcon />
+                    <GridArrowDownwardIcon className={ProductStyle.arrowIcon} />
                   </IconButton>
                 </Grid>
-                <Grid item xs="9">
+                <Grid item xs="12" md="9">
                   <Image
                     width={300}
                     height={300}
@@ -239,7 +238,7 @@ const Product = ({ product, reviewsData }) => {
                 </div>
 
                 <div className={ProductStyle.productRightFooter}>
-                  <div className={ProductStyle.productInputIncre}>
+                  <div  className={ProductStyle.productInputIncre}>
                     <Remove
                       onClick={() =>
                         counter === 1 ? setCounter(1) : setCounter(counter - 1)
@@ -259,6 +258,7 @@ const Product = ({ product, reviewsData }) => {
                     variant="contained"
                     startIcon={<ShoppingCartOutlinedIcon />}
                     onClick={handleAddToCart}
+                    sx={{width: {xs: '100%', md: '220px'}, ml: {xs: 0, md: '10px'}, mt: {xs: 1, md: 0}}}
                   >
                     Add to Cart
                   </Button>

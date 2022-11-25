@@ -1,6 +1,7 @@
 import { Rating, Typography } from "@mui/material";
 import React from "react";
 import { dateTime } from "../../utils/helper";
+import classes from './ReviewCard.module.css';
 
 const ReviewCard = ({ singleReview }) => {
   const { review, rating, createdAt } = singleReview.attributes;
@@ -16,7 +17,7 @@ const ReviewCard = ({ singleReview }) => {
       }}
     >
       <Rating readOnly size="medium" value={rating} />
-      <Typography variant="h6">{review}</Typography>
+      <Typography variant="h6" className={classes.reviews}>{review}</Typography>
       <Typography variant="body1">
         By <span style={{ color: "#3C1FF4" }}>{username}</span> on{" "}
         {dateTime(createdAt, 2)}

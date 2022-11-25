@@ -34,7 +34,7 @@ const BottomNav = () => {
           bottom: 0,
           left: 0,
           right: 0,
-          zIndex: 900,
+          zIndex: 1002,
           justifyContent: "space-around",
           boxShadow: "5px 5px 4px 5px rgb(208 202 202 / 90%)",
         }}
@@ -52,7 +52,7 @@ const BottomNav = () => {
       <SwipeableDrawer
         open={open}
         anchor="bottom"
-        sx={{ zIndex: "899", width: "50%", display: { md: "none" } }}
+        sx={{ zIndex: "1001", width: "50%", display: { md: "none" } }}
       >
         <Box sx={{ width: "80%", m: "auto", height: "100vh" }}>
           <BottomCategory setOpen={setOpen} />

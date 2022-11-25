@@ -9,6 +9,7 @@ import {
 import React from "react";
 import BottomPagination from "../pagination/BottomPagination";
 import ReviewCard from "./ReviewCard";
+import classes from './ReviewCard.module.css';
 
 const ReviewsCard = ({
   pagination,
@@ -27,10 +28,10 @@ const ReviewsCard = ({
             justifyContent="space-between"
           >
             <Box display="flex" flexDirection="column" gap="1rem">
-              <Typography fontWeight={700} variant="h6">
+              <Typography fontWeight={700} variant="h6" className={classes.reviewsTitle}>
                 Reviews ({reviews.length})
               </Typography>
-              <Typography variant="body1">
+              <Typography variant="body1" className={classes.reviews}>
                 Get specific details about this product from customers who own
                 it.
               </Typography>
@@ -41,7 +42,7 @@ const ReviewsCard = ({
                   value={averageRating}
                   readOnly
                 />
-                <Typography variant="h6">
+                <Typography variant="h6" className={classes.averageRatingText}>
                   <strong>{averageRating}</strong> out of 5
                 </Typography>
               </Box>
@@ -55,6 +56,7 @@ const ReviewsCard = ({
                   fontFamily: "Rubik",
                   textTransform: "capitalize",
                 }}
+                className={classes.reviewButton}
                 variant="outline"
                 onClick={addReviewHandler}
               >
