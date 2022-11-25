@@ -31,19 +31,21 @@ const ReviewsCard = ({
               <Typography fontWeight={700} variant="h6" className={classes.reviewsTitle}>
                 Reviews ({reviews.length})
               </Typography>
-              <Typography variant="body1" className={classes.reviews}>
+              <Typography variant="body1" className={classes.reviewText}>
                 Get specific details about this product from customers who own
                 it.
               </Typography>
-              <Box display="flex" alignItems="center" gap={1}>
+              <Box  sx={{display:{ xs: 'block', md: 'flex'}, alignItems: 'center'}} gap={1}>
                 <Rating
                   size="large"
                   name="read-only"
                   value={averageRating}
                   readOnly
                 />
+
                 <Typography variant="h6" className={classes.averageRatingText}>
-                  <strong>{averageRating}</strong> out of 5
+                  <strong>{averageRating}</strong> 
+                  <span> out of 5</span>
                 </Typography>
               </Box>
             </Box>
