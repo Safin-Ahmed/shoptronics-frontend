@@ -17,7 +17,7 @@ const ReviewCard = ({ singleReview }) => {
       }}
     >
       <Rating readOnly size="medium" value={rating} />
-      <Typography variant="h6" className={classes.reviews}>{review}</Typography>
+      <Typography sx={{fontSize: {xs: '15px', md: '1.25rem'}}} variant="h6" className={classes.reviews}>{review}</Typography>
       <Typography variant="body1">
         By <span style={{ color: "#3C1FF4" }}>{username}</span> on{" "}
         {dateTime(createdAt, 2)}

@@ -1,16 +1,17 @@
 @media (max-width: 899px) {
-  .reviewButton {
-    width: 124px;
-    font-size: 12px;
-  }
-  .reviewsTitle {
-    font-size: 16px;
-  }
-  .reviews {
-    font-size: 16px;
-  }
-  .averageRatingText {
-    font-size: 16px;
-    width: 200px;
-  }
+    .reviewsTitle {
+        font-size: 1rem;
+    }
+
+    .reviewText {
+        font-size: 15px;
+    }
+    .reviews h6 {
+        font-size: 1px;
+    }
+
+    .reviewButton {
+        width: 123px;
+        font-size: 12px;
+    }
 }
